@@ -1,0 +1,22 @@
+a{
+    color: #000000;
+    text-decoration: none;
+}
+a:hover{
+    color: #2dae6d;
+    text-decoration: none;
+}
+
+/*.btn-primary {
+    background-color: #aa0000 !important;
+    border-color: #aa0000 !important;
+    color: #FFFFFF !important;
+}
+
+.label-primary, .badge-primary{
+	background-color: #aa0000 !important;
+}
+
+.nav > li.active{
+	border-left: 4px solid #aa0000;
+}*/
