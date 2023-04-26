@@ -9,6 +9,7 @@
 
     $sql = "SELECT vei_nome, vei_cod FROM veiculo WHERE vei_situacao = 1";
     $veiculo = $data->find('dynamic', $sql);
+
 ?>
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-9 col-xs-8">
@@ -50,7 +51,7 @@
                     
                     <div class="col-sm-2">
                         <label class="control-label" for="data_ini">Data Início:</label>
-                        <input name="data_ini" type="date" class="form-control blockenter" id="data_ini" style="text-transform:uppercase;" required />
+                    <input name="data_ini" type="date" class="form-control blockenter" id="data_ini" style="text-transform:uppercase;" min="<?php echo date('Y-m-d') ?>" onchange="dataMin(this.value)" required />
                     </div>
                     
                     <div class="col-sm-2">
@@ -60,7 +61,7 @@
 
                     <div class="col-sm-2">
                         <label class="control-label" for="data_fim">Data Final:</label>
-                        <input name="data_fim" type="date" class="form-control blockenter" id="data_fim" style="text-transform:uppercase;" required />
+                        <input name="data_fim" type="date" class="form-control blockenter" id="data_fim" style="text-transform:uppercase;" min="" required />
                     </div>
 
                     <div class="col-sm-2">
@@ -115,6 +116,11 @@
  
 
 <script>
+    function dataMin(data_ini){
+        console.log(data_ini);
+        var data_fim = document.getElementById('data_fim');    
+        data_fim.setAttribute("min", data_ini);
+    }
     function enviar() {
         document.forms['MyForm'].submit();
     }
