@@ -20,6 +20,7 @@ switch ($_GET['acao']) {
     $aux['usu_email']           = $_POST['usu_email'];
     $aux['upe_cod']             = $_POST['upe_cod'];
     $aux['fun_cod']             = $idFunc;
+    $aux['set_cod']             = $_POST['set_cod'];
     
     $data->tabela = 'usuario';
     $data->add($aux);

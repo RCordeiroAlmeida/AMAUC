@@ -92,7 +92,7 @@
                                     <option value="">-- Selecione --</option>
                                     <?php
                                         for ($i = 0; $i < count($setor); $i++) {
-                                            if ($result[0]['fun_cod'] == $setor[$i]['set_cod']){
+                                            if($result[0]['set_cod'] == $setor[$i]['set_cod']){
                                                 echo '<option value="'.$setor[$i]['set_cod'].'" selected>' . $setor[$i]['set_nome'] . '</option>';
                                             }else{
                                                 echo '<option value="'.$setor[$i]['set_cod'].'">' . $setor[$i]['set_nome'] . '</option>';
@@ -170,7 +170,7 @@
                         <input name="usu_login" type="text" class="form-control blockenter" id="usu_login" value="<?php echo $result[0]['usu_login']; ?>" readonly />
                     </div>
 
-                    <div class="col-sm-8">
+                    <div class="col-sm-2">
                         <div class="input-group">
                             <label class="control-label" for="usu_senha">Senha:</label>
                             <div class="input-group">

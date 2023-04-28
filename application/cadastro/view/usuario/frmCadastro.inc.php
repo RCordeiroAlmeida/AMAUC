@@ -3,7 +3,7 @@
         echo'<script>window.location="?module=index&acao=logout"</script>';
     }  
     
-    $sql = "SELECT * FROM usuario_permissao WHERE upe_situacao = 1;";
+    $sql = "SELECT * FROM usuario_permissao WHERE upe_situacao = 1 AND upe_cod != 3";
     $cargos = $data->find('dynamic', $sql);
 
     $sql = "SELECT set_cod, set_nome FROM setor WHERE set_situacao = 1;";
