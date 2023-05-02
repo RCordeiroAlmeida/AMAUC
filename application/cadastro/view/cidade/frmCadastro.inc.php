@@ -45,7 +45,7 @@ if(!isset($_SESSION) || $_SESSION['amauc_userPermissao'] != 1){
                         <input name="cid_nome" type="text" class="form-control blockenter" id="cid_nome" style="text-transform:uppercase;" required />
                     </div>
 
-                    <div class="col-sm-2">
+                    <div class="col-sm-4">
                         <label class="control-label" for="est_uf">UF:</label>
                         <input name="est_uf" type="text" class="form-control blockenter" id="est_uf" style="text-transform:uppercase;" required />
                     </div>

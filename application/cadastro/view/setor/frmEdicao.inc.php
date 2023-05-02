@@ -8,7 +8,6 @@
 
     $sql = "SELECT * FROM funcionario";
     $funcionario = $data->find('dynamic', $sql);
-
     
 ?>
 
@@ -45,19 +44,19 @@
 
         <div class="ibox-content">
 
-            <form role="form" action="?module=cadastro&acao=update_cidade" id="MyForm" method="post" enctype="multipart/form-data" name="MyForm">
-                <input name="cid_cod" type="hidden" class="form-control blockenter" id="cid_cod" value="<?php echo $result[0]['cid_cod']; ?>"/>
+            <form role="form" action="?module=cadastro&acao=update_setor" id="MyForm" method="post" enctype="multipart/form-data" name="MyForm">
+                <input name="set_cod" type="hidden" class="form-control blockenter" id="cid_cod" value="<?php echo $result[0]['set_cod']; ?>"/>
 
                 <div class="row form-group">
 
                     <div class="col-sm-8">
-                        <label class="control-label" for="cid_nome">Setores:</label>
+                        <label class="control-label" for="set_nome">Setores:</label>
                         <input name="set_nome" type="text" class="form-control blockenter" id="set_nome" value="<?php echo $result[0]['set_nome']; ?>" style="text-transform:uppercase;" required />
                     </div>
 
                     <div class="col-sm-4">
-                        <label class="control-label" for="cid_nome">Responsável:</label>
-                        <select class="form-control selectpicker" data-live-search="true" data-size="6" id="set_cod" name="set_cod" required>
+                        <label class="control-label" for="set_responsavel">Responsável:</label>
+                        <select class="form-control selectpicker" data-live-search="true" data-size="6" id="set_responsavel" name="set_responsavel" required>
                             <option value="">-- Selecione --</option>
                             <?php
                                 for ($i = 0; $i < count($funcionario); $i++) {

@@ -45,7 +45,7 @@
                         <input name="vei_nome" type="text" class="form-control blockenter" id="vei_nome" style="text-transform:uppercase;" required />
                     </div>
 
-                    <div class="col-sm-2">
+                    <div class="col-sm-4">
                         <label class="control-label" for="vei_placa">Placa:</label>
                         <input name="vei_placa" type="text" class="form-control blockenter" id="vei_placa" style="text-transform:uppercase;" required />
                     </div>

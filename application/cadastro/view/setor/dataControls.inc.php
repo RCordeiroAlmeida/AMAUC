@@ -13,13 +13,10 @@ switch ($_GET['acao']) {
 		break;
 
 	case 'update_setor':
-
-		var_dump($_POST);
-		exit();
+		$aux['set_cod']			= $_POST['set_cod'];
 		$aux['set_nome'] 		= addslashes(mb_strtoupper($_POST['set_nome'], 'UTF-8'));
 		$aux['set_descricao']   = addslashes(mb_strtoupper($_POST['set_descricao'], 'UTF-8'));
 		$aux['set_responsavel']   = addslashes(mb_strtoupper($_POST['set_responsavel'], 'UTF-8'));
-
 		$data->tabela = 'setor';
 		$data->update($aux);
 

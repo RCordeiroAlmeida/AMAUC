@@ -313,6 +313,41 @@
             			break;
             	}
             ?>
+
+            </li>
+            <?php 
+            	if($_GET['module']=="relatorio"){
+            		echo '<li class="active">';
+                    //Valida qual variavel vai receber active
+                    unset($item_sel);
+                    $acao = explode('_',$_GET['acao']);
+                    switch ($acao[1]) {
+                        case 'lista':
+                            $item_sel[0] = 'class="active"';
+                            break;
+                        }
+            	}else{
+            		echo '<li>';
+            	}
+
+            	switch($_SESSION['amauc_userPermissao']) {
+                    
+                    case '1'://ADMINISTRADOR
+            			echo '
+                        <a href="#"><i class="fa fa-clipboard" aria-hidden="true"></i><span class="nav-label">Relatórios</span> <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li '.$item_sel[0].' ><a href="?module=relatorio&acao=lista"><i class="fa fa-gavel" aria-hidden="true"></i></i><span class="nav-label">Solicitações</a></li>
+                        </ul>';
+            			break;
+                    case '2'://FUNCIONÁRIO
+            			echo '
+                        <a href="#"><i class="fa fa-money"></i> <span class="nav-label">Relatórios</span> <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li '.$item_sel[0].' ><a href="?module=relatorio&acao=lista"><i class="fa fa-file-text-o" aria-hidden="true"></i></i><span class="nav-label">Solicitações</a></li>
+                        </ul>';
+            			break;
+            	}
+            ?>
         </ul>
     </div>
 </nav>
