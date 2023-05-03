@@ -194,6 +194,10 @@
                             if($_SESSION['amauc_userPermissao'] != 3){
                                 if($result[0]['sol_status'] == 1){
                         ?>
+                                    <a href="#" onClick="preenche_popup('<?php echo $result[0]['sol_cod']?>','<?php echo $result[0]['sol_cod'] ?>')" data-toggle='modal' data-target='#redireciona_popup' class="btn btn-warning" style="height: 34px;">
+                                        <span class="fa fa-refresh"></span> <span class="hidden-xs hidden-sm"> Transferir</span>
+                                    </a>
+                                    
                                     <a href="#" onClick="preenche_popup('<?php echo $result[0]['sol_cod']?>','<?php echo $result[0]['sol_cod'] ?>')" data-toggle='modal' data-target='#novaAtividade' class="btn btn-primary" style="height: 34px;">
                                         <span class="glyphicon glyphicon-plus-sign"></span> <span class="hidden-xs hidden-sm">Novo</span>
                                     </a>
@@ -328,6 +332,52 @@
                 <div class="modal inmodal" id="detalheAtividade" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog">
                         <div id="retorno_atividade"></div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="redireciona_popup" tabindex="-1" role="dialog" aria-labelledby="redireciona_popup" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title" id="redireciona_popup">Redirecionar Solicitação</h3>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form role="form" action="?module=solicitacao&acao=redireciona" id="MyForm" method="post" enctype="multipart/form-data">
+
+                                    <input type="hidden" name="sol_cod" id="sol_codpop" value="<?php echo $result[0]['sol_cod'] ?>" />
+
+                                    <input type="hidden" name="cli_cod" id="cli_codpop" value="<?php echo $result[0]['cli_cod'] ?>" />
+
+                                    <div class="row form-group">
+                                        <div class="col-sm-12">
+                                            <label class="control-label" for="set_cod">Setor responsável:</label>
+                                            <select name="set_cod" type="text" class="form-control blockenter" id="set_cod" required>
+                                                <option value="" selected disabled>--SELECIONE--</option>
+                                                <?php
+                                                for ($i = 0; $i < count($selectSetor); $i++) {
+                                                    echo '<option value="' . $selectSetor[$i]['set_cod'] . '">' . $selectSetor[$i]['set_nome'] . '</option>';
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="row form-group">
+                                        <div class="col-sm-12">
+                                            <label class="control-label">Descrição da atividade:</label>
+                                            <textarea class="form-control" name="ati_descricao" id="ati_descricao" placeholder="Descreva aqui o que foi feito neste atendimento" rows="5" required></textarea>
+                                        </div>
+                                    </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Salvar</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             <?php } ?>

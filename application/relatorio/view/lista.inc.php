@@ -22,8 +22,7 @@
     
 ?>
 
-<form role="form" action="application/relatorios/view/solicitação/relatorio.php " target="_blank" id="MyForm" method="post" > 
-    <input type="hidden" name="ins_codigo" value="<?php echo $_SESSION['es2_ins_codigo'];  ?>" />
+<form role="form" action="application/relatorio/view/relatorio.php " target="_blank" id="MyForm" method="post" > 
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-10 col-xs-9" >
@@ -36,7 +35,7 @@
         </div>
 
         <div class="col-lg-2 col-xs-3" >            
-            <button type="submit" class="btn btn-warning btn-block" style="position: relative; top: 30px; left: -15px; float: right;">
+            <button type="submit" class="btn btn-primary btn-block" style="position: relative; top: 30px; left: -15px; float: right;">
                 <i class="fa fa-print" aria-hidden="true"></i><span class="hidden-xs"> Imprimir</span>
             </button>        
         </div>
@@ -54,40 +53,52 @@
             </div> 
             <div class="ibox-content">    
                 <div class="row form-group">  
-
                     <div class="col-sm-6" >           
                         <label class="control-label">Cliente:</label>
                         <select name="cli_cod" id="cli_cod" class="form-control selectpicker" data-live-search="true" data-size="6" >
+                            <option value="" selected>--SELECIONE--</option>
                             <?php 
                                 for ($i=0; $i< count($cliente); $i++) { 
                                     echo '
-                                    <option value="" selected>--SELECIONE--</option>
                                     <option value="'.$cliente[$i]['cli_cod'].'">'.$cliente[$i]['cli_nome'].'</option>';
                                 }
                             ?>
                         </select>
                     </div>
-
                     <div class="col-sm-6" >           
                         <label class="control-label">Setor:</label>
                         <select name="set_cod" id="set_cod" class="form-control selectpicker" data-live-search="true" data-size="6" >
+                            <option value="" selected>--SELECIONE--</option>
                             <?php 
                                 for ($i=0; $i< count($setor); $i++) { 
                                     echo '
-                                    <option value="" selected>--SELECIONE--</option>
-                                    <option value="'.$setor[$i]['set_cod'].'">'.$setor[$i]['set_descricao'].'</option>';
+                                    <option value="'.$setor[$i]['set_cod'].'">'.$setor[$i]['set_nome'].'</option>';
                                 }
                             ?>
                         </select>
-                    </div>                                
-                </div><br>
-
+                    </div> 
+                </div>
                 <div class="row form-group">
-                    <div class="col-lg-10 col-xs-9" ></div>
-                    <div class="col-lg-2 col-xs-3" >                       
-                        <button type="submit" class="btn btn-warning btn-block" ><i class="fa fa-print"></i> <span class="hidden-xs">Imprimir</span></button>
+                    <div class="col-sm-6" >           
+                        <label class="control-label">Status:</label>
+                        <select name="sol_status" id="sol_status" class="form-control selectpicker" data-live-search="true" data-size="6" >
+                            <option value="" selected>--SELECIONE--</option>
+                            <option value="0">Pendente</option>
+                            <option value="1">Andamento</option>
+                            <option value="2">Concluido</option>
+                            <option value="3">Cancelado</option>
+                        </select>
                     </div>
                 </div>
+                
+
+                <div class="row form-group">
+                    <div class="col-lg-10 col-xs-9" >
+                    <div class="col-lg-2 col-xs-3" >                       
+                        <button type="submit" class="btn btn-primary btn-block" ><i class="fa fa-print"></i> <span class="hidden-xs">Imprimir</span></button>
+                    </div>
+                </div>
+            </div>  
 
 </form>	
 </div>

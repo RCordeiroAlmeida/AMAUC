@@ -195,7 +195,6 @@ switch ($_GET['acao']) {
 		$aux['ati_data']      	= date('Y-m-d');
 		$aux['ati_descricao'] 	= $_POST['ati_descricao'];
 		$aux['ati_tempo'] 		= $_POST['ati_tempo'];
-		$aux['ati_solicitante'] = mb_strtoupper($_POST['ati_solicitante'], 'UTF-8');
 		$aux['afr_cod'] 		= $_POST['afr_cod'];
 		$aux['atp_cod'] 		= $_POST['atp_cod'];
 		$aux['sol_cod'] 		= $_POST['sol_cod'];
@@ -206,6 +205,30 @@ switch ($_GET['acao']) {
 		$data->tabela = 'atividade';
 		$data->add($aux);
 
+		switch ($_POST['sol_status']) {
+			case '1': //muda o status na tabela solicitacao
+				$sql = 'UPDATE solicitacao SET sol_status = 1 WHERE sol_cod =' . $_POST['sol_cod'];
+				$data->executaSQL($sql);
+
+				echo '<script>nextPage("?module=solicitacao&acao=visualiza&ms=2", ' . $_POST['sol_cod'] . ');</script>';
+
+				break;
+			case '2':
+				$sql = 'UPDATE solicitacao SET sol_status = 2 WHERE sol_cod =' . $_POST['sol_cod'];
+				$data->executaSQL($sql);
+
+				echo '<script>window.location = "?module=solicitacao&acao=lista_concluido&ms=1"</script>';
+
+				break;
+			case '3':
+				$sql = 'UPDATE solicitacao SET sol_status = 3 WHERE sol_cod =' . $_POST['sol_cod'];
+				$data->executaSQL($sql);
+
+				echo '<script>window.location = "?module=solicitacao&acao=lista_cancelado&ms=1"</script>';
+
+				break;
+		}
+
 		//!------------- Informações para montar corpo do e-mail----------------//
 
 		$sql = "SELECT cli_cod, sol_solicitante FROM solicitacao WHERE sol_cod =" . $_POST['param_0'];
@@ -215,7 +238,6 @@ switch ($_GET['acao']) {
 		$cliente = $data->find('dynamic', $sql);
 
 		//!--------------------------------------------------------------------//
-
 		
 		$mail->addAddress($cliente[0]['cli_mail'], $result[0]['sol_solicitante']);
 		
@@ -266,36 +288,6 @@ switch ($_GET['acao']) {
 		$mail->Body    = $body; 	
 
 		$mail->send();
-
-		switch ($_POST['sol_status']) {
-			case '1': //muda o status na tabela solicitacao
-				$sql = 'UPDATE solicitacao SET sol_status = 1 WHERE sol_cod =' . $_POST['sol_cod'];
-				$data->executaSQL($sql);
-
-				$aux['sol_status'] = $_POST['sol_status'];
-
-				echo '<script>nextPage("?module=solicitacao&acao=visualiza&ms=2", ' . $_POST['sol_cod'] . ');</script>';
-
-				break;
-			case '2':
-				$sql = 'UPDATE solicitacao SET sol_status = 2 WHERE sol_cod =' . $_POST['sol_cod'];
-				$data->executaSQL($sql);
-
-				$aux['sol_status'] = $_POST['sol_status'];
-
-				echo '<script>window.location = "?module=solicitacao&acao=lista_concluido&ms=1"</script>';
-
-				break;
-			case '3':
-				$sql = 'UPDATE solicitacao SET sol_status = 3 WHERE sol_cod =' . $_POST['sol_cod'];
-				$data->executaSQL($sql);
-
-				$aux['sol_status'] = $_POST['sol_status'];
-
-				echo '<script>window.location = "?module=solicitacao&acao=lista_cancelado&ms=1"</script>';
-
-				break;
-		}
 
 		break;
 
@@ -382,15 +374,9 @@ switch ($_GET['acao']) {
 		break;
 
 	case 'redireciona':
-
-		//Muda o setor da solicitação
-		$novoSetor = $_POST['set_cod'];
-		$sql = 'UPDATE solicitacao SET set_cod = ' . $novoSetor . ' WHERE sol_cod=' . $_POST['sol_cod'];
-		$data->executaSQL($sql);
-
 		//Muda status da solicitação
 		$sql = 'UPDATE solicitacao SET sol_status = 0 WHERE sol_cod=' . $_POST['sol_cod'];
-
+		$data->executaSQL($sql);
 		//Gera atendimento "solicitação transferida para outro setor"
 		$aux['ati_data'] 		= date('Y-m-d');
 		$aux['ati_descricao'] 	= $_POST['ati_descricao'];
@@ -401,16 +387,20 @@ switch ($_GET['acao']) {
 		$data->tabela = 'atividade';
 		$data->add($aux);
 
+		//Muda o setor da solicitação
+		$novoSetor = $_POST['set_cod'];
+		$sql = 'UPDATE solicitacao SET set_cod = ' . $novoSetor . ' WHERE sol_cod=' . $_POST['sol_cod'];
+		$data->executaSQL($sql);
+
 		//!------------- Informações para montar corpo do e-mail----------------//
 
-		$sql = "SELECT cli_cod, sol_solicitante FROM solicitacao WHERE sol_cod =" . $_POST['param_0'];
+		$sql = "SELECT cli_cod, sol_solicitante FROM solicitacao WHERE sol_cod =" . $_POST['sol_cod'];
 		$result = $data->find('dynamic', $sql);
 
 		$sql = "SELECT cli_mail FROM cliente WHERE cli_cod=".$result[0]['cli_cod'];
 		$cliente = $data->find('dynamic', $sql);
 
 		//!--------------------------------------------------------------------//
-
 		
 		$mail->addAddress($cliente[0]['cli_mail'], $result[0]['sol_solicitante']);
 		

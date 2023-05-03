@@ -3,9 +3,16 @@ switch ($_GET['acao']) {
 
 	case 'grava_conta':
 
+		$data_ini = $_POST['con_data_ini'];
+		$hora_ini = $_POST['con_hora_ini'];
+		$aux['con_data_ini'] = date('Y/m/d H:i:s', strtotime("$data_ini $hora_ini"));
+
+		$data_fim = $_POST['con_data_fim'];
+		$hora_fim = $_POST['con_hora_fim'];
+		$aux['con_data_fim'] = date('Y/m/d H:i:s', strtotime("$data_fim $hora_fim"));
+
 		$aux['usu_cod'] 		= $_POST['usu_cod'];
 		$aux['con_setor'] 		= $_POST['con_setor'];
-		$aux['con_data'] 		= $_POST['con_data'];
 		$aux['con_veiculo']		= $_POST['con_veiculo'];
 		$aux['con_vei_cod']		= $_POST['con_vei_cod']; 	//NULL
 		$aux['con_vei_placa']	= mb_strtoupper($_POST['con_vei_placa']); 	//NULL

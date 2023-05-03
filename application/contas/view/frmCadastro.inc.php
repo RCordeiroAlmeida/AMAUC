@@ -68,7 +68,28 @@
                 
 
                 <div class="row form-group">
+                    <div class="col-sm-3">
+                        <label class="control-label" for="con_data_ini">Data Inicial:</label>
+                        <input name="con_data" type="date" class="form-control blockenter" id="sol_data" style="text-transform:uppercase; text-align: center;" max="<?= date('Y-m-d') ?>" required/>
+                    </div>
 
+                    <div class="col-sm-3">
+                        <label class="control-label" for="con_hora_ini">Hora Inicial:</label>
+                        <input name="con_data" type="time" class="form-control blockenter" id="sol_data" style="text-transform:uppercase; text-align: center;" max="<?= date('Y-m-d') ?>" required/>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <label class="control-label" for="con_data_fim">Data Final:</label>
+                        <input name="con_data" type="date" class="form-control blockenter" id="sol_data" style="text-transform:uppercase; text-align: center;" max="<?= date('Y-m-d') ?>" required/>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <label class="control-label" for="con_hora_fim">Hora Final:</label>
+                        <input name="con_data" type="time" class="form-control blockenter" id="sol_data" style="text-transform:uppercase; text-align: center;" max="<?= date('Y-m-d') ?>" required/>
+                    </div>
+                </div>
+                
+                <div class="row form-group">
                     <div class="col-sm-3">
                         <label class="control-label" for="con_funcionario">Funcionário:</label>
                         <input type="text" class="form-control blockenter" id="fun_cod" name="fun_cod" value="<?php echo $funcionario[0]['usu_nome'] ?>" disabled></input>
@@ -90,12 +111,7 @@
                         </select>
                     </div>
 
-                    <div class="col-sm-2">
-                        <label class="control-label" for="con_data">Data:</label>
-                        <input name="con_data" type="date" class="form-control blockenter" id="sol_data" style="text-transform:uppercase; text-align: center;" max="<?= date('Y-m-d') ?>" required/>
-                    </div>
-
-                    <div class="col-sm-4">
+                    <div class="col-sm-6">
                         <label class="control-label">Veículo:</label>
                         <select name="con_veiculo" id="con_veiculo" class="form-control blockenter" onchange="veiculo(this.value);">
                             <option value="">--SELECIONE--</option>

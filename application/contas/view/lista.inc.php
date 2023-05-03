@@ -6,7 +6,8 @@
     $sql = "SELECT
                 c.con_cod,
                 c.con_setor,
-                c.con_data, 
+                c.con_data_ini, 
+                c.con_data_fim,
                 c.con_destino,
                 u.usu_nome
             FROM
@@ -84,7 +85,7 @@
                                     <thead>
                                         <tr>
                                             <th>Cód.</th>
-                                            <th>Data</th>
+                                            <th>Data inicial</th>
                                             <th>Funcionário (Setor)</th>
                                             <th>Destino</th>
                                             <th>...</th>
@@ -96,14 +97,16 @@
                                                 $sql = "SELECT set_nome FROM setor WHERE set_cod =".$conta[$i]['con_setor'];
                                                 $setor = $data->find('dynamic', $sql);
 
-                                                $conta[$i]['con_data'] = implode("/", array_reverse(explode("-", $conta[$i]['con_data'])));
+                                                $conta[$i]['con_data_ini'] = explode(" ", $conta[$i]['con_data_ini']);
+                                                $dia = array_reverse(explode("-", $conta[$i]['con_data_ini'][0]));
+
                                                 if ($conta[$i]['con_setor'] == 0){
                                                     $conta[$i]['con_setor'] = "ADMINISTRADOR";
                                                 }
                                                 echo '
                                                     <tr>
                                                         <td>' .  str_pad($conta[$i]['con_cod'], 4, '0', STR_PAD_LEFT). '</td>
-                                                        <td>' . $conta[$i]['con_data'] . '</td>
+                                                        <td>' . $dia[0].'/'.$dia[1].'/'.$dia[2].'</td>
                                                         <td>' . $conta[$i]['usu_nome'] . ' ('.$setor[0]['set_nome'].')</td>
                                                         <td>' . $conta[$i]['con_destino']. '</td>';
                                         ?>

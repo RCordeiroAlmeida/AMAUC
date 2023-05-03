@@ -8,12 +8,12 @@ $data = new DataManipulation();
 if ($_GET['con_cod'] != '') {
 
 	$sql = "SELECT
-				c.con_cod,
 				c.usu_cod,
 				u.usu_nome,
 				c.con_setor,
 				s.set_nome,
-				c.con_data,
+				c.con_data_ini,
+				c.con_data_fim,
 				c.con_veiculo,
 				c.con_destino,
 				c.con_cliente,
@@ -21,15 +21,15 @@ if ($_GET['con_cod'] != '') {
 				c.con_descricao
 			FROM 
 				conta AS c
-				INNER JOIN usuario as u ON u.usu_cod = c.usu_cod
-				INNER JOIN setor AS s ON c.con_setor = s.set_cod
-				INNER JOIN cliente AS cl ON c.con_cliente = cl.cli_cod
+				LEFT JOIN usuario as u ON u.usu_cod = c.usu_cod
+				LEFT JOIN setor AS s ON c.con_setor = s.set_cod
+				LEFT JOIN cliente AS cl ON c.con_cliente = cl.cli_cod
 			WHERE
 				con_cod = " . $_GET['con_cod'];
 
 	$conta = $data->find('dynamic', $sql);
 
-	$conta[0]['con_data'] = implode("/", array_reverse(explode("-", $conta[0]['con_data'])));
+	// $conta[0]['con_data_ini'] = implode("/", array_reverse(explode("-", $conta[0]['con_data'])));
 
 	$sql = "SELECT
 				a.can_cod,
@@ -40,7 +40,7 @@ if ($_GET['con_cod'] != '') {
 				c.con_cod
 			FROM
 				conta_anexo AS a
-				INNER JOIN conta as c ON a.con_cod = c.con_cod
+				LEFT JOIN conta as c ON a.con_cod = c.con_cod
 			WHERE
 				c.con_cod = " . $_GET['con_cod'];	
 	$anexo = $data->find('dynamic', $sql);
@@ -55,7 +55,7 @@ if ($_GET['con_cod'] != '') {
 						v.vei_nome
 					FROM 
 						conta AS c
-						INNER JOIN veiculo AS v ON v.vei_cod = c.con_vei_cod
+						LEFT JOIN veiculo AS v ON v.vei_cod = c.con_vei_cod
 					WHERE
 						con_cod = " . $_GET['con_cod'];
 
@@ -71,7 +71,7 @@ if ($_GET['con_cod'] != '') {
 							v.vei_nome
 						FROM 
 							conta AS c
-							INNER JOIN veiculo AS v ON v.vei_cod = c.con_veiculo
+							LEFT JOIN veiculo AS v ON v.vei_cod = c.con_veiculo
 						WHERE
 							con_cod = " . $_GET['con_cod'];
 
@@ -111,11 +111,15 @@ if ($_GET['con_cod'] != '') {
                         <input type="text" class="form-control blockenter" id="fun_cod" name="con_setor" value="<?php echo $conta[0]['set_nome'] ?>" disabled>
                     </div>
 
-					<div class="col-sm-4">
-                        <label class="control-label" for="con_data">Data:</label>
-                        <input type="text" class="form-control blockenter" id="con_data" name="con_data" value="<?php echo $conta[0]['con_data'] ?>" disabled>
+					<div class="col-sm-2">
+                        <label class="control-label" for="con_data_ini">Data Inicial:</label>
+                        <input type="text" class="form-control blockenter" id="con_data_ini" name="con_data_ini" value="<?php echo $conta[0]['con_data_ini'] ?>" disabled>
                     </div>
-				
+
+					<div class="col-sm-2">
+                        <label class="control-label" for="con_data_fim">Data Final:</label>
+                        <input type="text" class="form-control blockenter" id="con_data_fim" name="con_data_fim" value="<?php echo $conta[0]['con_data_fim'] ?>" disabled>
+                    </div>
 					
 				</div>
 
@@ -174,6 +178,7 @@ if ($_GET['con_cod'] != '') {
 							break;
 						case 3:
 					?>
+							<div class="row form-group">
 								<div class="col-sm-4">
 									<label class="control-label" for="con_veiculo">Tipo de Veículo:</label>
 									<input class="form-control blockenter" id="con_veiculo" name="con_veiculo" value="Outro" disabled>
@@ -183,6 +188,7 @@ if ($_GET['con_cod'] != '') {
 									<label class="control-label" for="con_veiculo">Qual:</label>
 									<input class="form-control blockenter" id="con_veiculo" name="con_veiculo" value="<?php echo $veiculo[0]["con_vei_outro"] ?>" disabled>
 								</div>
+							</div>
 					<?php
 					}
 					?>
