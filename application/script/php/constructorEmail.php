@@ -21,6 +21,7 @@
         $mail->Password   = 'T8Lq.CjP8j@!2';                               //SMTP password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
         $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+        $mail->CharSet = 'UTF-8'; // Define o charset como UTF-8
 
         //Recipients
         $mail->setFrom('naoresponda@amauc.org.br', 'AMAUC');

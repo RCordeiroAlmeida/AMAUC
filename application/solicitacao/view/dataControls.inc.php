@@ -51,10 +51,11 @@ switch ($_GET['acao']) {
 
 		$body = '      			
 			<body style="width:100%; color: #666666; text-align: center; ">
-				<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+				<meta http-equiv="Content-Type" content="text/html;>
+				<meta charset="UTF-8">
 				
 				<div style="width: 80%; height: 60px; background-color: #17803C; text-align: center; padding: 40px;">
-					<img src="#" style="position: relative; top: 0px; height:60px;" >
+					<img src="http://servicos.amauc.org.br/sge/application/images/logo-amauc.png" style="position: relative; top: 0px; height:60px;" >
 				</div>
 
 				<div style="width: 80%; height: 24px; background-color: #FFF; color: #17803C; font-size: 26px; text-align: center; padding: 40px; border: 1px solid #17803C">
@@ -77,7 +78,7 @@ switch ($_GET['acao']) {
 					Para mais informações, clique no botão abaixo.
 					<br/><br/>
 					
-					<a href="192.168.100.70/amauc/amauc/" target="_blank" style="text-decoration: none;">
+					<a href="http://servicos.amauc.org.br/sge" target="_blank" style="text-decoration: none;">
 						<div style="width: 100%; background-color: #17803C; border-radius: 2px; font-size: 26px; color: #FFF; font-family: sans-serif;">
 							<b>Acessar sistema</b>
 						</div>
@@ -85,7 +86,7 @@ switch ($_GET['acao']) {
 
 					<br/>
 					Atenciosamente, <br/>
-					<img src="#" /><br/>
+					<img src="http://servicos.amauc.org.br/sge/application/images/logo-amauc.png" /><br/>
 					Esta é uma mensagem automática. Por favor, não responda esse e-mail<br />
 					Sistema desenvolvido e mantido pela RAISWeb.
 				</div>
@@ -145,7 +146,7 @@ switch ($_GET['acao']) {
 				<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 				
 				<div style="width: 80%; height: 60px; background-color: #17803C; text-align: center; padding: 40px;">
-					<img src="#" style="position: relative; top: 0px; height:60px;" >
+					<img src="http://servicos.amauc.org.br/sge/application/images/logo-amauc.png" style="position: relative; top: 0px; height:60px;" >
 				</div>
 
 				<div style="width: 80%; height: 24px; background-color: #FFF; color: #17803C; font-size: 26px; text-align: center; padding: 40px; border: 1px solid #17803C">
@@ -166,7 +167,7 @@ switch ($_GET['acao']) {
 					Para mais informações, clique no botão abaixo.
 					<br/><br/>
 					
-					<a href="192.168.100.70/amauc/amauc/" target="_blank" style="text-decoration: none;">
+					<a href="http://servicos.amauc.org.br/sge" target="_blank" style="text-decoration: none;">
 						<div style="width: 100%; background-color: #17803C; border-radius: 2px; font-size: 26px; color: #FFF; font-family: sans-serif;">
 							<b>Acessar sistema</b>
 						</div>
@@ -174,7 +175,7 @@ switch ($_GET['acao']) {
 
 					<br/>
 					Atenciosamente, <br/>
-					<img src="#" /><br/>
+					<img src="http://servicos.amauc.org.br/sge/application/images/logo-amauc.png" /><br/>
 					Esta é uma mensagem automática. Por favor, não responda esse e-mail<br />
 					Sistema desenvolvido e mantido pela RAISWeb.
 				</div>
@@ -182,7 +183,7 @@ switch ($_GET['acao']) {
 
 		//Content
 		$mail->isHTML(true);                                  //Set email format to HTML
-		$mail->Subject = 'Nova solicitação';
+		$mail->Subject = 'Solicitação aceita';
 		$mail->Body    = $body; 	
 
 		$mail->send();
@@ -247,7 +248,7 @@ switch ($_GET['acao']) {
 				<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 				
 				<div style="width: 80%; height: 60px; background-color: #17803C; text-align: center; padding: 40px;">
-					<img src="#" style="position: relative; top: 0px; height:60px;" >
+					<img src="http://servicos.amauc.org.br/sge/application/images/logo-amauc.png" style="position: relative; top: 0px; height:60px;" >
 				</div>
 
 				<div style="width: 80%; height: 24px; background-color: #FFF; color: #17803C; font-size: 26px; text-align: center; padding: 40px; border: 1px solid #17803C">
@@ -268,7 +269,7 @@ switch ($_GET['acao']) {
 					Para mais informações, clique no botão abaixo.
 					<br/><br/>
 					
-					<a href="192.168.100.70/amauc/amauc/" target="_blank" style="text-decoration: none;">
+					<a href="http://servicos.amauc.org.br/sge/" target="_blank" style="text-decoration: none;">
 						<div style="width: 100%; background-color: #17803C; border-radius: 2px; font-size: 26px; color: #FFF; font-family: sans-serif;">
 							<b>Acessar sistema</b>
 						</div>
@@ -276,7 +277,7 @@ switch ($_GET['acao']) {
 
 					<br/>
 					Atenciosamente, <br/>
-					<img src="#" /><br/>
+					<img src="http://servicos.amauc.org.br/sge/application/images/logo-amauc.png" /><br/>
 					Esta é uma mensagem automática. Por favor, não responda esse e-mail<br />
 					Sistema desenvolvido e mantido pela RAISWeb.
 				</div>
@@ -284,7 +285,7 @@ switch ($_GET['acao']) {
 
 		//Content
 		$mail->isHTML(true);                                  //Set email format to HTML
-		$mail->Subject = 'Nova solicitação';
+		$mail->Subject = 'Atualizações da solicitação';
 		$mail->Body    = $body; 	
 
 		$mail->send();
@@ -328,7 +329,7 @@ switch ($_GET['acao']) {
 				<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 				
 				<div style="width: 80%; height: 60px; background-color: #17803C; text-align: center; padding: 40px;">
-					<img src="#" style="position: relative; top: 0px; height:60px;" >
+					<img src="http://servicos.amauc.org.br/sge/application/images/logo-amauc.png" style="position: relative; top: 0px; height:60px;" >
 				</div>
 
 				<div style="width: 80%; height: 24px; background-color: #FFF; color: #17803C; font-size: 26px; text-align: center; padding: 40px; border: 1px solid #17803C">
@@ -349,7 +350,7 @@ switch ($_GET['acao']) {
 					Para mais informações, clique no botão abaixo.
 					<br/><br/>
 					
-					<a href="192.168.100.70/amauc/amauc/" target="_blank" style="text-decoration: none;">
+					<a href="http://servicos.amauc.org.br/sge" target="_blank" style="text-decoration: none;">
 						<div style="width: 100%; background-color: #17803C; border-radius: 2px; font-size: 26px; color: #FFF; font-family: sans-serif;">
 							<b>Acessar sistema</b>
 						</div>
@@ -357,7 +358,7 @@ switch ($_GET['acao']) {
 
 					<br/>
 					Atenciosamente, <br/>
-					<img src="#" /><br/>
+					<img src="http://servicos.amauc.org.br/sge/application/images/logo-amauc.png" /><br/>
 					Esta é uma mensagem automática. Por favor, não responda esse e-mail<br />
 					Sistema desenvolvido e mantido pela RAISWeb.
 				</div>
@@ -365,7 +366,7 @@ switch ($_GET['acao']) {
 
 		//Content
 		$mail->isHTML(true);                                  //Set email format to HTML
-		$mail->Subject = 'Nova solicitação';
+		$mail->Subject = 'Solicitação concluída';
 		$mail->Body    = $body; 	
 
 		$mail->send();
@@ -410,7 +411,7 @@ switch ($_GET['acao']) {
 				<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 				
 				<div style="width: 80%; height: 60px; background-color: #17803C; text-align: center; padding: 40px;">
-					<img src="#" style="position: relative; top: 0px; height:60px;" >
+					<img src="http://servicos.amauc.org.br/sge/application/images/logo-amauc.png" style="position: relative; top: 0px; height:60px;" >
 				</div>
 
 				<div style="width: 80%; height: 24px; background-color: #FFF; color: #17803C; font-size: 26px; text-align: center; padding: 40px; border: 1px solid #17803C">
@@ -431,7 +432,7 @@ switch ($_GET['acao']) {
 					Para mais informações, clique no botão abaixo.
 					<br/><br/>
 					
-					<a href="192.168.100.70/amauc/amauc/" target="_blank" style="text-decoration: none;">
+					<a href="http://servicos.amauc.org.br/sge/" target="_blank" style="text-decoration: none;">
 						<div style="width: 100%; background-color: #17803C; border-radius: 2px; font-size: 26px; color: #FFF; font-family: sans-serif;">
 							<b>Acessar sistema</b>
 						</div>
@@ -439,7 +440,7 @@ switch ($_GET['acao']) {
 
 					<br/>
 					Atenciosamente, <br/>
-					<img src="#" /><br/>
+					<img src="http://servicos.amauc.org.br/sge/application/images/logo-amauc.png" /><br/>
 					Esta é uma mensagem automática. Por favor, não responda esse e-mail<br />
 					Sistema desenvolvido e mantido pela RAISWeb.
 				</div>
@@ -447,7 +448,7 @@ switch ($_GET['acao']) {
 
 		//Content
 		$mail->isHTML(true);                                  //Set email format to HTML
-		$mail->Subject = 'Nova solicitação';
+		$mail->Subject = 'Nova redirecionada';
 		$mail->Body    = $body; 	
 
 		$mail->send();
