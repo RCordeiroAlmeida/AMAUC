@@ -11,7 +11,8 @@ switch ($_GET['acao']) {
     break;
 
   case 'update_forma':
-    $aux['afr_descricao'] = $_POST['afr_descricao'];
+    $aux['afr_cod'] = $_POST['afr_cod'];
+    $aux['afr_descricao'] = mb_strtoupper($_POST['afr_descricao'],  'UTF-8');
 
     $data->tabela = 'atividade_forma';
     $data->update($aux);

@@ -1,60 +1,60 @@
 <?php
-if (!isset($_SESSION) && $_SESSION['amauc_userPermissao'] != 2) {
-    echo '<script>window.location="?module=index&acao=logout"</script>';
-}
+    if (!isset($_SESSION)) {
+        echo '<script>window.location="?module=index&acao=logout"</script>';
+    }
 
-switch ($_SESSION['amauc_userPermissao']) {
-    case '1': // ADMINISTRADOR
-        $where = "";
-        $join = "";
-        break;
-    case '2': // FUNCIONARIO
-        $where = "AND a.usu_cod = " . $_SESSION['amauc_userId'];
-        $join = "INNER JOIN funcionario AS f ON (s.set_cod = f.set_cod)";
-        break;
-    case '3': // CLIENTE
-        $where = "AND a.cli_cod = " . $_SESSION['amauc_userCliente'];
-        $join = "";
-        break;
-}
+    switch ($_SESSION['amauc_userPermissao']) {
+        case '1': // ADMINISTRADOR
+            $where = "";
+            break;
+        case '2': // FUNCIONARIO
+            $where = "AND a.usu_cod = " . $_SESSION['amauc_userId'];
+            break;
+        case '3': // CLIENTE
+            $where = "AND a.cli_cod = " . $_SESSION['amauc_userCliente'];
+            break;
+    }
 
-$hoje = date('Y-m-d');
-$hoje = implode("/", array_reverse(explode("-", $hoje)));
+    $hoje = date('Y-m-d');
+    $hoje = implode("/", array_reverse(explode("-", $hoje)));
 
-$sql = "SELECT cli_cod, cli_nome FROM cliente WHERE cli_situacao = 1";
-$cliente = $data->find('dynamic', $sql);
+    $sql = "SELECT cli_cod, cli_nome FROM cliente WHERE cli_situacao = 1";
+    $cliente = $data->find('dynamic', $sql);
 
-$sql = "SELECT atp_cod, atp_descricao FROM atividade_tipo WHERE atp_situacao = 1";
-$tipo_atividade = $data->find('dynamic', $sql);
+    $sql = "SELECT atp_cod, atp_descricao FROM atividade_tipo WHERE atp_situacao = 1";
+    $tipo_atividade = $data->find('dynamic', $sql);
 
-$sql = "SELECT afr_cod, afr_descricao FROM atividade_forma WHERE afr_situacao = 1";
-$forma_atendimento = $data->find('dynamic', $sql);
+    $sql = "SELECT afr_cod, afr_descricao FROM atividade_forma WHERE afr_situacao = 1";
+    $forma_atendimento = $data->find('dynamic', $sql);
 
-$sql = "SELECT set_cod, set_nome FROM setor WHERE set_situacao = 1;";
-$selectSetor = $data->find('dynamic', $sql);
+    $sql = "SELECT set_cod, set_nome FROM setor WHERE set_situacao = 1;";
+    $selectSetor = $data->find('dynamic', $sql);
 
+    $sql = "SELECT
+                a.ati_cod,
+                a.ati_data,
+                a.ati_solicitante,
+                a.ati_cargo,
+                a.ati_descricao,
+                a.ati_tempo,
+                a.cli_cod,
+                a.usu_cod,
+                a.ati_situacao,
+                c.cli_nome,
+                af.afr_descricao,
+                t.atp_descricao,
+                u.usu_nome
+            FROM
+                atividade AS a
+                LEFT JOIN cliente AS c ON a.cli_cod = c.cli_cod
+                LEFT JOIN atividade_forma AS af ON a.afr_cod = af.afr_cod
+                LEFT JOIN atividade_tipo AS t ON a.atp_cod = t.atp_cod
+                LEFT JOIN usuario as u ON a.usu_cod = u.usu_cod
+            WHERE
+                a.sol_cod = 0 AND a.ati_situacao = 1 " . $where . "
+                ORDER BY a.ati_cod DESC";
 
-$sql = "SELECT
-            a.ati_cod,
-            a.ati_data,
-            a.ati_solicitante,
-            a.ati_cargo,
-            a.ati_descricao,
-            a.ati_tempo,
-            a.cli_cod,
-            c.cli_nome,
-            f.afr_descricao,
-            t.atp_descricao
-        FROM
-            atividade AS a
-            LEFT JOIN cliente AS c ON a.cli_cod = c.cli_cod
-            LEFT JOIN atividade_forma AS f ON a.afr_cod = f.afr_cod
-            LEFT JOIN atividade_tipo AS t ON a.atp_cod = t.atp_cod
-        WHERE
-            a.sol_cod = 0 " . $where . "
-            ORDER BY a.ati_cod DESC";
-
-$ati = $data->find('dynamic', $sql);
+    $ati = $data->find('dynamic', $sql);
 ?>
 
 <script>
@@ -100,10 +100,11 @@ $ati = $data->find('dynamic', $sql);
     </div>
     <div class="col-lg-6 col-xs-6" style="text-align:right;">
         <br /><br />
-        <?php if ($_SESSION['amauc_userPermissao'] != 3) { ?>
-            <a href="#" data-toggle='modal' data-target='#novaAtividade' class="btn btn-primary" style="height: 34px;">
-                <span class="glyphicon glyphicon-plus-sign"></span> <span class="hidden-xs hidden-sm">Novo</span>
-            </a>
+        <?php
+            if ($_SESSION['amauc_userPermissao'] != 3) { ?>
+                <a href="#" data-toggle='modal' data-target='#novaAtividade' class="btn btn-primary" style="height: 34px;">
+                    <span class="glyphicon glyphicon-plus-sign"></span> <span class="hidden-xs hidden-sm">Novo</span>
+                </a>
         <?php } ?>
     </div>
 </div>
@@ -129,6 +130,11 @@ $ati = $data->find('dynamic', $sql);
                                             <th>Solicitante (Cargo)</th>
                                             <th>Descrição</th>
                                             <th>Tempo de Execução</th>
+                                            <?php 
+                                                if($_SESSION['amauc_userPermissao'] == 1){
+                                                    echo '<th>Responsável</th>';
+                                                }  
+                                            ?>
                                             <th>...</th>
                                         </tr>
                                     </thead>
@@ -146,12 +152,21 @@ $ati = $data->find('dynamic', $sql);
                                                         <td>' . $ati[$i]['ati_solicitante'] . ' ('.$ati[$i]['ati_cargo'].')</td>
                                                         <td>' . $ati[$i]['ati_descricao']. '</td>
                                                         <td>' . $ati[$i]['ati_tempo']. '</td>';
+                                                        if ($_SESSION['amauc_userPermissao'] == 1){
+                                                            echo '<td>' . $ati[$i]['usu_nome']. '</td>';    
+                                                        }
+                                                        
                                             
                                         ?>
                                                         <td>
                                                             <a href="#" onClick="busca_atividade('<?php echo $ati[$i]['ati_cod'] ?>', '<?php echo $_SESSION['amauc_userId'] ?>', '<?php echo $_SESSION['amauc_userPermissao'] ?>')" data-toggle='modal' data-target='#editaAtividade' class="btn btn-primary" style="height: 34px;">
                                                                 <span class="fa fa-pencil"></span>
                                                             </a>
+                                                        <?php if($_SESSION['amauc_userPermissao'] == 1){ ?>
+                                                            <a href="#" onClick="inativar('<?php echo $ati[$i]['ati_cod'];?>')" class="btn btn-danger" style="height: 34px;">
+                                                                <span class="fa fa-trash"></span>
+                                                            </a>
+                                                        <?php } ?>
                                                         </td>
                                         <?php }?>
                                         </td>
@@ -179,7 +194,7 @@ $ati = $data->find('dynamic', $sql);
                         <div class="row form-group">
                             <div class="col-sm-2">
                                 <label class="control-label" for="sol_data">Data:</label>
-                                <input name="sol_data" type="text" class="form-control blockenter" id="sol_data" style="text-transform:uppercase; text-align: center;" value="<?php echo $hoje ?>" readonly></input>
+                                <input name="sol_data" type="date" class="form-control blockenter" id="sol_data" style="text-transform:uppercase; text-align: center;" value="<?php echo $hoje ?>"></input>
                             </div>
     
                             <div class="col-sm-4">
@@ -284,6 +299,64 @@ $ati = $data->find('dynamic', $sql);
             url = 'application/script/ajax/edita_atividade.php?ati_cod='+id+'&user='+user+'&permission='+permission;
             div = 'retorno_atividade';
             ajax(url, div);
+        }
+
+        function ativar(id) {
+            var url = "?module=atividade&acao=ativar_atividade";
+
+            swal({
+                title: "Você tem certeza?	",
+                text: "Deseja realmente reativar esta Atividade?<br /><b>",
+                type: "info",
+                showCancelButton: true,
+                confirmButtonColor: "#18A689",
+                confirmButtonText: "Sim",
+                cancelButtonText: "Não",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            }).then(function() { //CONFIRM      
+                nextPage(url, id);
+            }, function(dismiss) {
+                // dismiss can be 'cancel', 'overlay', 'close', 'timer'
+                if (dismiss === 'cancel') {
+                    toastr.options = {
+                        closeButton: true,
+                        progressBar: true,
+                        showMethod: "slideDown",
+                        timeOut: 5000
+                    };
+                    toastr.info("Nenhum dado foi afetado!", "Cancelado");
+                }
+            })
+        }
+
+        function inativar(id) {
+            var url = "?module=atividade&acao=inativar_atividade";
+
+            swal({
+                title: "Você tem certeza?	",
+                text: "Deseja realmente inativar esta Atividade?<br /><b>",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Sim",
+                cancelButtonText: "Não",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            }).then(function() { //CONFIRM      
+                nextPage(url, id);
+            }, function(dismiss) {
+                // dismiss can be 'cancel', 'overlay', 'close', 'timer'
+                if (dismiss === 'cancel') {
+                    toastr.options = {
+                        closeButton: true,
+                        progressBar: true,
+                        showMethod: "slideDown",
+                        timeOut: 5000
+                    };
+                    toastr.info("Nenhum dado foi afetado!", "Cancelado");
+                }
+            })
         }
 
         $(document).ready(function() {

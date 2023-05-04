@@ -1,10 +1,11 @@
 <?php
-if (!isset($_SESSION) || $_SESSION['amauc_userPermissao'] != 1) {
-    echo '<script>window.location="?module=index&acao=logout"</script>';
-}
+    if (!isset($_SESSION) || $_SESSION['amauc_userPermissao'] != 1) {
+        echo '<script>window.location="?module=index&acao=logout"</script>';
+    }
 
-$sql = "SELECT * FROM atividade_forma WHERE afr_cod =".$_POST['param_0'];
-$result = $data->find('dynamic', $sql);
+    $sql = "SELECT * FROM atividade_forma WHERE afr_cod =".$_POST['param_0'];
+    $result = $data->find('dynamic', $sql);
+
 ?>
 
 <div class="row wrapper border-bottom white-bg page-heading">
@@ -41,8 +42,8 @@ $result = $data->find('dynamic', $sql);
 
         <div class="ibox-content">
 
-            <form role="form" action="?module=cadastro&acao=update'_forma" id="MyForm" method="post" enctype="multipart/form-data" name="MyForm">
-
+            <form role="form" action="?module=cadastro&acao=update_forma" id="MyForm" method="post" enctype="multipart/form-data" name="MyForm">
+                <input type="hidden" value="<?php echo $result[0]['afr_cod']?>" name="afr_cod">
                 <div class="row form-group">
                     <div class="col-sm-12">
                         <label class="control-label" for="afr_descricao">Tipo:</label>
@@ -50,6 +51,7 @@ $result = $data->find('dynamic', $sql);
                     </div>
                 </div>
             </form>
+        
         </div>
     </div>
 </div>

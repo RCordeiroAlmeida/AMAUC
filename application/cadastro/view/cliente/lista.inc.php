@@ -3,10 +3,10 @@
         echo'<script>window.location="?module=index&acao=logout"</script>';
     }
 
-    $sql = "SELECT * FROM cliente WHERE cli_situacao = 1";
+    $sql = "SELECT * FROM cliente WHERE cli_situacao = 1 ORDER BY cli_nome";
     $ati = $data->find('dynamic', $sql);
 
-    $sql = "SELECT * FROM cliente WHERE cli_situacao = 0";
+    $sql = "SELECT * FROM cliente WHERE cli_situacao = 0 ORDER BY cli_nome";
     $ina = $data->find('dynamic', $sql);
 ?>
 
@@ -175,7 +175,7 @@
                     [50, 150, 200, "Todos"]
                 ],
                 "order": [
-                    [0, "asc"]
+                    [1, "asc"]
                 ]
             });
         });

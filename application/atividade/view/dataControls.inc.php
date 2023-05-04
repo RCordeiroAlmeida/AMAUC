@@ -40,4 +40,11 @@ switch ($_GET['acao']) {
 		echo '<script>nextPage("?module=atividade&acao=lista&ms=1", '.$_POST['sol_cod'].');</script>';
 		break;
 	
+	case 'inativar_atividade':
+
+		$sql = 'UPDATE atividade SET ati_situacao = 0 WHERE ati_situacao = 1 AND ati_cod =' . $_POST['param_0'];
+		$data->executaSQL($sql);
+
+		echo '<script>window.location = "?module=atividade&acao=lista_atividade&ms=4";</script>';
+		break;
 }

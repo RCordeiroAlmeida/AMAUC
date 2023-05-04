@@ -341,7 +341,7 @@
             			break;
                     case '2'://FUNCIONÁRIO
             			echo '
-                        <a href="#"><i class="fa fa-money"></i> <span class="nav-label">Relatórios</span> <span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-file-o"></i> <span class="nav-label">Relatórios</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li '.$item_sel[0].' ><a href="?module=relatorio&acao=lista"><i class="fa fa-file-text-o" aria-hidden="true"></i></i><span class="nav-label">Solicitações</a></li>
                         </ul>';

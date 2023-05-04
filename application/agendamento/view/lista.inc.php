@@ -6,6 +6,7 @@
 
     $sql = "SELECT * FROM agenda";
     $event = $data->find('dynamic', $sql);
+	
 
 	$sql = "SELECT vei_cod, vei_nome FROM veiculo WHERE vei_situacao = 1";
     $veiculo = $data->find('dynamic', $sql);
@@ -67,7 +68,7 @@
                 start: "'.$event[$i]['age_hora_ini'].'",
                 end: "'.$event[$i]['age_hora_fim'].'",
                 color: "'.$age_cor.'",
-                usu_cod: "'.$event[$i]['usu_cod'].'",
+                usu_cod: "'.$_SESSION['amauc_userId'].'",
                 age_descricao: "'.$event[$i]['age_descricao'].'",
 				dt_ini: "'.$event[$i]['age_hora_ini'].'",
 				dt_fim: "'.$event[$i]['age_hora_fim'].'",
@@ -125,8 +126,13 @@
         function envia() {
 			document.forms['MyForm'].submit();
 		}
+
 		function editar(id){
 			window.location.href= "?module=agendamento&acao=edita_agendamento&id="+id;
+		}
+
+		function presta_conta(id){
+			window.location.href="?module=contas&acao=novo&id="+id 
 		}
 		
 		function deleta(id, nome) {

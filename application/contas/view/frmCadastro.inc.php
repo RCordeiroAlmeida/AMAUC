@@ -3,24 +3,60 @@
         echo '<script>window.location="?module=index&acao=logout"</script>';
     }
 
-    $sql = "SELECT
-                usu_cod,
-                usu_nome,
-                set_cod
-            FROM
-                usuario
-            WHERE
-                usu_cod =".$_SESSION['amauc_userId'];
-    $funcionario = $data->find('dynamic', $sql);
+    if($_GET['id']){
+        $viagem_cod = $_GET['id'];
 
+        $sql = "SELECT
+                    *
+                FROM
+                    agenda
+                WHERE 
+                    age_cod =".$viagem_cod;
+        $agendamento = $data->find('dynamic', $sql); 
+        
+        $aux_ini= explode(" ", $agendamento[0]['age_hora_ini']);
+        $age_data_ini = $aux_ini[0];
+        $age_hora_ini = $aux_ini[1];
+        
+        $aux_fim= explode(" ", $agendamento[0]['age_hora_fim']); 
+        $age_data_fim = $aux_fim[0];
+        $age_hora_fim = $aux_fim[1];
 
-    for($i = 0; $i < count($funcionario); $i++){
-        $sql = "SELECT set_nome, set_cod FROM setor WHERE set_situacao = 1 AND set_cod = ".$funcionario[$i]['set_cod'];
+        $sql = "SELECT
+                    usu_cod,
+                    usu_nome,
+                    set_cod
+                FROM
+                    usuario
+                WHERE
+                    usu_cod =".$agendamento[0]['usu_cod'];
+        $funcionario = $data->find('dynamic', $sql);
+
+        $sql = "SELECT set_nome, set_cod FROM setor WHERE set_situacao = 1 AND set_cod = ".$funcionario[0]['set_cod'];
         $setor = $data->find('dynamic', $sql);
-    }
 
-    $sql = "SELECT cli_cod, cli_nome FROM cliente WHERE cli_situacao = 1";
-    $cliente = $data->find('dynamic', $sql);
+        $sql = "SELECT cli_cod, cli_nome FROM cliente WHERE cli_situacao = 1";
+        $cliente = $data->find('dynamic', $sql);
+    }else{
+
+        $sql = "SELECT
+                    usu_cod,
+                    usu_nome,
+                    set_cod
+                FROM
+                    usuario
+                WHERE
+                    usu_cod =".$_SESSION['amauc_userId'];
+        $funcionario = $data->find('dynamic', $sql);
+
+
+        $sql = "SELECT set_nome, set_cod FROM setor WHERE set_situacao = 1 AND set_cod = ".$funcionario[0]['set_cod'];
+        $setor = $data->find('dynamic', $sql);
+
+        $sql = "SELECT cli_cod, cli_nome FROM cliente WHERE cli_situacao = 1";
+        $cliente = $data->find('dynamic', $sql);
+    }
+    
 
 ?>
 
@@ -64,31 +100,38 @@
             </div>
 
             <div class="ibox-content">
-                
-                
 
                 <div class="row form-group">
                     <div class="col-sm-3">
                         <label class="control-label" for="con_data_ini">Data Inicial:</label>
-                        <input name="con_data" type="date" class="form-control blockenter" id="sol_data" style="text-transform:uppercase; text-align: center;" max="<?= date('Y-m-d') ?>" required/>
+                        <input name="con_data_ini" type="date" class="form-control blockenter" id="con_data_ini" style="text-transform:uppercase; text-align: center;" value="<?php echo $age_data_ini?>" required/>
                     </div>
 
                     <div class="col-sm-3">
                         <label class="control-label" for="con_hora_ini">Hora Inicial:</label>
-                        <input name="con_data" type="time" class="form-control blockenter" id="sol_data" style="text-transform:uppercase; text-align: center;" max="<?= date('Y-m-d') ?>" required/>
+                        <input name="con_hora_ini" type="time" class="form-control blockenter" id="sol_hora_ini" style="text-transform:uppercase; text-align: center;" max="<?php date('Y-m-d') ?>" value="<?php echo $age_hora_ini?>" required/>
                     </div>
 
                     <div class="col-sm-3">
                         <label class="control-label" for="con_data_fim">Data Final:</label>
-                        <input name="con_data" type="date" class="form-control blockenter" id="sol_data" style="text-transform:uppercase; text-align: center;" max="<?= date('Y-m-d') ?>" required/>
+                        <input name="con_data_fim" type="date" class="form-control blockenter" id="sol_data" style="text-transform:uppercase; text-align: center;" max="<?= date('Y-m-d') ?>" value="<?php echo $age_data_fim?>" required/>
                     </div>
 
                     <div class="col-sm-3">
                         <label class="control-label" for="con_hora_fim">Hora Final:</label>
-                        <input name="con_data" type="time" class="form-control blockenter" id="sol_data" style="text-transform:uppercase; text-align: center;" max="<?= date('Y-m-d') ?>" required/>
+                        <input name="con_hora_fim" type="time" class="form-control blockenter" id="sol_data" style="text-transform:uppercase; text-align: center;" max="<?= date('Y-m-d') ?>" value="<?php echo $age_hora_fim?>" required/>
                     </div>
                 </div>
                 
+
+                <?php
+                    if($_GET['id']){
+                        $funcionario[0]['usu_nome'] = $_SESSION['amauc_userName'];
+                        $funcionario[0]['set_cod'] = $_SESSION['amauc_userSetor'];
+                    }
+                    
+                ?>
+
                 <div class="row form-group">
                     <div class="col-sm-3">
                         <label class="control-label" for="con_funcionario">Funcionário:</label>
@@ -97,18 +140,8 @@
 
                     <div class="col-sm-3">
                         <label class="control-label">Setor:</label>
-                        <select name="set_cod" type="text" class="form-control blockenter" id="set_cod" disabled>
-                            <option value="">--Selecione--</option>
-                            <?php
-                            for ($i = 0; $i < count($setor); $i++) {
-                                if ($funcionario[0]['set_cod'] == $setor[$i]['set_cod']) {
-                                    echo '<option value="' . $setor[$i]['set_cod'] . '" selected>' . $setor[$i]['set_nome'] . '</option>';
-                                } else {
-                                    echo '<option value="' . $setor[$i]['set_cod'] . '">' . $setor[$i]['set_nome'] . '</option>';
-                                }
-                            }
-                            ?>
-                        </select>
+                        <input name="con_setor" type="text" class="form-control blockenter" id="sol_data" style="text-transform:uppercase;"  value="<?php echo $setor[0]['set_nome']?>" disabled/>
+                        
                     </div>
 
                     <div class="col-sm-6">
@@ -128,7 +161,7 @@
                 <div class="row form-group">
                     <div class="col-sm-6">
                         <label class="control-label" for="con_destino">Destino da viagem:</label>
-                        <input name="con_destino" type="text" class="form-control blockenter" id="sol_descricao" style="text-transform:uppercase" required />
+                        <input name="con_destino" type="text" class="form-control blockenter" id="con_destino" style="text-transform:uppercase" required />
                     </div>
 
                     <div class="col-sm-6">
@@ -151,7 +184,7 @@
                 <div class="row form-group">
                     <div class="col-sm-12">
                         <label class="control-label" for="con_descricao">Descricão da atividade:</label>
-                        <textarea name="con_descricao" type="text" class="form-control blockenter" id="sol_descricao" required style="white-space: pre-wrap; height: 200px;" maxlenght="300"></textarea>
+                        <textarea name="con_descricao" type="text" class="form-control blockenter" id="sol_descricao" required style="white-space: pre-wrap; height: 200px;" maxlenght="300"><?php if($_GET['id']){ echo $agendamento[0]['age_descricao']; }?></textarea>
                     </div>
                 </div>
 
