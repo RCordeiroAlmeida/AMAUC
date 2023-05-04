@@ -448,7 +448,7 @@ switch ($_GET['acao']) {
 
 		//Content
 		$mail->isHTML(true);                                  //Set email format to HTML
-		$mail->Subject = 'Nova redirecionada';
+		$mail->Subject = 'Solicitação redirecionada';
 		$mail->Body    = $body; 	
 
 		$mail->send();
