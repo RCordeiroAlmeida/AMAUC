@@ -2,7 +2,14 @@
 switch ($_GET['acao']) {
 
 	case 'grava_conta':
+		$data_ini = $_POST['con_data_ini'];
+		$age_hora_ini = $_POST['con_hora_ini'];
+		$aux['con_data_ini'] = date('Y/m/d H:i:s', strtotime("$data_ini $age_hora_ini"));
 
+		$data_fim = $_POST['data_fim'];
+		$age_hora_fim = $_POST['age_hora_fim'];
+		$aux['con_data_fim'] = date('Y/m/d H:i:s', strtotime("$data_fim $age_hora_fim"));
+		
 		$data_ini = $_POST['con_data_ini'];
 		$hora_ini = $_POST['con_hora_ini'];
 		$aux['con_data_ini'] = date('Y/m/d H:i:s', strtotime("$data_ini $hora_ini"));

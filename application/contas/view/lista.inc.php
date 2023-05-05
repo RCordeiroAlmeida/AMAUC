@@ -6,8 +6,8 @@
     $sql = "SELECT
                 c.con_cod,
                 c.con_setor,
-                c.con_data, 
-                c.con_data,
+                c.con_data_ini, 
+                c.con_data_fim,
                 c.con_destino,
                 u.usu_nome
             FROM

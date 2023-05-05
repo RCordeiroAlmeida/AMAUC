@@ -109,17 +109,17 @@
 
                     <div class="col-sm-3">
                         <label class="control-label" for="con_hora_ini">Hora Inicial:</label>
-                        <input name="con_hora_ini" type="time" class="form-control blockenter" id="sol_hora_ini" style="text-transform:uppercase; text-align: center;" max="<?php date('Y-m-d') ?>" value="<?php echo $age_hora_ini?>" required/>
+                        <input name="con_hora_ini" type="time" class="form-control blockenter" id="con_hora_ini" style="text-transform:uppercase; text-align: center;" max="<?php date('Y-m-d') ?>" value="<?php echo $age_hora_ini?>" required/>
                     </div>
 
                     <div class="col-sm-3">
                         <label class="control-label" for="con_data_fim">Data Final:</label>
-                        <input name="con_data_fim" type="date" class="form-control blockenter" id="sol_data" style="text-transform:uppercase; text-align: center;" max="<?= date('Y-m-d') ?>" value="<?php echo $age_data_fim?>" required/>
+                        <input name="con_data_fim" type="date" class="form-control blockenter" id="con_data_fim" style="text-transform:uppercase; text-align: center;" value="<?php echo $age_data_fim?>" required/>
                     </div>
 
                     <div class="col-sm-3">
                         <label class="control-label" for="con_hora_fim">Hora Final:</label>
-                        <input name="con_hora_fim" type="time" class="form-control blockenter" id="sol_data" style="text-transform:uppercase; text-align: center;" max="<?= date('Y-m-d') ?>" value="<?php echo $age_hora_fim?>" required/>
+                        <input name="con_hora_fim" type="time" class="form-control blockenter" id="con_hora_fim" style="text-transform:uppercase; text-align: center;" value="<?php echo $age_hora_fim?>" required/>
                     </div>
                 </div>
                 
