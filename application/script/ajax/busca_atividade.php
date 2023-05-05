@@ -50,8 +50,8 @@
 					<div class="modal-body">
 						<div class="row form-group">
 							<div class="col-sm-2">
-								<label class="control-label" for="sol_data">Data:</label>
-								<input name="sol_data" type="date" class="form-control blockenter" id="sol_data" style="text-transform:uppercase; text-align: center;" value="<?php echo $result[0]['ati_data']?>" disabled/>
+								<label class="control-label" for="ati_data">Data:</label>
+								<input name="ati_data" type="date" class="form-control blockenter" id="ati_data" style="text-transform:uppercase; text-align: center;" value="<?php echo $result[0]['ati_data']?>" disabled/>
 							</div>
 
 							<div class="col-sm-3">

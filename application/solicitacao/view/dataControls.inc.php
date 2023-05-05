@@ -405,7 +405,6 @@ switch ($_GET['acao']) {
 		
 		$mail->addAddress($cliente[0]['cli_mail'], $result[0]['sol_solicitante']);
 		
-	
 		$body = '      			
 			<body style="width:100%; color: #666666; text-align: center; ">
 				<meta http-equiv="Content-Type" content="text/html; charset=utf-8">

@@ -4,7 +4,7 @@ switch ($_GET['acao']) {
 	case 'grava_atividade':
 
 		$aux['sol_cod']      	= 0;
-		$aux['ati_data']      	= date('Y-m-d');
+		$aux['ati_data']      	= $_POST['sol_data'];
 		$aux['cli_cod'] 		= $_POST['cli_cod'];
 		$aux['atp_cod'] 		= $_POST['atp_cod'];
 		$aux['afr_cod'] 		= $_POST['afr_cod'];

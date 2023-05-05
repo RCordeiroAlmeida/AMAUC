@@ -53,7 +53,7 @@
             </div> 
             <div class="ibox-content">    
                 <div class="row form-group">  
-                    <div class="col-sm-6" >           
+                    <div class="col-sm-3" >           
                         <label class="control-label">Cliente:</label>
                         <select name="cli_cod" id="cli_cod" class="form-control selectpicker" data-live-search="true" data-size="6" >
                             <option value="" selected>--SELECIONE--</option>
@@ -65,7 +65,7 @@
                             ?>
                         </select>
                     </div>
-                    <div class="col-sm-6" >           
+                    <div class="col-sm-3" >           
                         <label class="control-label">Setor:</label>
                         <select name="set_cod" id="set_cod" class="form-control selectpicker" data-live-search="true" data-size="6" >
                             <option value="" selected>--SELECIONE--</option>
@@ -76,10 +76,8 @@
                                 }
                             ?>
                         </select>
-                    </div> 
-                </div>
-                <div class="row form-group">
-                    <div class="col-sm-6" >           
+                    </div>
+                    <div class="col-sm-3" >           
                         <label class="control-label">Status:</label>
                         <select name="sol_status" id="sol_status" class="form-control selectpicker" data-live-search="true" data-size="6" >
                             <option value="" selected>--SELECIONE--</option>
@@ -89,17 +87,48 @@
                             <option value="3">Cancelado</option>
                         </select>
                     </div>
-                </div>
-                
-
-                <div class="row form-group">
-                    <div class="col-lg-10 col-xs-9" >
-                    <div class="col-lg-2 col-xs-3" >                       
-                        <button type="submit" class="btn btn-primary btn-block" ><i class="fa fa-print"></i> <span class="hidden-xs">Imprimir</span></button>
+                    
+                    <div class="col-sm-3">
+                        <label class="control-label" for="data_ini">A partir de:</label>
+                        <input name="data_ini" type="date" class="form-control blockenter" id="data_ini" style="text-transform:uppercase;"/>
                     </div>
                 </div>
-            </div>  
+                <div class="row form-group">
+                    <div class="col-sm-2">
+                        <a href="#" class="btn btn-warning" onclick="busca_solicitacao()"><i class="fa fa-search"></i> Pesquisar</a>
+                    </div>
 
-</form>	
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="retorno_pesquisa"></div>
+            </div>
+
+</form>
 </div>
-</div>            	 
+<script>
+
+    function busca_solicitacao(){
+
+        var cliente = $('#cli_cod').val();
+        var setor   = $('#set_cod').val();
+        var status  = $('#sol_status').val();
+        var data    = $('#sol_data').val();
+
+        var parametros = {'cliente' : cliente, 'setor' : setor, 'status' : status, 'data' : data};
+
+        $.ajax({
+            url: 'application/script/ajax/busca_solicitacao.php',
+            type: 'GET',
+            data: parametros,
+            success: function(result){
+                console.log(result);
+            },
+            error: function(){
+                console.log("ERRO!");
+            }
+        });
+    }
+
+</script>           	 

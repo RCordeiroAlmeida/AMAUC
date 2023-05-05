@@ -236,7 +236,7 @@ function ReadCSS($html) {
 				}
 			}
 			$classproperties = $this->fixCSS($classproperties);
-			$tagstr = mb_strtoupper(trim($styles[1][$i]));
+			$tagstr = strtoupper(trim($styles[1][$i]));
 			$tagarr = explode(',',$tagstr);
 			$pageselectors = false;	// used to turn on $this->mpdf->mirrorMargins
 			foreach($tagarr AS $tg) {
@@ -627,7 +627,7 @@ function fixCSS($prop) {
 		else if ($k == 'SIZE') {
 			$prop = preg_split('/\s+/',trim($v));
 			if (preg_match('/(auto|portrait|landscape)/',$prop[0])) {
-				$newprop['SIZE'] = mb_strtoupper($prop[0]);
+				$newprop['SIZE'] = strtoupper($prop[0]);
 			}
 			else if (count($prop) == 1 ) {
 				$newprop['SIZE']['W'] = $this->mpdf->ConvertSize($prop[0]);
@@ -729,14 +729,14 @@ function fixCSS($prop) {
 			if (preg_match('/["\'](.){1}["\']/i',$v,$m)) { 
 				$d = array_search($m[1],$this->mpdf->decimal_align);
 				if ($d !== false) { $newprop['TEXT-ALIGN'] = $d; }
-				if (preg_match('/(center|left|right)/i',$v,$m)) { $newprop['TEXT-ALIGN'] .= mb_strtoupper(substr($m[1],0,1)); }
+				if (preg_match('/(center|left|right)/i',$v,$m)) { $newprop['TEXT-ALIGN'] .= strtoupper(substr($m[1],0,1)); }
 				else { $newprop['TEXT-ALIGN'] .= 'R'; }	// default = R
 			}
 			else if (preg_match('/["\'](\\\[a-fA-F0-9]{1,6})["\']/i',$v,$m)) { 
 				$utf8 = codeHex2utf(substr($m[1],1,6));
 				$d = array_search($utf8,$this->mpdf->decimal_align);
 				if ($d !== false) { $newprop['TEXT-ALIGN'] = $d; }
-				if (preg_match('/(center|left|right)/i',$v,$m)) { $newprop['TEXT-ALIGN'] .= mb_strtoupper(substr($m[1],0,1)); }
+				if (preg_match('/(center|left|right)/i',$v,$m)) { $newprop['TEXT-ALIGN'] .= strtoupper(substr($m[1],0,1)); }
 				else { $newprop['TEXT-ALIGN'] .= 'R'; }	// default = R
 			}
 			else { $newprop[$k] = $v; }
