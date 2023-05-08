@@ -12,20 +12,19 @@
                 u.usu_nome
             FROM
                 atividade AS a 
-                INNER JOIN usuario AS u 
+                INNER JOIN usuario AS u ON (a.usu_cod = u.usu_cod)
             WHERE 
                 a.ati_situacao = 1 AND 
-                a.usu_cod = u.usu_cod AND 
                 a.sol_cod=".$_POST['param_0']."
                 ORDER BY a.ati_data DESC";
 
     $atividade = $data->find('dynamic', $sql);
 
-    $sql = "SELECT * FROM solicitacao WHERE sol_cod =" . $_POST['param_0'];
+    $sql = "SELECT s.*, c.cli_nome
+            FROM solicitacao AS s
+                INNER JOIN cliente AS c ON (s.cli_cod = c.cli_cod)
+            WHERE sol_cod =" . $_POST['param_0'];
     $result = $data->find('dynamic', $sql);
-
-    $sql = "SELECT cli_nome FROM cliente AS c INNER JOIN solicitacao AS s WHERE c.cli_cod =s.cli_cod";
-    $cliente = $data->find('dynamic', $sql);
 
     $sql = "SELECT set_nome FROM setor WHERE set_cod =" . $result[0]['set_cod'];
     $setor = $data->find('dynamic', $sql);
@@ -50,6 +49,7 @@
             $urgencia = '<small class="label label-danger"><i class="fa fa-exclamation-triangle"></i> ALTA</small>';
             break;
     }
+    echo $cliente[0]['cli_nome'];
 ?>
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-9 col-xs-8">
@@ -106,7 +106,7 @@
 
                     <div class="col-sm-6">
                         <label class="control-label" for="cli_cnpj">Cliente:</label>
-                        <input name="cli_nome" type="text" class="form-control blockenter" id="cli_nome" value="<?php echo $cliente[0]['cli_nome'] ?>" readonly />
+                        <input name="cli_nome" type="text" class="form-control blockenter" id="cli_nome" value="<?php echo $result[0]['cli_nome'] ?>" readonly />
 
                     </div>
 
