@@ -1,18 +1,17 @@
 <?php
 
-    if ($_SESSION['amauc_userPermissao'] != 1 && ($_SESSION['amauc_userPermissao']) != 2) {
+    if ($_SESSION['amauc_userPermissao'] != 1 && $_SESSION['amauc_userPermissao'] != 2) {
         echo '<script>window.location="?module=index&acao=logout"</script>';
     }
 
     $sql = "SELECT * FROM agenda";
     $event = $data->find('dynamic', $sql);
-	
 
 	$sql = "SELECT vei_cod, vei_nome FROM veiculo WHERE vei_situacao = 1";
     $veiculo = $data->find('dynamic', $sql);
-
-
+	
 ?>
+
 
 <script>
     toastr.options = {
@@ -69,7 +68,6 @@
                 end: "'.$event[$i]['age_hora_fim'].'",
                 color: "'.$age_cor.'",
                 usu_cod: "'.$_SESSION['amauc_userId'].'",
-                age_descricao: "'.$event[$i]['age_descricao'].'",
 				dt_ini: "'.$event[$i]['age_hora_ini'].'",
 				dt_fim: "'.$event[$i]['age_hora_fim'].'",
 				v_dt_fim: "'.strtotime($event[$i]['age_hora_fim']).'",
@@ -80,6 +78,7 @@
         }
     ?>
 </script>
+
 <div class="row wrapper border-bottom white-bg page-heading" onunload="reload()">
     <div class="col-lg-6 col-xs-6">
         <h2>Novo agendamento</h2>
@@ -117,6 +116,7 @@
 	</div>
 
 	<script src="library/inspinia/js/plugins/fullcalendar/lang/pt-br.js"></script>
+	
     <script>
 		 function reloadOpener() {
 			// recarrega a página original quando o popup for fechado
@@ -126,7 +126,7 @@
         function envia() {
 			document.forms['MyForm'].submit();
 		}
-
+		
 		function editar(id){
 			window.location.href= "?module=agendamento&acao=edita_agendamento&id="+id;
 		}
@@ -143,6 +143,7 @@
 				}
 			});
 		}
+		
 	$(document).ready(function() {		
 		$('#calendar').fullCalendar({
 			header: {
@@ -183,7 +184,7 @@
 
 				document.getElementById("abre-popup").click();
 			},
-
+			
 			eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc) {
 				var url = "?module=agendamento&acao=altera_data";
 
@@ -231,6 +232,7 @@
 								nextPage(url, parametro);
 							}
 						}
+						
 					}
 				});
 			}
