@@ -1,32 +1,29 @@
-<?php	
-	ob_start();
-?>
-	<h1>Oii, funcionou perfeitamente</h1>
 <?php
+	include("../../../library/TCPDF/tcpdf.php");
+	include('../../../library/MySql.php'); // Conecta ao BD
+	include('../../../library/DataManipulation.php');	
 	
-	// require_once('../../../library/MySql.php'); // Conecta ao BD
-	// require_once('../../../library/DataManipulation.php'); 
-	include("../../../library/mpdf/mpdf.php");
+	$pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', true);
+	$data = new DataManipulation();
 	
-	// $data = new DataManipulation();
+	$sql = "SELECT * FROM solicitacao";
+	$solicitacao = $data->find('dynamic', $sql);
 
-	$arquivo = "relatorio.php";
-	
-	$html = ob_get_clean(); //limpa buffer de saída;
-	
-	$mpdf = new mPDF('C', 'A4');
-	$mpdf ->WriteHTML($html);
+	$pdf->SetTitle("Solicitações filtradas");
+	$pdf->SetAuthor($_SESSION['amauc_userName']);
+	$pdf->AddPage();
 
-	$mpdf->Output();
-	$mpdf->Output($arquivo, 'I'); 
-	
-	/*
-		? F - SALVA O ARQUIVO E NÂO ABRE
-		? I - ABRE NO NAVEGADOR
-		? D - CHAMA O PROMPT E SALVA O ARQUIVO
-	*/
+	ob_clean();	//limpa o buffer de saída
 
-	exit();
+	$html = '
+			Listagem de solicitações
 
+			Filtros aplicados:'.var_dump($solicitacao).
+			'';
 
+  	$pdf->Write(0, $html);
+	$pdf->Output('exemplo.pdf', 'I');
 ?>
+
+
+

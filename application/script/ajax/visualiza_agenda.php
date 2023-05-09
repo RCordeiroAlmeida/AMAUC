@@ -10,6 +10,9 @@ if ($_GET['age_cod'] != '') {
 	$sql = "SELECT * FROM agenda WHERE age_cod = " . $_GET['age_cod'];
 	$result = $data->find('dynamic', $sql);
 
+	$sql = "SELECT usu_nome FROM usuario WHERE usu_cod=".$result[0]['usu_cod'];
+	$cliente = $data->find('dynamic', $sql);
+
 	$aux_ini = explode(" ", $result[0]['age_hora_ini']);
 
 	$data_ini = $aux_ini[0];
@@ -90,9 +93,13 @@ if ($_GET['age_cod'] != '') {
 
 			</div>
 			<div class="row form-group">
-				<div class="col-sm-12">
+				<div class="col-sm-8">
 					<label for="age_titulo" class="control-label">Título:</label>
 					<input name="age_titulo" type="text" class="form-control blockenter" value="<?php echo $result[0]['age_titulo'] ?>" id="age_titulo" style="text-transform: uppercase" disabled>
+				</div>
+				<div class="col-sm-4">
+					<label for="usu_nome" class="control-label">Organizador:</label>
+					<input name="usu_nome" type="text" class="form-control blockenter" value="<?php echo $cliente[0]['usu_nome'] ?>" id="age_titulo" style="text-transform: uppercase" disabled>
 				</div>
 			</div>
 

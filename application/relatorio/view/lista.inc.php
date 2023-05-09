@@ -17,8 +17,6 @@
 
     $sql = "SELECT set_cod, set_nome FROM setor WHERE set_situacao = 1";
     $setor = $data->find('dynamic', $sql);
-
-    $periodo  = ['Todos' => 'Todos', '01' => 'Janeiro', '02' => 'Fevereiro', '03' => 'Março', '04' => 'Abril', '05' => 'Maio', '06' => 'Junho', '07' => 'Julho', '08' => 'Agosto', '09' => 'Setembro', '10' => 'Outubro', '11' => 'Novembro', '12' => 'Dezembro'];
     
 ?>
 
@@ -101,10 +99,13 @@
                 </div>
             </div>
 
-            <div class="row form-group">
-                <div class="retorno_pesquisa"></div>
+            <div class="modal inmodal" id="visualiza_pesquisa" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content animated bounceInRight">
+                        <div id="retorno_pesquisa"></div>
+                    </div>
+                </div>
             </div>
-
 </form>
 </div>
 <script>
