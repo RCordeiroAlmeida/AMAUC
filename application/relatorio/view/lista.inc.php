@@ -21,6 +21,7 @@
 ?>
 
 <form role="form" action="application/relatorio/view/relatorio.php " target="_blank" id="MyForm" method="post" > 
+    <input type="hidden" value="<?php echo $_SESSION['amauc_userName']?>" name="usuario"/>
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-10 col-xs-9" >
@@ -49,11 +50,12 @@
                     </a>
                 </div>
             </div> 
-            <div class="ibox-content">    
+            <div class="ibox-content">
                 <div class="row form-group">  
-                    <div class="col-sm-3" >           
+                    <div class="col-sm-3" >        
+
                         <label class="control-label">Cliente:</label>
-                        <select name="cli_cod" id="cli_cod" class="form-control selectpicker" data-live-search="true" data-size="6" >
+                        <select name="cli_cod" id="cli_cod" class="form-control selectpicker" data-live-search="true" data-size="6">
                             <option value="" selected>--SELECIONE--</option>
                             <?php 
                                 for ($i=0; $i< count($cliente); $i++) { 
@@ -64,7 +66,7 @@
                         </select>
                     </div>
                     <div class="col-sm-3" >           
-                        <label class="control-label">Setor:</label>
+                        <label class="control-label">Setor: (opcional)</label>
                         <select name="set_cod" id="set_cod" class="form-control selectpicker" data-live-search="true" data-size="6" >
                             <option value="" selected>--SELECIONE--</option>
                             <?php 
@@ -76,7 +78,7 @@
                         </select>
                     </div>
                     <div class="col-sm-3" >           
-                        <label class="control-label">Status:</label>
+                        <label class="control-label">Status: (opcional)</label>
                         <select name="sol_status" id="sol_status" class="form-control selectpicker" data-live-search="true" data-size="6" >
                             <option value="" selected>--SELECIONE--</option>
                             <option value="0">Pendente</option>
@@ -87,7 +89,7 @@
                     </div>
                     
                     <div class="col-sm-3">
-                        <label class="control-label" for="data_ini">A partir de:</label>
+                        <label class="control-label" for="data_ini">A partir de: (opcional)</label>
                         <input name="data_ini" type="date" class="form-control blockenter" id="data_ini" style="text-transform:uppercase;"/>
                     </div>
                 </div>
