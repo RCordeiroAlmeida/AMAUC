@@ -3,10 +3,10 @@
         echo'<script>window.location="?module=index&acao=logout"</script>';
     }
 
-    $sql = "SELECT * FROM atividade_forma WHERE afr_situacao = 1";
+    $sql = "SELECT * FROM atividade_forma WHERE afr_situacao = 1 ORDER BY afr_descricao";
     $ati = $data->find('dynamic', $sql);
 
-    $sql = "SELECT * FROM atividade_forma WHERE afr_situacao = 0";
+    $sql = "SELECT * FROM atividade_forma WHERE afr_situacao = 0 ORDER BY afr_descricao";
     $ina = $data->find('dynamic', $sql);
 ?>
 
@@ -162,6 +162,18 @@
     </div>
     <br />
     <script>
+
+        $(document).ready(function() {
+            $('.dataTables-example').DataTable({
+                "lengthMenu": [
+                    [50, 150, 200, -1],
+                    [50, 150, 200, "Todos"]
+                ],
+                "order": [
+                    [1, "asc"]
+                ]
+            });
+        });
 
         function inativar(id, nome) {
             var url = "?module=cadastro&acao=inativar_forma";
