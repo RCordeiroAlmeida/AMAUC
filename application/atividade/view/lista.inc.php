@@ -216,11 +216,8 @@
 
                             <div class="col-sm-3">
                                 <label class="control-label" for="ati_cargo">Cargo:</label>
-                                <input name="ati_cargo" type="text" class="form-control blockenter" id="ati_solicitante" style="text-transform:uppercase;" required></input>
+                                <input name="ati_cargo" type="text" class="form-control blockenter" id="ati_cargo" style="text-transform:uppercase;" required></input>
                             </div>
-                            
-                           
-
                         </div>
 
                         <div class="row form-group">

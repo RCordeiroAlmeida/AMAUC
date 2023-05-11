@@ -22,9 +22,11 @@ switch ($_GET['acao']) {
 		break;
 	
 	case 'update_atividade':
-
 		$aux['ati_cod'] 			= $_POST['ati_cod'];
-		$aux['atp_cod']				= $_POST['atp_cod'];
+		$aux['atp_cod'] 			= $_POST['atp_cod'];
+		$aux['cli_cod']				= $_POST['cli_cod'];
+		$aux['ati_solicitante']		= mb_strtoupper($_POST['ati_solicitante'], 'UTF-8');
+		$aux['ati_cargo']			= mb_strtoupper($_POST['ati_cargo'], 'UTF-8');
 		$aux['afr_cod']				= $_POST['afr_cod'];
 		$aux['sol_status']          = $_POST['sol_status'];
 		$aux['ati_tempo']          	= $_POST['ati_tempo'];

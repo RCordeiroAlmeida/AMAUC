@@ -303,14 +303,15 @@
                         <ul class="nav nav-second-level">
                             <li '.$item_sel[0].' ><a href="?module=contas&acao=lista"><i class="fa fa-money" aria-hidden="true"></i></i><span class="nav-label">Lançamentos</a></li>
                         </ul>';
-            			break;
+                    break;
+                    
                     case '2'://FUNCIONÁRIO
             			echo '
                         <a href="#"><i class="fa fa-money"></i> <span class="nav-label">Prestação de Contas</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li '.$item_sel[0].' ><a href="?module=contas&acao=lista"><i class="fa fa-file-text-o" aria-hidden="true"></i></i><span class="nav-label">Lançamentos</a></li>
                         </ul>';
-            			break;
+                    break;
             	}
             ?>
 
@@ -324,7 +325,7 @@
                     switch ($acao[1]) {
                         case 'lista':
                             $item_sel[0] = 'class="active"';
-                            break;
+                        break;
                         }
             	}else{
             		echo '<li>';
@@ -337,15 +338,20 @@
                         <a href="#"><i class="fa fa-clipboard" aria-hidden="true"></i><span class="nav-label">Relatórios</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li '.$item_sel[0].' ><a href="?module=relatorio&acao=lista"><i class="fa fa-gavel" aria-hidden="true"></i></i><span class="nav-label">Solicitações</a></li>
+
+                            <li '.$item_sel[0].' ><a href="?module=relatorio&acao=lista"><i class="fa fa-tasks" aria-hidden="true"></i></i><span class="nav-label">Atividades</a></li>
+
+                            <li '.$item_sel[0].' ><a href="?module=relatorio&acao=lista"><i class="fa fa-money" aria-hidden="true"></i></i><span class="nav-label">Prestação de contas</a></li>
                         </ul>';
-            			break;
+                    break;
+
                     case '2'://FUNCIONÁRIO
             			echo '
                         <a href="#"><i class="fa fa-file-o"></i> <span class="nav-label">Relatórios</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li '.$item_sel[0].' ><a href="?module=relatorio&acao=lista"><i class="fa fa-file-text-o" aria-hidden="true"></i></i><span class="nav-label">Solicitações</a></li>
                         </ul>';
-            			break;
+                    break;
             	}
             ?>
         </ul>

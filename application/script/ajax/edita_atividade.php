@@ -5,6 +5,7 @@
 	//
 	$data = new DataManipulation();
 	//	
+
 	if($_GET['ati_cod'] != ''){
 		$desabilita = "";
 		if($_GET['permission'] == 3){//CLIENTE
@@ -39,11 +40,9 @@
 		if(count($result) > 0){
 ?>
 			<form role="form" action="?module=atividade&acao=update_atividade" id="MyForm" method="post" enctype="multipart/form-data">
-
 				<input type="hidden" name="ati_cod" value="<?php echo $result[0]['ati_cod'] ?>" />	
 				<input type="hidden" name="sol_cod" value="<?php echo $result[0]['sol_cod'] ?>" />
 				<input type="hidden" name="cli_cod" value="<?php echo $result[0]['cli_cod'] ?>" />
-
 
 				<div class="modal-content animated bounceInRight">
 					<div class="modal-header">
@@ -54,7 +53,7 @@
 						<div class="row form-group">
 							<div class="col-sm-2">
 								<label class="control-label" for="sol_data">Data:</label>
-								<input name="sol_data" type="date" class="form-control blockenter" id="sol_data" style="text-transform:uppercase; text-align: center;" value="<?php echo $result[0]['ati_data']?>" disabled />
+								<input name="sol_data" type="date" class="form-control blockenter" id="sol_data" style="text-transform:uppercase; text-align: center;" value="<?php echo $result[0]['ati_data']?>" required <?php echo $desabilita ?>/>
 							</div>
 
 							<div class="col-sm-3">
@@ -160,12 +159,12 @@
 						<div class="row form-group">
 							<div class="col-sm-8 hidden-xs"></div>
 							<?php if($_GET['user'] == $result[0]['usu_cod']){
-									if($result[0]['sol_status'] == 1){
+									
 								?>
 								<div class="col-sm-2 col-xs-6">
 									<button type="submit" id="salvar2" class="btn btn-primary btn-block"><i class="fa fa-check"></i> Salvar</button>
 								</div>
-							<?php }} ?>
+							<?php } ?>
 							<div class="col-sm-2 col-xs-6">
 								<button type="button" class="btn btn-default btn-block" data-dismiss="modal"><i class="fa fa-times"></i> Cancelar</button>
 							</div>
@@ -175,7 +174,7 @@
 			</form>
 <?php
 		}
-	}	
+	}
 ?>
 <script>
 	$(document).ready(function() {

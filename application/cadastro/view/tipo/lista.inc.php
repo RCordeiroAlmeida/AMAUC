@@ -161,7 +161,6 @@
     </div>
     <br />
     <script>
-
         $(document).ready(function() {
             $('.dataTables-example').DataTable({
                 "lengthMenu": [
@@ -205,7 +204,6 @@
 
         function ativar(id, nome) {
             var url = "?module=cadastro&acao=ativar_tipo";
-
             swal({
                 title: "Você tem certeza?",
                 text: "Deseja realmente ativar este Tipo de Atendimento?<br /><b>" + nome + "</b>",

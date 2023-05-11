@@ -30,9 +30,6 @@
 		$sql = "SELECT afr_cod, afr_descricao FROM atividade_forma WHERE afr_situacao = 1";
 		$forma_atendimento = $data->find('dynamic', $sql);
 
-		$atividade = $data->find('dynamic', $sql);
-		
-
 		if(count($result) > 0){
 ?>
 			<form role="form" action="?module=solicitacao&acao=update_atividade" id="MyForm" method="post" enctype="multipart/form-data">
@@ -145,7 +142,7 @@
 			</form>
 <?php
 		}
-	}	
+	}
 ?>
 <script>
 	$(document).ready(function() {
