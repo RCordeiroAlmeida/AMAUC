@@ -1,18 +1,20 @@
 <?php
-require_once('../../../library/vendor/autoload.php');
-require_once('../../../library/MySql.php');
-require_once('../../../library/DataManipulation.php');
+require_once('../../../../library/vendor/autoload.php');
+require_once('../../../../library/MySql.php');
+require_once('../../../../library/DataManipulation.php');
 
 use Dompdf\Dompdf;
 
 $dompdf = new Dompdf();
 $data = new DataManipulation();
 
-$logoPath = file_get_contents('../../images/logo-amauc.png');
+$logoPath = file_get_contents('../../../images/logo-amauc.png');
 $logoData = base64_encode($logoPath);
 $logoTag = '<img src="data:image/png;base64,' . $logoData . '" width="200"/>';
 
 $dompdf->setPaper('A4', 'portrait');
+var_dump($_POST);
+exit();
 
 $usuario = $_POST['usuario'];
 
@@ -22,7 +24,7 @@ if ($_POST['cli_cod'] != '') {
 
 if ($_POST['set_cod'] != '') {
 	if ($where != '') {
-		$where .= " AND set_cod = " . $_POST['set_cod'];
+		$where .= " AND s.set_cod = " . $_POST['set_cod'];
 	} else {
 		$where = "WHERE s.set_cod = " . $_POST['set_cod'];
 	}
@@ -30,7 +32,7 @@ if ($_POST['set_cod'] != '') {
 
 if ($_POST['sol_status'] != '') {
 	if ($where != '') {
-		$where .= " AND sol_status = " . $_POST['sol_status'];
+		$where .= " AND s.sol_status = " . $_POST['sol_status'];
 	} else {
 		$where = "WHERE s.sol_status = " . $_POST['sol_status'];
 	}
@@ -38,7 +40,7 @@ if ($_POST['sol_status'] != '') {
 
 if ($_POST['data_ini'] != '') {
 	if ($where != '') {
-		$where .= " AND sol_data >= " . $_POST['data_ini'];
+		$where .= " AND s.sol_data >= " . $_POST['data_ini'];
 	} else {
 		$where = "WHERE s.sol_data >= " . $_POST['data_ini'];
 	}
@@ -58,6 +60,7 @@ $sql = "SELECT
             INNER JOIN cliente AS c ON s.cli_cod = c.cli_cod
             INNER JOIN setor as se ON s.set_cod = se.set_cod
         $where";
+
 $solicitacao = $data->find('dynamic', $sql);
 
 $html = '
@@ -77,7 +80,7 @@ $html = '
 					</tr>
 					<tr style="text-align: center">
 						<th colspan="2" style="text-align: center; font-size: 1.2em; padding-top: 10px">
-							Relatório de Solicitações
+							Relatório de Atividades
 						</th>
 					</tr>
 				</thead>
@@ -88,10 +91,12 @@ $html = '
 						<tr style="border: 1px solid black; padding: 8px; text-align: left;">
 							<th style="width: 10%;">Data</th>
 							<th style="width: 10%;">Código</th>
-							<th style="width: 30%;">Descrição</th>
-							<th style="width: 15%;">Status</th>
-							<th style="width: 15%;">Setor</th>
+							<th style="width: 30%;">Tipo</th>
+							<th style="width: 15%;">Atendimento</th>
 							<th style="width: 20%;">Cliente</th>
+							<th style="width: 20%;">Solicitante (Cargo)</th>
+							<th style="width: 15%;">Descricao</th>
+							<th style="width: 15%;">Tempo de Execução</th>
 						</tr>
 					</thead>
 				<tbody>';

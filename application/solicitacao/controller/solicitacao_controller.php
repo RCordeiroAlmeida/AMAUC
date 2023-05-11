@@ -1,4 +1,5 @@
 <?php
+	
 	$tela = explode('_', $_GET['acao']);
 
 	switch ($tela[0]) {

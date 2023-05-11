@@ -20,7 +20,7 @@
     
 ?>
 
-<form role="form" action="application/relatorio/view/relatorio.php " target="_blank" id="MyForm" method="post" > 
+<form role="form" action="application/relatorio/view/prestacao/relatorio.php " target="_blank" id="MyForm" method="post" > 
     <input type="hidden" value="<?php echo $_SESSION['amauc_userName']?>" name="usuario"/>
 
     <div class="row wrapper border-bottom white-bg page-heading">
@@ -66,7 +66,7 @@
                         </select>
                     </div>
                     <div class="col-sm-3" >           
-                        <label class="control-label">Setor: (opcional)</label>
+                        <label class="control-label">Setor:</label>
                         <select name="set_cod" id="set_cod" class="form-control selectpicker" data-live-search="true" data-size="6" >
                             <option value="" selected>--SELECIONE--</option>
                             <?php 
@@ -78,7 +78,7 @@
                         </select>
                     </div>
                     <div class="col-sm-3" >           
-                        <label class="control-label">Status: (opcional)</label>
+                        <label class="control-label">Status:</label>
                         <select name="sol_status" id="sol_status" class="form-control selectpicker" data-live-search="true" data-size="6" >
                             <option value="" selected>--SELECIONE--</option>
                             <option value="0">Pendente</option>
@@ -89,15 +89,9 @@
                     </div>
                     
                     <div class="col-sm-3">
-                        <label class="control-label" for="data_ini">A partir de: (opcional)</label>
+                        <label class="control-label" for="data_ini">A partir de:</label>
                         <input name="data_ini" type="date" class="form-control blockenter" id="data_ini" style="text-transform:uppercase;"/>
                     </div>
-                </div>
-                <div class="row form-group">
-                    <div class="col-sm-2">
-                        <a href="#" class="btn btn-warning" onclick="busca_solicitacao()"><i class="fa fa-search"></i> Pesquisar</a>
-                    </div>
-
                 </div>
             </div>
 
@@ -109,29 +103,4 @@
                 </div>
             </div>
 </form>
-</div>
-<script>
-
-    function busca_solicitacao(){
-
-        var cliente = $('#cli_cod').val();
-        var setor   = $('#set_cod').val();
-        var status  = $('#sol_status').val();
-        var data    = $('#sol_data').val();
-
-        var parametros = {'cliente' : cliente, 'setor' : setor, 'status' : status, 'data' : data};
-
-        $.ajax({
-            url: 'application/script/ajax/busca_solicitacao.php',
-            type: 'GET',
-            data: parametros,
-            success: function(result){
-                console.log(result);
-            },
-            error: function(){
-                console.log("ERRO!");
-            }
-        });
-    }
-
-</script>           	 
+</div> 

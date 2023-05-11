@@ -323,8 +323,16 @@
                     unset($item_sel);
                     $acao = explode('_',$_GET['acao']);
                     switch ($acao[1]) {
-                        case 'lista':
+                        case 'solicitacao':
                             $item_sel[0] = 'class="active"';
+                        break;
+
+                        case 'atividade':
+                            $item_sel[1] = 'class="active"';
+                        break;
+
+                        case 'prestacao':
+                            $item_sel[2] = 'class="active"';
                         break;
                         }
             	}else{
@@ -337,11 +345,11 @@
             			echo '
                         <a href="#"><i class="fa fa-clipboard" aria-hidden="true"></i><span class="nav-label">Relatórios</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li '.$item_sel[0].' ><a href="?module=relatorio&acao=lista"><i class="fa fa-gavel" aria-hidden="true"></i></i><span class="nav-label">Solicitações</a></li>
+                            <li '.$item_sel[0].' ><a href="?module=relatorio&acao=lista_solicitacao"><i class="fa fa-gavel" aria-hidden="true"></i></i><span class="nav-label">Solicitações</a></li>
 
-                            <li '.$item_sel[0].' ><a href="?module=relatorio&acao=lista"><i class="fa fa-tasks" aria-hidden="true"></i></i><span class="nav-label">Atividades</a></li>
+                            <li '.$item_sel[1].' ><a href="?module=relatorio&acao=lista_atividade"><i class="fa fa-tasks" aria-hidden="true"></i></i><span class="nav-label">Atividades</a></li>
 
-                            <li '.$item_sel[0].' ><a href="?module=relatorio&acao=lista"><i class="fa fa-money" aria-hidden="true"></i></i><span class="nav-label">Prestação de contas</a></li>
+                            <li '.$item_sel[2].' ><a href="?module=relatorio&acao=lista_prestacao"><i class="fa fa-money" aria-hidden="true"></i></i><span class="nav-label">Prestação de contas</a></li>
                         </ul>';
                     break;
 
@@ -349,7 +357,11 @@
             			echo '
                         <a href="#"><i class="fa fa-file-o"></i> <span class="nav-label">Relatórios</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li '.$item_sel[0].' ><a href="?module=relatorio&acao=lista"><i class="fa fa-file-text-o" aria-hidden="true"></i></i><span class="nav-label">Solicitações</a></li>
+                            <li '.$item_sel[0].' ><a href="?module=relatorio&acao=lista_solicitacao"><i class="fa fa-gavel" aria-hidden="true"></i></i><span class="nav-label">Solicitações</a></li>
+
+                            <li '.$item_sel[1].' ><a href="?module=relatorio&acao=lista_atividade"><i class="fa fa-tasks" aria-hidden="true"></i></i><span class="nav-label">Atividades</a></li>
+
+                            <li '.$item_sel[2].' ><a href="?module=relatorio&acao=lista_prestacao"><i class="fa fa-money" aria-hidden="true"></i></i><span class="nav-label">Prestação de contas</a></li>
                         </ul>';
                     break;
             	}
