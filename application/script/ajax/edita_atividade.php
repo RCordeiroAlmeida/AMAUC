@@ -19,10 +19,6 @@
 
 		$result = $data->find('dynamic', $sql);  
 
-		if($result[0]['sol_status'] != 1){ //CONCLUIDO OU CANCELADO
-			$desabilita = "disabled";
-		}
-
 		$sql = "SELECT * FROM solicitacao WHERE sol_cod =" . $result[0]['sol_cod'];
 		$solicitacao = $data->find('dynamic', $sql);
 
@@ -145,7 +141,7 @@
 
                             <div class="col-sm-4">
                                 <label class="control-label" for="ati_cargo">Cargo:</label>
-                                <input name="ati_cargo" type="text" class="form-control blockenter" id="ati_solicitante" style="text-transform:uppercase;" value="<?php echo $result[0]['ati_cargo']?>" <?php echo $desabilita ?> required></input>
+                                <input name="ati_cargo" type="text" class="form-control blockenter" id="ati_cargo" style="text-transform:uppercase;" value="<?php echo $result[0]['ati_cargo']?>" <?php echo $desabilita ?> required></input>
                             </div>
 
 							
