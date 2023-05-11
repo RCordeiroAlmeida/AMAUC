@@ -194,7 +194,7 @@
                         <div class="row form-group">
                             <div class="col-sm-2">
                                 <label class="control-label" for="sol_data">Data:</label>
-                                <input name="sol_data" type="date" class="form-control blockenter" id="sol_data" style="text-transform:uppercase; text-align: center;" value="<?php echo $hoje ?>"></input>
+                                <input name="sol_data" type="date" class="form-control blockenter" id="sol_data" style="text-transform:uppercase; text-align: center;" value="<?php echo $hoje ?>">
                             </div>
     
                             <div class="col-sm-4">

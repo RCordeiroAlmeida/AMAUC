@@ -29,7 +29,7 @@
 
 		$sql = "SELECT afr_cod, afr_descricao FROM atividade_forma WHERE afr_situacao = 1";
 		$forma_atendimento = $data->find('dynamic', $sql);
-
+	
 		if(count($result) > 0){
 ?>
 			<form role="form" action="?module=solicitacao&acao=update_atividade" id="MyForm" method="post" enctype="multipart/form-data">
@@ -42,13 +42,13 @@
 				<div class="modal-content animated bounceInRight">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
-						<h4 class="modal-title">Detalhes do Atendimento</h4>
+						<h4 class="modal-title"></h4>
 					</div>
 					<div class="modal-body">
 						<div class="row form-group">
 							<div class="col-sm-2">
 								<label class="control-label" for="ati_data">Data:</label>
-								<input name="ati_data" type="date" class="form-control blockenter" id="ati_data" style="text-transform:uppercase; text-align: center;" value="<?php echo $result[0]['ati_data']?>" disabled/>
+								<input name="ati_data" type="date" class="form-control blockenter" id="ati_data" style="text-transform:uppercase; text-align: center;" value="<?php echo $result[0]['ati_data']?>" />
 							</div>
 
 							<div class="col-sm-3">

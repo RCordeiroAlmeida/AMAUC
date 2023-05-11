@@ -161,7 +161,7 @@
     <?php if ($result[0]['sol_status'] != 0) { ?>
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5 style="font-weight: 700;">Detalhes do Atendimento</h5>
+                <h5 style="font-weight: 700;"></h5>
                 <div class="ibox-tools">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>

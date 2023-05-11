@@ -4,12 +4,13 @@
 	require_once('../../../library/DataManipulation.php'); 
 	//
 	$data = new DataManipulation();
-	//	
-
+	//
 	if($_GET['ati_cod'] != ''){
 		$desabilita = "";
 		if($_GET['permission'] == 3){//CLIENTE
 			$desabilita = "disabled";
+		}else{
+			$desabilita = "";
 		}
 		
 		$sql = "SELECT *
@@ -47,7 +48,7 @@
 				<div class="modal-content animated bounceInRight">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
-						<h4 class="modal-title">Detalhes do Atendimento</h4>
+						<h4 class="modal-title"></h4>
 					</div>
 					<div class="modal-body">
 						<div class="row form-group">
@@ -158,9 +159,7 @@
 
 						<div class="row form-group">
 							<div class="col-sm-8 hidden-xs"></div>
-							<?php if($_GET['user'] == $result[0]['usu_cod']){
-									
-								?>
+							<?php if($_GET['user'] == $result[0]['usu_cod'] || $_GET['permission'] == 1){ ?>
 								<div class="col-sm-2 col-xs-6">
 									<button type="submit" id="salvar2" class="btn btn-primary btn-block"><i class="fa fa-check"></i> Salvar</button>
 								</div>
