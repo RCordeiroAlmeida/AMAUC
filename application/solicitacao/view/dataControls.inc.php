@@ -9,8 +9,8 @@ switch ($_GET['acao']) {
 
 		$aux['sol_data']      	= $_POST['sol_data'];
 		$aux['cli_cod']      	= $_POST['cli_cod'];
-		$aux['sol_solicitante'] = mb_strtoupper($_POST['sol_solicitante'], 'UTF-8');
-		$aux['sol_cargo'] 		= mb_strtoupper($_POST['sol_cargo'], 'UTF-8');
+		$aux['sol_solicitante'] = addslashes(mb_strtoupper($_POST['sol_solicitante'], 'UTF-8'));
+		$aux['sol_cargo'] 		= addslashes(mb_strtoupper($_POST['sol_cargo'], 'UTF-8'));
 		$aux['set_cod']    		= $_POST['set_cod'];
 		$aux['sol_descricao']  	= $_POST['sol_descricao'];
 		$aux['sol_anexo']		= $_FILES['sol_anexo'];
@@ -100,8 +100,8 @@ switch ($_GET['acao']) {
 		$mail->send();
 		
 		echo '<script>window.location = "?module=solicitacao&acao=lista_pendente&ms=1</script>';
+		
 		break;
-
 	case 'inativar':
 		$sql = 'UPDATE solicitacao SET sol_status = 3 WHERE sol_cod = ' . $_POST['param_0'];
 		$data->executaSQL($sql);
