@@ -1,5 +1,4 @@
 <?php 
-
     $sql = 'SELECT
                 ati_cod,
                 ati_data,
@@ -22,6 +21,9 @@
 
     $sql ="SELECT atp_cod, atp_descricao FROM atividade_tipo WHERE atp_situacao = 1";
     $tipo = $data->find('dynamic', $sql);
+    
+    $sql ="SELECT afr_cod, afr_descricao FROM atividade_forma WHERE afr_situacao = 1";
+    $forma = $data->find('dynamic', $sql);
 
     $sql = "SELECT cli_cod, cli_nome FROM cliente WHERE cli_situacao = 1";
     $cliente = $data->find('dynamic', $sql);
@@ -63,7 +65,7 @@
             </div> 
             <div class="ibox-content">
                 <div class="row form-group">  
-                    <div class="col-sm-3" >        
+                    <div class="col-sm-4" >        
 
                         <label class="control-label">Cliente:</label>
                         <select name="cli_cod" id="cli_cod" class="form-control selectpicker" data-live-search="true" data-size="6">
@@ -77,7 +79,7 @@
                             ?>
                         </select>
                     </div>
-                    <div class="col-sm-3" >           
+                    <div class="col-sm-4" >           
                         <label class="control-label">Setor:</label>
                         <select name="set_cod" id="set_cod" class="form-control selectpicker" data-live-search="true" data-size="6" >
                             <option value="" selected>--SELECIONE--</option>
@@ -90,7 +92,7 @@
                             ?>
                         </select>
                     </div>
-                    <div class="col-sm-3" >           
+                    <div class="col-sm-4" >           
                         <label class="control-label">Status:</label>
                         <select name="sol_status" id="sol_status" class="form-control selectpicker" data-live-search="true" data-size="6" >
                             <option value="" selected>--SELECIONE--</option>
@@ -101,31 +103,47 @@
                         </select>
                     </div>
                     
-                    <div class="col-sm-3">
-                        <label class="control-label" for="data_ini">A partir de:</label>
-                        <input name="data_ini" type="date" class="form-control blockenter" id="data_ini" style="text-transform:uppercase;"/>
-                    </div>
+                    
                 </div>
 
                 <div class="row form-group">
-                    <div class="col-sm-3" >
+                    <div class="col-sm-4">
+                        <label class="control-label" for="data_ini">A partir de:</label>
+                        <input name="data_ini" type="date" class="form-control blockenter" id="data_ini" style="text-transform:uppercase;"/>
+                    </div>
+
+                    <div class="col-sm-4" >           
+                        <label class="control-label">Tipo:</label>
+                        <select name="atp_cod" id="atp_cod" class="form-control selectpicker" data-live-search="true" data-size="6" >
+                            <option value="" selected>--SELECIONE--</option>
+                            <?php
+                                for($i=0; $i<=count($tipo); $i++){
+                                    echo '
+                                        <option value="'.$tipo[$i]['atp_cod'].'">'.$tipo[$i]['atp_descricao'].'</option>                                
+                                    ';
+                                }
+                            ?>
+                        </select>
+                    </div>   
+
+                    <div class="col-sm-4" >           
+                        <label class="control-label">Forma:</label>
+                        <select name="afr_cod" id="afr_cod" class="form-control selectpicker" data-live-search="true" data-size="6" >
+                            <option value="" selected>--SELECIONE--</option>
+                            <?php
+                                for($i=0; $i<=count($forma); $i++){
+                                    echo '
+                                        <option value="'.$forma[$i]['afr_cod'].'">'.$forma[$i]['afr_descricao'].'</option>                                
+                                    ';
+                                }
+                            ?>
+                        </select>
+                    </div>
+
                     
-                    </div>       
-                </div>           
-            
-                <div class="col-sm-3" >           
-                    <label class="control-label">Tipo:</label>
-                    <select name="sol_status" id="sol_status" class="form-control selectpicker" data-live-search="true" data-size="6" >
-                        <option value="" selected>--SELECIONE--</option>
-                        <?php
-                            for($i=0; $i<=count($tipo); $i++){
-                                echo '
-                                    <option value="'.$tipo[$i]['atp_cod'].'">'.$tipo[$i]['atp_descricao'].'</option>                                
-                                ';
-                            }
-                        ?>
-                    </select>
                 </div>
+            
+                
             </div>
 
 </form>

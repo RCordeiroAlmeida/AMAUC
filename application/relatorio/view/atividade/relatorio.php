@@ -13,8 +13,6 @@ $logoData = base64_encode($logoPath);
 $logoTag = '<img src="data:image/png;base64,' . $logoData . '" width="200"/>';
 
 $dompdf->setPaper('A4', 'portrait');
-var_dump($_POST);
-exit();
 
 $usuario = $_POST['usuario'];
 
@@ -24,44 +22,70 @@ if ($_POST['cli_cod'] != '') {
 
 if ($_POST['set_cod'] != '') {
 	if ($where != '') {
-		$where .= " AND s.set_cod = " . $_POST['set_cod'];
+		$where .= " AND a.set_cod = " . $_POST['set_cod'];
 	} else {
-		$where = "WHERE s.set_cod = " . $_POST['set_cod'];
+		$where = "WHERE a.set_cod = " . $_POST['set_cod'];
 	}
 }
 
 if ($_POST['sol_status'] != '') {
 	if ($where != '') {
-		$where .= " AND s.sol_status = " . $_POST['sol_status'];
+		$where .= " AND a.sol_status = " . $_POST['sol_status'];
 	} else {
-		$where = "WHERE s.sol_status = " . $_POST['sol_status'];
+		$where = "WHERE a.sol_status = " . $_POST['sol_status'];
 	}
 }
 
 if ($_POST['data_ini'] != '') {
 	if ($where != '') {
-		$where .= " AND s.sol_data >= " . $_POST['data_ini'];
+		$where .= " AND a.ati_data >= " . $_POST['data_ini'];
 	} else {
-		$where = "WHERE s.sol_data >= " . $_POST['data_ini'];
+		$where = "WHERE a.ati_data >= " . $_POST['data_ini'];
 	}
 }
 
-$sql = "SELECT
-            s.sol_status,
-            s.sol_data,
-            s.sol_cod,
-            s.sol_descricao,
-            s.cli_cod,
-            s.set_cod,
-            se.set_nome,
-            c.cli_nome
-        FROM
-            solicitacao AS s
-            INNER JOIN cliente AS c ON s.cli_cod = c.cli_cod
-            INNER JOIN setor as se ON s.set_cod = se.set_cod
-        $where";
+if ($_POST['atp_cod'] != '') {
+	if ($where != '') {
+		$where .= " AND a.atp_cod = " . $_POST['atp_cod'];
+	} else {
+		$where = " WHERE a.atp_cod = " . $_POST['atp_cod'];
+	}
+}
 
+if ($_POST['afr_cod'] != '') {
+	if ($where != '') {
+		$where .= " AND atp_cod = " . $_POST['afr_cod'];
+	} else {
+		$where = " WHERE a.afr_cod = " . $_POST['afr_cod'];
+	}
+}
+
+
+$sql = "SELECT
+        	a.ati_cod,
+			a.sol_status,
+            a.atp_cod,
+            t.atp_descricao,
+			a.afr_cod,
+			f.afr_descricao,
+            a.cli_cod,
+			c.cli_nome,
+            a.ati_solicitante,
+			a.ati_cargo,
+			a.ati_descricao,
+            a.ati_tempo,
+            a.usu_cod,
+			u.usu_nome
+        FROM
+            atividade AS a
+			INNER JOIN atividade_tipo AS t ON t.atp_cod = a.atp_cod
+			INNER JOIN atividade_forma AS f ON f.afr_cod = a.afr_cod
+            INNER JOIN cliente AS c ON a.cli_cod = c.cli_cod
+			INNER JOIN usuario AS u ON a.usu_cod = u.usu_cod
+        $where";
 $solicitacao = $data->find('dynamic', $sql);
+var_dump($solicitacao);
+exit();
 
 $html = '
     <html>
@@ -89,8 +113,8 @@ $html = '
 				<table style="border-collapse: collapse; width: 100%; margin-top: 20px; margin-bottom: 20px;">
 					<thead>
 						<tr style="border: 1px solid black; padding: 8px; text-align: left;">
-							<th style="width: 10%;">Data</th>
 							<th style="width: 10%;">Código</th>
+							<th style="width: 10%;">Data</th>
 							<th style="width: 30%;">Tipo</th>
 							<th style="width: 15%;">Atendimento</th>
 							<th style="width: 20%;">Cliente</th>
@@ -101,7 +125,7 @@ $html = '
 					</thead>
 				<tbody>';
 					for ($i = 0; $i < count($solicitacao); $i++) {
-						$solicitacao[$i]['sol_data'] = implode("/", array_reverse(explode("-", $solicitacao[$i]['sol_data'])));
+						$solicitacao[$i]['ati_data'] = implode("/", array_reverse(explode("-", $solicitacao[$i]['ati_data'])));
 
 						switch ($solicitacao[$i]['sol_status']) {
 							case 0:
@@ -123,9 +147,10 @@ $html = '
 
 				$html .= '
 					<tr>
-						<td style="border: 1px solid black; padding: 8px;">' . $solicitacao[$i]['sol_data'] . '</td>
-						<td style="border: 1px solid black; padding: 8px;">' . str_pad($solicitacao[$i]['sol_cod'], 4, '0', STR_PAD_LEFT) . '</td>
-						<td style="border: 1px solid black; padding: 8px;">' . $solicitacao[$i]['sol_descricao'] . '</td>
+						<td style="border: 1px solid black; padding: 8px;">' . str_pad($solicitacao[$i]['ati_cod'], 4, '0', STR_PAD_LEFT) . '</td>
+						<td style="border: 1px solid black; padding: 8px;">' . $solicitacao[$i]['ati_data'] . '</td>
+						<td style="border: 1px solid black; padding: 8px;">' . $solicitacao[$i]['ati_data'] . '</td>
+						<td style="border: 1px solid black; padding: 8px;">' . $solicitacao[$i]['ati_descricao'] . '</td>
 						<td style="border: 1px solid black; padding: 8px;">' . $solicitacao[$i]['sol_status'] . '</td>
 						<td style="border: 1px solid black; padding: 8px;">' . $solicitacao[$i]['set_nome'] . '</td>
 						<td style="border: 1px solid black; padding: 8px;">' . $solicitacao[$i]['cli_nome'] . '</td>

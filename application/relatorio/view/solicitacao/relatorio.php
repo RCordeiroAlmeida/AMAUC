@@ -1,14 +1,14 @@
 <?php
-require_once('../../../library/vendor/autoload.php');
-require_once('../../../library/MySql.php');
-require_once('../../../library/DataManipulation.php');
+require_once('../../../../library/vendor/autoload.php');
+require_once('../../../../library/MySql.php');
+require_once('../../../../library/DataManipulation.php');
 
 use Dompdf\Dompdf;
 
 $dompdf = new Dompdf();
 $data = new DataManipulation();
 
-$logoPath = file_get_contents('../../images/logo-amauc.png');
+$logoPath = file_get_contents('../../../images/logo-amauc.png');
 $logoData = base64_encode($logoPath);
 $logoTag = '<img src="data:image/png;base64,' . $logoData . '" width="200"/>';
 
@@ -65,6 +65,18 @@ $html = '
     <html>
         <head>
             <title>Relatatório de Solicitações</title>
+
+			<style>
+				.assinatura {
+					position: fixed;
+					bottom: 0;
+					left: 0;
+					right: 0;
+					text-align: center;
+					margin-left: auto;
+					margin-right: auto;
+				}
+			</style>
         </head>
         <body style="font-family: Arial; font-size: 0.8em">
 			<table style="margin-left: auto; margin-right: auto">
