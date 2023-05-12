@@ -16,6 +16,13 @@ $dompdf->setPaper('A4', 'portrait');
 
 $usuario = $_POST['usuario'];
 
+if ($_POST['idUser'] != 1){
+	$user = $_POST['idUser'];
+}else{
+	$user = " u.usu_cod";
+}
+
+
 if ($_POST['cli_cod'] != '') {
 	$where = " WHERE c.cli_cod = " . $_POST['cli_cod'];
 }
@@ -82,8 +89,9 @@ $sql = "SELECT
 			INNER JOIN atividade_tipo AS t ON t.atp_cod = a.atp_cod
 			INNER JOIN atividade_forma AS f ON f.afr_cod = a.afr_cod
             INNER JOIN cliente AS c ON a.cli_cod = c.cli_cod
-			INNER JOIN usuario AS u ON a.usu_cod = u.usu_cod
-        $where";
+			INNER JOIN usuario AS u ON a.usu_cod =". $user."
+		".$where;
+
 $solicitacao = $data->find('dynamic', $sql);
 $html = '
     <html>

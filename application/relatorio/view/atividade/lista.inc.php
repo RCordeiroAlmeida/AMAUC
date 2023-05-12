@@ -1,4 +1,7 @@
 <?php 
+
+    
+
     $sql = 'SELECT
                 ati_cod,
                 ati_data,
@@ -12,8 +15,8 @@
             FROM
                 atividade
             WHERE
-                ati_situacao = 1    
-            ';
+                ati_situacao = 1'.$user;
+
     $solicitaco = $data->find('dynamic', $sql);
 
     $sql ="SELECT afr_cod, afr_descricao FROM atividade_forma WHERE afr_situacao = 1";
@@ -30,11 +33,12 @@
 
     $sql = "SELECT set_cod, set_nome FROM setor WHERE set_situacao = 1";
     $setor = $data->find('dynamic', $sql);
-    
 ?>
 
 <form role="form" action="application/relatorio/view/atividade/relatorio.php " target="_blank" id="MyForm" method="post" > 
     <input type="hidden" value="<?php echo $_SESSION['amauc_userName']?>" name="usuario"/>
+    <input type="hidden" value="<?php echo $_SESSION['amauc_userId']?>" name="idUser"/>
+    
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-10 col-xs-9" >
