@@ -63,6 +63,7 @@ if ($_POST['afr_cod'] != '') {
 
 $sql = "SELECT
         	a.ati_cod,
+			a.ati_data,
 			a.sol_status,
             a.atp_cod,
             t.atp_descricao,
@@ -84,12 +85,20 @@ $sql = "SELECT
 			INNER JOIN usuario AS u ON a.usu_cod = u.usu_cod
         $where";
 $solicitacao = $data->find('dynamic', $sql);
-var_dump($solicitacao);
-exit();
-
 $html = '
     <html>
         <head>
+			<style>
+				.assinatura {
+					position: fixed;
+					bottom: 0;
+					left: 0;
+					right: 0;
+					text-align: center;
+					margin-left: auto;
+					margin-right: auto;
+				}
+			</style>
             <title>Relatatório de Solicitações</title>
         </head>
         <body style="font-family: Arial; font-size: 0.8em">
@@ -149,11 +158,12 @@ $html = '
 					<tr>
 						<td style="border: 1px solid black; padding: 8px;">' . str_pad($solicitacao[$i]['ati_cod'], 4, '0', STR_PAD_LEFT) . '</td>
 						<td style="border: 1px solid black; padding: 8px;">' . $solicitacao[$i]['ati_data'] . '</td>
-						<td style="border: 1px solid black; padding: 8px;">' . $solicitacao[$i]['ati_data'] . '</td>
-						<td style="border: 1px solid black; padding: 8px;">' . $solicitacao[$i]['ati_descricao'] . '</td>
-						<td style="border: 1px solid black; padding: 8px;">' . $solicitacao[$i]['sol_status'] . '</td>
-						<td style="border: 1px solid black; padding: 8px;">' . $solicitacao[$i]['set_nome'] . '</td>
+						<td style="border: 1px solid black; padding: 8px;">' . $solicitacao[$i]['atp_descricao'] . '</td>
+						<td style="border: 1px solid black; padding: 8px;">' . $solicitacao[$i]['afr_descricao'] . '</td>
 						<td style="border: 1px solid black; padding: 8px;">' . $solicitacao[$i]['cli_nome'] . '</td>
+						<td style="border: 1px solid black; padding: 8px;">' . $solicitacao[$i]['ati_solicitante'] . '('. $solicitacao[$i]['ati_cargo'] .')</td>
+						<td style="border: 1px solid black; padding: 8px;">' . $solicitacao[$i]['ati_descricao'] .'</td>
+						<td style="border: 1px solid black; padding: 8px;">' . $solicitacao[$i]['ati_tempo'] .'</td>
 					</tr>';
 }
 
