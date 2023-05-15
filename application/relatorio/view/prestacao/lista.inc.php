@@ -1,20 +1,5 @@
 <?php 
 
-    $sql = 'SELECT
-                sol_cod,
-                set_cod,
-                cli_cod,
-                sol_solicitante,
-                sol_cargo,
-                sol_data,
-                sol_descricao
-            FROM
-                solicitacao';
-    $solicitaco = $data->find('dynamic', $sql);
-
-    $sql = "SELECT cli_cod, cli_nome FROM cliente WHERE cli_situacao = 1";
-    $cliente = $data->find('dynamic', $sql);
-
     $sql = "SELECT set_cod, set_nome FROM setor WHERE set_situacao = 1";
     $setor = $data->find('dynamic', $sql);
     
@@ -52,20 +37,16 @@
             </div> 
             <div class="ibox-content">
                 <div class="row form-group">  
-                    <div class="col-sm-3" >        
-
-                        <label class="control-label">Cliente:</label>
-                        <select name="cli_cod" id="cli_cod" class="form-control selectpicker" data-live-search="true" data-size="6">
-                            <option value="" selected>--SELECIONE--</option>
-                            <?php 
-                                for ($i=0; $i< count($cliente); $i++) { 
-                                    echo '
-                                    <option value="'.$cliente[$i]['cli_cod'].'">'.$cliente[$i]['cli_nome'].'</option>';
-                                }
-                            ?>
+                    <div class="col-sm-4">
+                        <label class="control-label">Tipo de Veículo:</label>
+                        <select name="con_veiculo" id="con_veiculo" class="form-control blockenter" onchange="veiculo(this.value);">
+                            <option value="">--SELECIONE--</option>
+                            <option value="1">Empresa</option>
+                            <option value="2">Próprio</option>
+                            <option value="3">Outro</option>
                         </select>
                     </div>
-                    <div class="col-sm-3" >           
+                    <div class="col-sm-4" >           
                         <label class="control-label">Setor:</label>
                         <select name="set_cod" id="set_cod" class="form-control selectpicker" data-live-search="true" data-size="6" >
                             <option value="" selected>--SELECIONE--</option>
@@ -77,18 +58,8 @@
                             ?>
                         </select>
                     </div>
-                    <div class="col-sm-3" >           
-                        <label class="control-label">Status:</label>
-                        <select name="sol_status" id="sol_status" class="form-control selectpicker" data-live-search="true" data-size="6" >
-                            <option value="" selected>--SELECIONE--</option>
-                            <option value="0">Pendente</option>
-                            <option value="1">Andamento</option>
-                            <option value="2">Concluido</option>
-                            <option value="3">Cancelado</option>
-                        </select>
-                    </div>
-                    
-                    <div class="col-sm-3">
+
+                    <div class="col-sm-4">
                         <label class="control-label" for="data_ini">A partir de:</label>
                         <input name="data_ini" type="date" class="form-control blockenter" id="data_ini" style="text-transform:uppercase;"/>
                     </div>

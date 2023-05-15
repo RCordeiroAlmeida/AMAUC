@@ -17,8 +17,8 @@
 
     $sql = "SELECT set_cod, set_nome FROM setor WHERE set_situacao = 1";
     $setor = $data->find('dynamic', $sql);
-    
-?>
+
+    ?>
 
 <form role="form" action="application/relatorio/view/solicitacao/relatorio.php " target="_blank" id="MyForm" method="post" > 
     <input type="hidden" value="<?php echo $_SESSION['amauc_userName']?>" name="usuario"/>

@@ -101,7 +101,7 @@
                     <?php if($tipo[0]['agt_cod'] == 1){ ?>
                         <div class="col-sm-2">
                             <label class="control-label" for="data_fim">Veículo:</label>
-                            <select name="vei_cod" type="text" class="form-control blockenter" id="vei_cod" disabled>
+                            <select name="vei_cod" type="text" class="form-control blockenter" id="vei_cod">
                                 <option value="" selected>--SELECIONE--</option>
                                 <?php
                                     for ($i = 0; $i < count($veiculo); $i++) {
