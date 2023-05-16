@@ -93,6 +93,8 @@ $sql = "SELECT
 		".$where;
 
 $solicitacao = $data->find('dynamic', $sql);
+
+
 $html = '
     <html>
         <head>
@@ -130,13 +132,13 @@ $html = '
 				<table style="border-collapse: collapse; width: 100%; margin-top: 20px; margin-bottom: 20px;">
 					<thead>
 						<tr style="border: 1px solid black; padding: 8px; text-align: left;">
-							<th style="width: 10%;">Código</th>
+							<th style="width: 5%;">Código</th>
 							<th style="width: 10%;">Data</th>
-							<th style="width: 30%;">Tipo</th>
+							<th style="width: 15%;">Tipo</th>
 							<th style="width: 15%;">Atendimento</th>
 							<th style="width: 20%;">Cliente</th>
 							<th style="width: 20%;">Solicitante (Cargo)</th>
-							<th style="width: 15%;">Descricao</th>
+							<th style="width: 30%;">Descricao</th>
 							<th style="width: 15%;">Tempo de Execução</th>
 						</tr>
 					</thead>

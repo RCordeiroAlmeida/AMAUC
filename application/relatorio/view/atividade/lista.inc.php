@@ -1,6 +1,4 @@
-<?php 
-
-    
+<?php
 
     $sql = 'SELECT
                 ati_cod,
