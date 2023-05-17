@@ -118,9 +118,11 @@ if ($_GET['age_cod'] != '') {
 		<?php
 			$hoje = strtotime(date('Y-m-d H:i:s'));
 			$data_age = strtotime($data_fim);
+			
 			if($_GET['user'] == $result[0]['usu_cod']){	
 				if($tipo[0]['agt_cod'] == 1){
 					echo '<button class="btn-warning btn" onclick="presta_conta('.$_GET['age_cod'].')"><i class="fa fa-money"></i> Prestar Contas</button>';
+					echo '<button class="btn-danger btn" onclick="deleta('.$_GET['age_cod'] . ', \'' . $result[0]['age_titulo'] . '\''.');"><i class="fa fa-trash"></i> Excluir</button>';
 				}
 				if($hoje < $data_age){
 					echo '<button class="btn-success btn" onclick="editar('.$_GET['age_cod'].')"><i class="fa fa-pencil"></i> Editar</button>';
@@ -129,6 +131,7 @@ if ($_GET['age_cod'] != '') {
 			} else{
 				if($_GET['permission'] == 1){
 					echo '<button class="btn-success btn" onclick="editar('.$_GET['age_cod'].')"><i class="fa fa-pencil"></i> Editar</button>';
+					echo '<button class="btn-danger btn" onclick="deleta('.$_GET['age_cod'] . ', \'' . $result[0]['age_titulo'] . '\''.');"><i class="fa fa-trash"></i> Excluir</button>';
 				}
 			}
 		?>
