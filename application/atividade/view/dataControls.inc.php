@@ -22,6 +22,8 @@ switch ($_GET['acao']) {
 		break;
 	
 	case 'update_atividade':
+		$aux['ati_cod']				= $_POST['ati_cod'];
+		$aux['ati_data']			= $_POST['sol_data'];
 		$aux['ati_cod'] 			= $_POST['ati_cod'];
 		$aux['atp_cod'] 			= $_POST['atp_cod'];
 		$aux['cli_cod']				= $_POST['cli_cod'];
