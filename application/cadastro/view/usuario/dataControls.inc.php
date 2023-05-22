@@ -34,6 +34,7 @@ switch ($_GET['acao']) {
     $aux['usu_nome']            = addslashes(mb_strtoupper($_POST['usu_nome'], 'UTF-8'));
     $aux['usu_login']           = $_POST['usu_login'];
     $aux['usu_email']           = $_POST['usu_email'];
+    $aux['set_cod']             = $_POST['set_cod'];
     
     if (isset($_POST['usu_senha'])){
       $aux['usu_senha']         = md5($_POST['usu_senha']);
