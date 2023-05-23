@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 23-Maio-2023 às 13:33
--- Versão do servidor: 10.4.27-MariaDB
--- versão do PHP: 7.4.33
+-- Tempo de geração: 23-Maio-2023 às 16:14
+-- Versão do servidor: 10.4.22-MariaDB
+-- versão do PHP: 7.4.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -36,7 +36,7 @@ CREATE TABLE `agenda` (
   `age_descricao` text NOT NULL,
   `age_tipo` int(11) NOT NULL COMMENT 'agenda tipo',
   `vei_cod` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `agenda`
@@ -105,7 +105,7 @@ CREATE TABLE `agenda_tipo` (
   `agt_cod` int(11) NOT NULL,
   `agt_descricao` text NOT NULL,
   `agt_situacao` int(11) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `agenda_tipo`
@@ -135,7 +135,7 @@ CREATE TABLE `atividade` (
   `cli_cod` int(11) NOT NULL,
   `afr_cod` int(11) NOT NULL,
   `atp_cod` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `atividade`
@@ -962,7 +962,7 @@ CREATE TABLE `atividade_forma` (
   `afr_cod` int(100) NOT NULL,
   `afr_descricao` text NOT NULL,
   `afr_situacao` int(11) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `atividade_forma`
@@ -995,7 +995,7 @@ CREATE TABLE `atividade_tipo` (
   `atp_cod` int(11) NOT NULL,
   `atp_descricao` varchar(100) NOT NULL,
   `atp_situacao` int(11) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `atividade_tipo`
@@ -1036,7 +1036,7 @@ CREATE TABLE `cidade` (
   `cid_nome` varchar(100) NOT NULL,
   `est_uf` varchar(2) NOT NULL,
   `cid_situacao` int(11) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `cidade`
@@ -1077,7 +1077,7 @@ CREATE TABLE `cliente` (
   `cid_cod` int(11) DEFAULT NULL,
   `cli_situacao` int(11) NOT NULL DEFAULT 1,
   `usu_cod` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `cliente`
@@ -1151,7 +1151,7 @@ CREATE TABLE `conta` (
   `con_cliente` int(11) DEFAULT NULL,
   `con_solicitacao` int(11) DEFAULT NULL,
   `con_descricao` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `conta`
@@ -1175,7 +1175,7 @@ CREATE TABLE `conta_anexo` (
   `can_valor` float NOT NULL,
   `can_anexo` text NOT NULL,
   `can_data` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Extraindo dados da tabela `conta_anexo`
@@ -1199,7 +1199,7 @@ CREATE TABLE `funcionario` (
   `fun_mail` varchar(100) NOT NULL,
   `set_cod` int(11) NOT NULL,
   `usu_cod` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `funcionario`
@@ -1249,7 +1249,7 @@ CREATE TABLE `passageiros` (
   `pas_cod` int(11) NOT NULL,
   `aau_cod` int(11) NOT NULL,
   `func_cod` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -1262,7 +1262,7 @@ CREATE TABLE `presta_contas` (
   `aau_cod` int(11) NOT NULL,
   `arq_nota` varchar(100) NOT NULL,
   `fun_cod` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -1276,7 +1276,7 @@ CREATE TABLE `setor` (
   `set_responsavel` int(11) NOT NULL,
   `set_descricao` text NOT NULL,
   `set_situacao` int(11) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `setor`
@@ -1313,7 +1313,7 @@ CREATE TABLE `solicitacao` (
   `sol_descricao` text DEFAULT NULL,
   `sol_urgencia` int(11) NOT NULL,
   `sol_anexo` varchar(200) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `solicitacao`
@@ -1343,7 +1343,7 @@ CREATE TABLE `to_do_list` (
   `td_texto` text NOT NULL,
   `td_stts` int(11) NOT NULL DEFAULT 0,
   `td_data` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -1362,7 +1362,7 @@ CREATE TABLE `usuario` (
   `upe_cod` int(11) NOT NULL COMMENT 'usuario_permissao',
   `set_cod` int(11) NOT NULL,
   `usu_situacao` int(11) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `usuario`
@@ -1461,7 +1461,7 @@ CREATE TABLE `usuario_permissao` (
   `upe_cod` int(11) NOT NULL,
   `upe_descricao` varchar(30) NOT NULL,
   `upe_situacao` int(11) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `usuario_permissao`
@@ -1484,7 +1484,7 @@ CREATE TABLE `veiculo` (
   `vei_placa` varchar(7) NOT NULL,
   `vei_situacao` int(11) NOT NULL DEFAULT 1,
   `agt_cod` int(11) NOT NULL DEFAULT 1 COMMENT 'agenda tipo'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `veiculo`
