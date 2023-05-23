@@ -45,8 +45,17 @@ switch ($_GET['acao']) {
 
     $data->tabela = 'usuario';
     $data->update($aux);
+    
+    //* Atualiza a tabela funcionário
+    $aux2['usu_cod']             = $_POST['usu_cod'];
+    $aux2['fun_nome']            = addslashes(mb_strtoupper($_POST['usu_nome'], 'UTF-8'));
+    $aux2['fun_mail']            = $_POST['usu_email'];
+    $aux2['set_cod']             = $_POST['set_cod'];
 
-    //Atualiza nome do cliente
+    $data->tabela = 'funcionario';
+    $data->update($aux2);
+  
+    //* Atualiza nome do cliente
     $sql = "UPDATE cliente SET cli_nome = '".$POST['usu_nome']."' WHERE usu_cod = " . $_POST['usu_cod'];
     $data->executaSQL($sql);
 
