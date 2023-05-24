@@ -111,7 +111,7 @@
                 <div class="row form-group">
                     <div class="col-sm-4">
                         <label class="control-label" for="data_ini">A partir de:</label>
-                        <input name="data_ini" type="date" class="form-control blockenter" id="data_ini" style="text-transform:uppercase;"/>
+                        <input name="data_ini" type="date" class="form-control blockenter" id="data_ini" style="text-transform:uppercase;" required/>
                     </div>
 
                     <div class="col-sm-4" >           

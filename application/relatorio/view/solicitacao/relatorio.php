@@ -38,9 +38,9 @@ if ($_POST['sol_status'] != '') {
 
 if ($_POST['data_ini'] != '') {
 	if ($where != '') {
-		$where .= " AND s.sol_data >= " . $_POST['data_ini'];
+		$where .= " AND s.sol_data >= '" . $_POST['data_ini']."'";
 	} else {
-		$where = "WHERE s.sol_data >= " . $_POST['data_ini'];
+		$where = "WHERE s.sol_data >= '" . $_POST['data_ini']."'";
 	}
 }
 

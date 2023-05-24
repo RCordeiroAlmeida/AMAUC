@@ -1,4 +1,5 @@
 <?php
+ini_set('memory_limit', '1024M');
 require_once('../../../../library/vendor/autoload.php');
 require_once('../../../../library/MySql.php');
 require_once('../../../../library/DataManipulation.php');
@@ -22,7 +23,6 @@ if ($_POST['idUser'] != 1){
 	$user = " u.usu_cod";
 }
 
-
 if ($_POST['cli_cod'] != '') {
 	$where = " WHERE c.cli_cod = " . $_POST['cli_cod'];
 }
@@ -44,11 +44,7 @@ if ($_POST['sol_status'] != '') {
 }
 
 if ($_POST['data_ini'] != '') {
-	if ($where != '') {
-		$where .= " AND a.ati_data >= " . $_POST['data_ini'];
-	} else {
-		$where = "WHERE a.ati_data >= " . $_POST['data_ini'];
-	}
+	$where = " WHERE a.ati_data > '". $_POST['data_ini']."'";
 }
 
 if ($_POST['atp_cod'] != '') {
@@ -66,7 +62,6 @@ if ($_POST['afr_cod'] != '') {
 		$where = " WHERE a.afr_cod = " . $_POST['afr_cod'];
 	}
 }
-
 
 $sql = "SELECT
         	a.ati_cod,
@@ -93,8 +88,6 @@ $sql = "SELECT
 		".$where;
 
 $solicitacao = $data->find('dynamic', $sql);
-
-
 $html = '
     <html>
         <head>

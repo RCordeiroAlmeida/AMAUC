@@ -30,9 +30,9 @@ if ($_POST['set_cod'] != '') {
 
 if ($_POST['data_ini'] != '') {
 	if ($where != '') {
-		$where .= " AND con_data_ini >= " . $_POST['data_ini'];
+		$where .= " AND con_data_ini >= '" . $_POST['data_ini']."'";
 	} else {
-		$where = "WHERE con_data_ini >= " . $_POST['data_ini'];
+		$where = "WHERE con_data_ini >= '" . $_POST['data_ini']."'";
 	}
 }
 
