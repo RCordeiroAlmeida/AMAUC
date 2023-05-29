@@ -1,5 +1,4 @@
 <?php
-ini_set('memory_limit', '1024M');
 require_once('../../../../library/vendor/autoload.php');
 require_once('../../../../library/MySql.php');
 require_once('../../../../library/DataManipulation.php');
@@ -17,14 +16,18 @@ $dompdf->setPaper('A4', 'portrait');
 
 $usuario = $_POST['usuario'];
 
-if ($_POST['idUser'] != 1){
-	$user = $_POST['idUser'];
-}else{
-	$user = " u.usu_cod";
+
+if ($_POST['permission'] != 1){
+	$where = " WHERE a.usu_cod = ". $_POST['userId'];
 }
 
+
 if ($_POST['cli_cod'] != '') {
-	$where = " WHERE c.cli_cod = " . $_POST['cli_cod'];
+	if ($where != '') {
+		$where = " AND c.cli_cod = " . $_POST['cli_cod'];
+	}else{
+		$where = "WHERE c.cli_cod = " . $_POST['cli_cod'];
+	}
 }
 
 if ($_POST['set_cod'] != '') {
@@ -44,7 +47,7 @@ if ($_POST['sol_status'] != '') {
 }
 
 if ($_POST['data_ini'] != '') {
-	$where = " WHERE a.ati_data > '". $_POST['data_ini']."'";
+	$where = " WHERE a.ati_data >= '". $_POST['data_ini']."' AND a.ati_data <='". $_POST['data_fim']."'";
 }
 
 if ($_POST['atp_cod'] != '') {
@@ -84,7 +87,7 @@ $sql = "SELECT
 			INNER JOIN atividade_tipo AS t ON t.atp_cod = a.atp_cod
 			INNER JOIN atividade_forma AS f ON f.afr_cod = a.afr_cod
             INNER JOIN cliente AS c ON a.cli_cod = c.cli_cod
-			INNER JOIN usuario AS u ON a.usu_cod =". $user."
+			INNER JOIN usuario AS u
 		".$where;
 
 $solicitacao = $data->find('dynamic', $sql);

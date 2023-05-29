@@ -35,8 +35,8 @@
 
 <form role="form" action="application/relatorio/view/atividade/relatorio.php " target="_blank" id="MyForm" method="post" > 
     <input type="hidden" value="<?php echo $_SESSION['amauc_userName']?>" name="usuario"/>
-    <input type="hidden" value="<?php echo $_SESSION['amauc_userId']?>" name="idUser"/>
-    
+    <input type="hidden" value="<?php echo $_SESSION['amauc_userId']?>" name="userId"/>
+    <input type="hidden" value="<?php echo $_SESSION['amauc_userPermissao']?>" name="permissao"/>
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-10 col-xs-9" >
@@ -109,9 +109,14 @@
                 </div>
 
                 <div class="row form-group">
-                    <div class="col-sm-4">
+                    <div class="col-sm-2">
                         <label class="control-label" for="data_ini">A partir de:</label>
                         <input name="data_ini" type="date" class="form-control blockenter" id="data_ini" style="text-transform:uppercase;" required/>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <label class="control-label" for="data_fim">Até:</label>
+                        <input name="data_fim" type="date" class="form-control blockenter" id="data_fim" style="text-transform:uppercase;" required/>
                     </div>
 
                     <div class="col-sm-4" >           
