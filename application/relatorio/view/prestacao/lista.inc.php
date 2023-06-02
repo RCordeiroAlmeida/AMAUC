@@ -1,8 +1,6 @@
 <?php 
-
     $sql = "SELECT set_cod, set_nome FROM setor WHERE set_situacao = 1";
     $setor = $data->find('dynamic', $sql);
-    
 ?>
 
 <form role="form" action="application/relatorio/view/prestacao/relatorio.php " target="_blank" id="MyForm" method="post" > 
@@ -36,7 +34,8 @@
                 </div>
             </div> 
             <div class="ibox-content">
-                <div class="row form-group">  
+                <div class="row form-group">
+
                     <div class="col-sm-4">
                         <label class="control-label">Tipo de Veículo:</label>
                         <select name="con_veiculo" id="con_veiculo" class="form-control blockenter" onchange="veiculo(this.value);">
@@ -59,9 +58,13 @@
                         </select>
                     </div>
 
-                    <div class="col-sm-4">
+                    <div class="col-sm-2">
                         <label class="control-label" for="data_ini">A partir de:</label>
                         <input name="data_ini" type="date" class="form-control blockenter" id="data_ini" style="text-transform:uppercase;" required/>
+                    </div>
+                    <div class="col-sm-2">
+                        <label class="control-label" for="data_ini">Até:</label>
+                        <input name="data_fim" type="date" class="form-control blockenter" id="data_ini" style="text-transform:uppercase;" required/>
                     </div>
                 </div>
             </div>

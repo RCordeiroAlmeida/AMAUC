@@ -16,54 +16,60 @@ $dompdf->setPaper('A4', 'portrait');
 
 $usuario = $_POST['usuario'];
 
-
-if ($_POST['permission'] != 1){
-	$where = " WHERE a.usu_cod = ". $_POST['userId'];
+if ($_POST['usu_cod'] != '') {
+    if ($where != '') {
+        $where .= " AND u.usu_cod = " . $_POST['usu_cod'];
+    } else {
+        $where = "WHERE u.usu_cod = " . $_POST['usu_cod'];
+    }
 }
 
-
 if ($_POST['cli_cod'] != '') {
-	if ($where != '') {
-		$where = " AND c.cli_cod = " . $_POST['cli_cod'];
-	}else{
-		$where = "WHERE c.cli_cod = " . $_POST['cli_cod'];
-	}
+    if ($where != '') {
+        $where .= " AND c.cli_cod = " . $_POST['cli_cod'];
+    } else {
+        $where = "WHERE c.cli_cod = " . $_POST['cli_cod'];
+    }
 }
 
 if ($_POST['set_cod'] != '') {
-	if ($where != '') {
-		$where .= " AND a.set_cod = " . $_POST['set_cod'];
-	} else {
-		$where = "WHERE a.set_cod = " . $_POST['set_cod'];
-	}
+    if ($where != '') {
+        $where .= " AND a.set_cod = " . $_POST['set_cod'];
+    } else {
+        $where = "WHERE a.set_cod = " . $_POST['set_cod'];
+    }
 }
 
 if ($_POST['sol_status'] != '') {
-	if ($where != '') {
-		$where .= " AND a.sol_status = " . $_POST['sol_status'];
-	} else {
-		$where = "WHERE a.sol_status = " . $_POST['sol_status'];
-	}
+    if ($where != '') {
+        $where .= " AND a.sol_status = " . $_POST['sol_status'];
+    } else {
+        $where = "WHERE a.sol_status = " . $_POST['sol_status'];
+    }
 }
 
 if ($_POST['data_ini'] != '') {
-	$where = " WHERE a.ati_data >= '". $_POST['data_ini']."' AND a.ati_data <='". $_POST['data_fim']."'";
+    if($where != '') {
+        $where .= " AND a.ati_data >= '" . $_POST['data_ini'] . "' AND a.ati_data <='" . $_POST['data_fim'] . "'";
+    }else{
+        $where = " WHERE a.ati_data >= '" . $_POST['data_ini'] . "' AND a.ati_data <='" . $_POST['data_fim'] . "'";
+    }
 }
 
 if ($_POST['atp_cod'] != '') {
-	if ($where != '') {
-		$where .= " AND a.atp_cod = " . $_POST['atp_cod'];
-	} else {
-		$where = " WHERE a.atp_cod = " . $_POST['atp_cod'];
-	}
+    if ($where != '') {
+        $where .= " AND a.atp_cod = " . $_POST['atp_cod'];
+    } else {
+        $where = " WHERE a.atp_cod = " . $_POST['atp_cod'];
+    }
 }
 
 if ($_POST['afr_cod'] != '') {
-	if ($where != '') {
-		$where .= " AND atp_cod = " . $_POST['afr_cod'];
-	} else {
-		$where = " WHERE a.afr_cod = " . $_POST['afr_cod'];
-	}
+    if ($where != '') {
+        $where .= " AND atp_cod = " . $_POST['afr_cod'];
+    } else {
+        $where = " WHERE a.afr_cod = " . $_POST['afr_cod'];
+    }
 }
 
 $sql = "SELECT
@@ -81,16 +87,17 @@ $sql = "SELECT
 			a.ati_descricao,
             a.ati_tempo,
             a.usu_cod,
-			u.usu_nome
+			u.usu_nome			
         FROM
             atividade AS a
 			INNER JOIN atividade_tipo AS t ON t.atp_cod = a.atp_cod
 			INNER JOIN atividade_forma AS f ON f.afr_cod = a.afr_cod
             INNER JOIN cliente AS c ON a.cli_cod = c.cli_cod
-			INNER JOIN usuario AS u
-		".$where;
+			INNER JOIN usuario AS u ON u.usu_cod = a.usu_cod
+		" . $where;
 
 $solicitacao = $data->find('dynamic', $sql);
+
 $html = '
     <html>
         <head>
@@ -139,37 +146,37 @@ $html = '
 						</tr>
 					</thead>
 				<tbody>';
-					for ($i = 0; $i < count($solicitacao); $i++) {
-						$solicitacao[$i]['ati_data'] = implode("/", array_reverse(explode("-", $solicitacao[$i]['ati_data'])));
+for ($i = 0; $i < count($solicitacao); $i++) {
+    $solicitacao[$i]['ati_data'] = implode("/", array_reverse(explode("-", $solicitacao[$i]['ati_data'])));
 
-						switch ($solicitacao[$i]['sol_status']) {
-							case 0:
-								$solicitacao[$i]['sol_status'] = "Pendente";
-								break;
+    switch ($solicitacao[$i]['sol_status']) {
+        case 0:
+            $solicitacao[$i]['sol_status'] = "Pendente";
+            break;
 
-							case 1:
-								$solicitacao[$i]['sol_status'] = "Andamento";
-								break;
+        case 1:
+            $solicitacao[$i]['sol_status'] = "Andamento";
+            break;
 
-							case 2:
-								$solicitacao[$i]['sol_status'] = "Concluído";
-								break;
+        case 2:
+            $solicitacao[$i]['sol_status'] = "Concluído";
+            break;
 
-							case 3:
-								$solicitacao[$i]['sol_status'] = "Cancelado";
-								break;
-						}
+        case 3:
+            $solicitacao[$i]['sol_status'] = "Cancelado";
+            break;
+    }
 
-				$html .= '
+    $html .= '
 					<tr>
 						<td style="border: 1px solid black; padding: 8px;">' . str_pad($solicitacao[$i]['ati_cod'], 4, '0', STR_PAD_LEFT) . '</td>
 						<td style="border: 1px solid black; padding: 8px;">' . $solicitacao[$i]['ati_data'] . '</td>
 						<td style="border: 1px solid black; padding: 8px;">' . $solicitacao[$i]['atp_descricao'] . '</td>
 						<td style="border: 1px solid black; padding: 8px;">' . $solicitacao[$i]['afr_descricao'] . '</td>
 						<td style="border: 1px solid black; padding: 8px;">' . $solicitacao[$i]['cli_nome'] . '</td>
-						<td style="border: 1px solid black; padding: 8px;">' . $solicitacao[$i]['ati_solicitante'] . '('. $solicitacao[$i]['ati_cargo'] .')</td>
-						<td style="border: 1px solid black; padding: 8px;">' . $solicitacao[$i]['ati_descricao'] .'</td>
-						<td style="border: 1px solid black; padding: 8px;">' . $solicitacao[$i]['ati_tempo'] .'</td>
+						<td style="border: 1px solid black; padding: 8px;">' . $solicitacao[$i]['ati_solicitante'] . '(' . $solicitacao[$i]['ati_cargo'] . ')</td>
+						<td style="border: 1px solid black; padding: 8px;">' . $solicitacao[$i]['ati_descricao'] . '</td>
+						<td style="border: 1px solid black; padding: 8px;">' . $solicitacao[$i]['ati_tempo'] . '</td>
 					</tr>';
 }
 

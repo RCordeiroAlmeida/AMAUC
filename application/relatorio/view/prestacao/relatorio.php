@@ -16,8 +16,16 @@ $dompdf->setPaper('A4', 'portrait');
 
 $usuario = $_POST['usuario'];
 
+if ($_POST['con_cod'] != ''){
+	$where = " WHERE con_cod = ".$_POST['con_cod'];
+}
+
 if ($_POST['con_veiculo'] != '') {
-	$where = " WHERE con_veiculo = " . $_POST['con_veiculo'];
+	if($where != ''){
+		$where .= " AND con_veiculo = " . $_POST['con_veiculo'];
+	}else{
+		$where = " WHERE con_veiculo = " . $_POST['con_veiculo'];
+	}
 }
 
 if ($_POST['set_cod'] != '') {
@@ -30,9 +38,9 @@ if ($_POST['set_cod'] != '') {
 
 if ($_POST['data_ini'] != '') {
 	if ($where != '') {
-		$where .= " AND con_data_ini >= '" . $_POST['data_ini']."'";
+		$where .= " AND con_data_ini >= '" . $_POST['data_ini']. "' AND con_data_fim <='" . $_POST['data_fim'] . "'";
 	} else {
-		$where = "WHERE con_data_ini >= '" . $_POST['data_ini']."'";
+		$where = " WHERE con_data_ini >= '" . $_POST['data_ini']."' AND con_data_fim <='" . $_POST['data_fim'] . "'";
 	}
 }
 
@@ -49,6 +57,7 @@ $sql = "SELECT
 			conta".
 		$where;
 $prestacao = $data->find('dynamic', $sql);
+
 
 $sql = "SELECT
 			con_cod, SUM(can_valor) AS soma

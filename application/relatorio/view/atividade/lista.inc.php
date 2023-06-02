@@ -31,6 +31,19 @@
 
     $sql = "SELECT set_cod, set_nome FROM setor WHERE set_situacao = 1";
     $setor = $data->find('dynamic', $sql);
+
+    $sql = "SELECT
+                f.fun_cod,
+                f.fun_nome,
+                f.set_cod,
+                u.usu_cod
+            FROM
+                funcionario as f
+                INNER JOIN usuario as u ON u.fun_cod = f.fun_cod
+            WHERE
+                u.usu_situacao = 1
+            ";
+    $funcionario = $data -> find('dynamic', $sql);
 ?>
 
 <form role="form" action="application/relatorio/view/atividade/relatorio.php " target="_blank" id="MyForm" method="post" > 
@@ -67,8 +80,23 @@
             </div> 
             <div class="ibox-content">
                 <div class="row form-group">  
-                    <div class="col-sm-4" >        
-
+                    <div class="col-sm-4" >     
+                        
+                        <?php if($_SESSION['amauc_userPermissao'] == 1){ ?>
+                            <label class="control-label">Funcionário:</label>
+                            <select name="usu_cod" id="usu_cod" class="form-control selectpicker" data-live-search="true" data-size="6">
+                                <option value="" selected>--SELECIONE--</option>
+                                <?php 
+                                    for ($i=0; $i< count($funcionario); $i++) { 
+                                        echo '
+                                            <option value="'.$funcionario[$i]['usu_cod'].'">'.$funcionario[$i]['fun_nome'].'</option>
+                                        ';
+                                    }
+                                ?>
+                            </select>
+                        <?php } ?>    
+                    </div>
+                    <div class="col-sm-4" > 
                         <label class="control-label">Cliente:</label>
                         <select name="cli_cod" id="cli_cod" class="form-control selectpicker" data-live-search="true" data-size="6">
                             <option value="" selected>--SELECIONE--</option>
@@ -77,19 +105,6 @@
                                     echo '
                                         <option value="'.$cliente[$i]['cli_cod'].'">'.$cliente[$i]['cli_nome'].'</option>
                                     ';
-                                }
-                            ?>
-                        </select>
-                    </div>
-                    <div class="col-sm-4" >           
-                        <label class="control-label">Setor:</label>
-                        <select name="set_cod" id="set_cod" class="form-control selectpicker" data-live-search="true" data-size="6" >
-                            <option value="" selected>--SELECIONE--</option>
-                            <?php 
-                                for ($i=0; $i< count($setor); $i++) { 
-                                    echo '
-                                        <option value="'.$setor[$i]['set_cod'].'">'.$setor[$i]['set_nome'].'</option>
-                                        ';
                                 }
                             ?>
                         </select>

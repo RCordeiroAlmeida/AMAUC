@@ -111,9 +111,17 @@
                                                         <td>' . $conta[$i]['con_destino']. '</td>';
                                         ?>
                                                         <td>
+                                                            <form action="application/relatorio/view/prestacao/relatorio.php" method="post">
                                                             <a href="#" onClick="busca_conta('<?php echo $conta[$i]['con_cod'] ?>')" data-toggle='modal' data-target='#buscaConta' class="btn btn-primary" style="height: 34px;">
                                                                 <span class="fa fa-eye"></span>
                                                             </a>
+
+                                                                <input type="hidden" name="con_cod" value="<?php echo $conta[$i]['con_cod'] ?>">
+                                                                <button type="submit" class="btn btn-primary" style="height: 34px;">
+                                                                    <span class="fa fa-print"></span>
+                                                                </button>   
+                                                            </form>
+                                                            
                                                         </td>
                                         <?php }?>
                                         </td>
@@ -141,6 +149,7 @@
     </style>
 
     <script>
+
         function busca_conta(id){
             url = 'application/script/ajax/busca_conta.php?con_cod='+id;
             div = 'retorno_conta';
