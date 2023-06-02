@@ -44,9 +44,7 @@
         </div>
 
         <div class="ibox-content">
-
             <form role="form" action="?module=cadastro&acao=grava_usuario" id="MyForm" method="post" enctype="multipart/form-data" name="MyForm">
-
 
                 <div class="row form-group">
                     <div class="col-sm-6">
