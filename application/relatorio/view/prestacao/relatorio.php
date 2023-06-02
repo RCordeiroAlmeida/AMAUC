@@ -20,6 +20,7 @@ if ($_POST['con_cod'] != ''){
 	$where = " WHERE con_cod = ".$_POST['con_cod'];
 }
 
+
 if ($_POST['con_veiculo'] != '') {
 	if($where != ''){
 		$where .= " AND con_veiculo = " . $_POST['con_veiculo'];
@@ -58,13 +59,14 @@ $sql = "SELECT
 		$where;
 $prestacao = $data->find('dynamic', $sql);
 
-
-$sql = "SELECT
-			con_cod, SUM(can_valor) AS soma
-		FROM conta_anexo
-			GROUP BY con_cod";
-$soma = $data->find('dynamic', $sql);
-
+if ($_POST['con_cod'] != ''){
+	$sql = "SELECT
+			SUM(can_valor) AS soma
+		FROM
+			conta_anexo
+		WHERE con_cod = ". $_POST['con_cod'];
+	$soma = $data->find('dynamic', $sql);
+}
 $html = '
     <html>
         <head>
@@ -93,7 +95,7 @@ $html = '
 					</tr>
 					<tr style="text-align: center">
 						<th colspan="2" style="text-align: center; font-size: 1.2em; padding-top: 10px">
-							Relatório de Solicitações
+							Relatório de Prestação de Contas
 						</th>
 					</tr>
 				</thead>
@@ -106,10 +108,13 @@ $html = '
 							<th style="width: 10%;">Código</th>
 							<th style="width: 30%;">Descrição</th>
 							<th style="width: 10%;">Tipo de veículo</th>
-							<th style="width: 20%;">Valor Total</th>
+						';
+						if ($_POST['con_cod'] != ''){
+							echo '<th style="width: 20%;">Valor Total</th>
 						</tr>
 					</thead>
 				<tbody>';
+						}
 for ($i = 0; $i < count($prestacao); $i++) {
 	$data_ini = explode(" ", $prestacao[$i]['con_data_ini']);
 	
@@ -131,9 +136,12 @@ for ($i = 0; $i < count($prestacao); $i++) {
 			<td style="border: 1px solid black; padding: 8px;">' . $data_ini[0] . ' | ' . $data_fim[0]. '</td>
 			<td style="border: 1px solid black; padding: 8px;">' . str_pad($prestacao[$i]['con_cod'], 4, '0', STR_PAD_LEFT) . '</td>
 			<td style="border: 1px solid black; padding: 8px;">' . $prestacao[$i]['con_descricao'] . '</td>
-			<td style="border: 1px solid black; padding: 8px;">' . $tipo . '</td>
+			<td style="border: 1px solid black; padding: 8px;">' . $tipo . '</td>';
+			if ($_POST['con_cod'] != ''){
+				echo'
 			<td style="border: 1px solid black; padding: 8px;">R$ ' . number_format($soma[$i]['soma'], 2, ',', '.'). '</td>
 		</tr>';
+			}
 }
 
 $html .= '

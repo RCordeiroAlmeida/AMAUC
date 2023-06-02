@@ -34,8 +34,8 @@
                 </div>
             </div> 
             <div class="ibox-content">
+                
                 <div class="row form-group">
-
                     <div class="col-sm-4">
                         <label class="control-label">Tipo de Veículo:</label>
                         <select name="con_veiculo" id="con_veiculo" class="form-control blockenter" onchange="veiculo(this.value);">
