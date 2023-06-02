@@ -44,6 +44,7 @@
                 u.usu_situacao = 1
             ";
     $funcionario = $data -> find('dynamic', $sql);
+
 ?>
 
 <form role="form" action="application/relatorio/view/atividade/relatorio.php " target="_blank" id="MyForm" method="post" > 
@@ -80,9 +81,8 @@
             </div> 
             <div class="ibox-content">
                 <div class="row form-group">  
-                    <div class="col-sm-4" >     
-                        
-                        <?php if($_SESSION['amauc_userPermissao'] == 1){ ?>
+                    <?php if($_SESSION['amauc_userPermissao'] == 1){ ?>
+                        <div class="col-sm-4" >     
                             <label class="control-label">Funcionário:</label>
                             <select name="usu_cod" id="usu_cod" class="form-control selectpicker" data-live-search="true" data-size="6">
                                 <option value="" selected>--SELECIONE--</option>
@@ -94,8 +94,10 @@
                                     }
                                 ?>
                             </select>
-                        <?php } ?>    
-                    </div>
+                        </div>
+                        <?php }else{ ?>
+                            <input type="hidden" name="usu_cod" value="<?php echo $_SESSION['amauc_userId']?>">
+                        <?php }?>    
                     <div class="col-sm-4" > 
                         <label class="control-label">Cliente:</label>
                         <select name="cli_cod" id="cli_cod" class="form-control selectpicker" data-live-search="true" data-size="6">
