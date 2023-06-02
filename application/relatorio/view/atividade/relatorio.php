@@ -12,7 +12,7 @@ $logoPath = file_get_contents('../../../images/logo-amauc.png');
 $logoData = base64_encode($logoPath);
 $logoTag = '<img src="data:image/png;base64,' . $logoData . '" width="200"/>';
 
-$dompdf->setPaper('A4', 'portrait');
+$dompdf->setPaper('A4', 'landscape');
 
 $usuario = $_POST['usuario'];
 

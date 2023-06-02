@@ -84,7 +84,7 @@
                     <?php if($_SESSION['amauc_userPermissao'] == 1){ ?>
                         <div class="col-sm-4" >     
                             <label class="control-label">Funcionário:</label>
-                            <select name="usu_cod" id="usu_cod" class="form-control selectpicker" data-live-search="true" data-size="6">
+                            <select name="usu_cod" id="usu_cod" class="form-control selectpicker" data-live-search="true" data-size="6" required>
                                 <option value="" selected>--SELECIONE--</option>
                                 <?php 
                                     for ($i=0; $i< count($funcionario); $i++) { 
