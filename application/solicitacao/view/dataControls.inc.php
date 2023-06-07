@@ -6,7 +6,6 @@ switch ($_GET['acao']) {
 
 	case 'grava_solicitacao':
 
-
 		$aux['sol_data']      	= $_POST['sol_data'];
 		$aux['cli_cod']      	= $_POST['cli_cod'];
 		$aux['sol_solicitante'] = addslashes(mb_strtoupper($_POST['sol_solicitante'], 'UTF-8'));
