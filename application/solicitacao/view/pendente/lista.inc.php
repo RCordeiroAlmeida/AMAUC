@@ -161,6 +161,14 @@
                                                             </a>
                                         <?php
                                                         }
+                                                        if ($_SESSION['amauc_userPermissao'] == 1){ ?>
+                                                            <a href="#" onClick="inativar('<?php echo $ati[$i]['sol_cod'];?>')" style="height: 34px;">
+                                                                <span class="fa-stack">
+                                                                    <i class="fa fa-square fa-stack-2x"></i>
+                                                                    <i class="fa fa-trash fa-stack-1x fa-inverse"></i>
+                                                                </span>
+                                                            </a>
+                                                        <?php }
                                         }?>   
                                                     </td>
                                                 </tr>
@@ -221,6 +229,7 @@
     </div>
 
     <script>
+
 
         function preenche_popup(sol, cli) {
             document.getElementById('sol_codpop').value = sol;

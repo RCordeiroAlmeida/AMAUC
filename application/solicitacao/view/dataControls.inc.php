@@ -105,7 +105,7 @@ switch ($_GET['acao']) {
 		$sql = 'UPDATE solicitacao SET sol_status = 3 WHERE sol_cod = ' . $_POST['param_0'];
 		$data->executaSQL($sql);
 
-		echo '<script>window.location = "?module=solicitacao&acao=lista_pendente&ms=5"</script>';
+		echo '<script>window.location = "?module=solicitacao&acao=lista_pendente&ms=4"</script>';
 		break;
 
 	case 'aceita':
