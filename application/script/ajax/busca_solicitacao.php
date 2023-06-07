@@ -5,8 +5,6 @@
 
     $data = new DataManipulation();
 
-    var_dump($_GET);
-
 ?>
         <div class="modal-content animated bounceInRight" >
 			<div class="modal-header">

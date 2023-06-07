@@ -49,9 +49,7 @@
             $urgencia = '<small class="label label-danger"><i class="fa fa-exclamation-triangle"></i> ALTA</small>';
             break;
     }
-    echo $cliente[0]['cli_nome'];
-    var_dump($result[0]['sol_anexo']);
-    
+    echo $cliente[0]['cli_nome'];    
 ?>
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-9 col-xs-8">
