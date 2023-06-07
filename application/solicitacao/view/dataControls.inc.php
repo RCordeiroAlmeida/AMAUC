@@ -41,7 +41,7 @@ switch ($_GET['acao']) {
 		$sql = "SELECT fun_mail, fun_nome FROM funcionario WHERE set_cod =" . $result[0]['set_cod'];
 		$funcionario = $data->find('dynamic', $sql);
 
-		//!-------------------------------------------------------------------//
+		//!-------------------------------------------------------------------// 
 
 
 		for($i = 0; $i < count($funcionario); $i++){
