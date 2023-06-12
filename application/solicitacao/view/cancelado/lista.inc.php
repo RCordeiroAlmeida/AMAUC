@@ -27,7 +27,8 @@
                 s.sol_descricao,
                 s.cli_cod,
                 s.set_cod,
-                c.cli_nome
+                c.cli_nome,
+                (SELECT u.usu_nome FROM atividade as a JOIN usuario as u ON(a.usu_cod = u.usu_cod) WHERE a.sol_cod = s.sol_cod ORDER BY a.sol_cod DESC LIMIT 0,1) AS usuario
             FROM
                 solicitacao AS s
                 INNER JOIN cliente AS c ON (s.cli_cod = c.cli_cod)
@@ -110,6 +111,7 @@
                                             <th style="width:10px;">Cód.</th>
                                             <th style="width:80px;">Descrição</th>
                                             <th style="width:80px;">Cliente</th>
+                                            <th style="width:80px;">Responsável</th>
                                             <th style="width:10px;">...</th>
                                         </tr>
                                     </thead>
@@ -123,6 +125,7 @@
                                                     <td>' . str_pad($ati[$i]['sol_cod'], 4, '0', STR_PAD_LEFT) . '</td>
                                                     <td>' . $ati[$i]['sol_descricao'] . '</td>
                                                     <td>' . $ati[$i]['cli_nome'].'</td>
+                                                    <td>' . $ati[$i]['usuario'].'</td>
                                                     <td>
                                                         <a href="#" onclick="nextPage(\'?module=solicitacao&acao=visualiza\', ' . $ati[$i]['sol_cod'] . ')">
                                                             <span class="fa-stack">

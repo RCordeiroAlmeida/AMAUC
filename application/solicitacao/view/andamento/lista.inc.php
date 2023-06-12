@@ -25,7 +25,8 @@ $sql = "SELECT
             s.sol_data,
             s.cli_cod,
             s.set_cod,
-            c.cli_nome
+            c.cli_nome,
+            (SELECT u.usu_nome FROM atividade as a JOIN usuario as u ON(a.usu_cod = u.usu_cod) WHERE a.sol_cod = s.sol_cod ORDER BY a.sol_cod DESC LIMIT 0,1) AS usuario
         FROM
             solicitacao AS s
             INNER JOIN cliente AS c ON (s.cli_cod = c.cli_cod)
@@ -95,6 +96,7 @@ $ati = $data->find('dynamic', $sql);
                                             <th>Cód.</th>
                                             <th>Descrição</th>
                                             <th>Cliente</th>
+                                            <th>Responsável</th>
                                             <th>...</th>
                                         </tr>
                                     </thead>
@@ -123,6 +125,7 @@ $ati = $data->find('dynamic', $sql);
                                                     <td>' . str_pad($ati[$i]['sol_cod'], 4, '0', STR_PAD_LEFT) . '</td>
                                                     <td>' . $ati[$i]['sol_descricao'] . '</td>
                                                     <td>' . $ati[$i]['cli_nome'] . '</td>
+                                                    <td>' . $ati[$i]['usuario'] . '</td>
                                                     <td>
                                                         <a href="#" onclick="nextPage(\'?module=solicitacao&acao=visualiza\', ' . $ati[$i]['sol_cod'] . ')">
                                                             <button class="btn btn-primary" title="Visualizar e/ou atender solicitação">
