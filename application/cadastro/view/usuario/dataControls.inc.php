@@ -59,7 +59,9 @@ switch ($_GET['acao']) {
     $sql = "UPDATE cliente SET cli_nome = '".$POST['usu_nome']."' WHERE usu_cod = " . $_POST['usu_cod'];
     $data->executaSQL($sql);
 
-    $_SESSION['amauc_userName'] = mb_strtoupper($_POST['usu_nome'], 'UTF-8');
+    if($_SESSION['amauc_userId'] == $_POST['usu_cod']){
+      $_SESSION['amauc_userName'] = mb_strtoupper($_POST['usu_nome'], 'UTF-8');
+    }
 
     echo '<script>window.location = "?module=cadastro&acao=lista_usuario&ms=2";</script>';
     break;
