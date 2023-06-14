@@ -14,12 +14,9 @@ $logoTag = '<img src="data:image/png;base64,' . $logoData . '" width="200"/>';
 
 $dompdf->setPaper('A4', 'landscape');
 
-$usuario = $_POST['usuario'];
-
 if ($_POST['con_cod'] != ''){
 	$where = " WHERE con_cod = ".$_POST['con_cod'];
 }
-
 
 if ($_POST['con_veiculo'] != '') {
 	if($where != ''){
@@ -54,28 +51,22 @@ if ($_POST['usu_per'] == '2'){
 }
 
 $sql = "SELECT
-			con_cod,		
-			con_veiculo,
-			con_setor,
-			con_data_ini,
-			con_data_fim,
-			con_destino,
-			con_solicitacao,
-			con_descricao
+			c.con_cod,		
+			c.con_veiculo,
+			c.con_setor,
+			c.con_data_ini,
+			c.con_data_fim,
+			c.con_destino,
+			c.con_solicitacao,
+			c.con_descricao,
+			(SELECT SUM(a.can_valor) FROM conta_anexo as a WHERE c.con_cod = a.con_cod) as total_valor
 		FROM
-			conta".
+			conta as c".
 		$where;
 
 $prestacao = $data->find('dynamic', $sql);
 
-if ($_POST['con_cod'] != ''){
-	$sql = "SELECT
-			SUM(can_valor) AS soma
-		FROM
-			conta_anexo
-		WHERE con_cod = ". $_POST['con_cod'];
-	$soma = $data->find('dynamic', $sql);
-}
+
 $html = '
     <html>
         <head>
@@ -117,13 +108,10 @@ $html = '
 							<th style="width: 10%;">Código</th>
 							<th style="width: 30%;">Descrição</th>
 							<th style="width: 10%;">Tipo de veículo</th>
-						';
-						if ($_POST['con_cod'] != ''){
-							echo '<th style="width: 20%;">Valor Total</th>
-						</tr>
-					</thead>
-				<tbody>';
-						}
+							<th style="width: 20%;">Valor Total</th>
+							</tr>
+						</thead>
+						<tbody>';
 for ($i = 0; $i < count($prestacao); $i++) {
 	$data_ini = explode(" ", $prestacao[$i]['con_data_ini']);
 	
@@ -145,12 +133,9 @@ for ($i = 0; $i < count($prestacao); $i++) {
 			<td style="border: 1px solid black; padding: 8px;">' . $data_ini[0] . ' | ' . $data_fim[0]. '</td>
 			<td style="border: 1px solid black; padding: 8px;">' . str_pad($prestacao[$i]['con_cod'], 4, '0', STR_PAD_LEFT) . '</td>
 			<td style="border: 1px solid black; padding: 8px;">' . $prestacao[$i]['con_descricao'] . '</td>
-			<td style="border: 1px solid black; padding: 8px;">' . $tipo . '</td>';
-			if ($_POST['con_cod'] != ''){
-				echo'
-			<td style="border: 1px solid black; padding: 8px;">R$ ' . number_format($soma[$i]['soma'], 2, ',', '.'). '</td>
+			<td style="border: 1px solid black; padding: 8px;">' . $tipo . '</td>
+			<td style="border: 1px solid black; padding: 8px;">R$ ' . number_format($prestacao[$i]['total_valor'], 2, ',', '.'). '</td>
 		</tr>';
-			}
 }
 
 $html .= '

@@ -1,6 +1,9 @@
 <?php 
     $sql = "SELECT set_cod, set_nome FROM setor WHERE set_situacao = 1";
     $setor = $data->find('dynamic', $sql);
+
+    $sql = "SELECT con_cod FROM conta";
+    $conta = $data->find('dynamic', $sql);
 ?>
 
 <form role="form" action="application/relatorio/view/prestacao/relatorio.php " target="_blank" id="MyForm" method="post" > 

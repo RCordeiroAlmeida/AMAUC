@@ -3,6 +3,12 @@
         echo '<script>window.location="?module=index&acao=logout"</script>';
     }
 
+    if ($_SESSION['amauc_userPermissao'] == 1){
+        $where = "";
+    } else{
+        $where = "WHERE c.usu_cod = ".$_SESSION['amauc_userId'];
+    }
+
     $sql = "SELECT
                 c.con_cod,
                 c.con_setor,
@@ -12,9 +18,8 @@
                 u.usu_nome
             FROM
                 conta AS c 
-                INNER JOIN usuario AS u ON (c.usu_cod = u.usu_cod)
-            WHERE
-                c.usu_cod = ".$_SESSION['amauc_userId'];
+                INNER JOIN usuario AS u ON (c.usu_cod = u.usu_cod)".
+            $where;
 
     $conta = $data->find('dynamic', $sql);
 
