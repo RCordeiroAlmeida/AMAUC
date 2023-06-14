@@ -5,6 +5,8 @@
 
 <form role="form" action="application/relatorio/view/prestacao/relatorio.php " target="_blank" id="MyForm" method="post" > 
     <input type="hidden" value="<?php echo $_SESSION['amauc_userName']?>" name="usuario"/>
+    <input type="hidden" value="<?php echo $_SESSION['amauc_userId']?>" name="usu_cod"/>
+    <input type="hidden" value="<?php echo $_SESSION['amauc_userPermissao']?>" name="usu_per"/>
 
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-10 col-xs-9" >

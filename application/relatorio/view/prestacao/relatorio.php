@@ -45,6 +45,14 @@ if ($_POST['data_ini'] != '') {
 	}
 }
 
+if ($_POST['usu_per'] == '2'){
+	if($where != ''){
+		$where .= " AND usu_cod = " . $_POST['usu_cod'];
+	} else{
+		$where = " WHERE usu_cod = " . $_POST['usu_cod'];
+	}
+}
+
 $sql = "SELECT
 			con_cod,		
 			con_veiculo,
@@ -57,6 +65,7 @@ $sql = "SELECT
 		FROM
 			conta".
 		$where;
+
 $prestacao = $data->find('dynamic', $sql);
 
 if ($_POST['con_cod'] != ''){
