@@ -83,7 +83,7 @@ $setor = $data->find('dynamic', $sql);
                 <div class="row form-group">
 
                     <div class="col-sm-6">
-                        <label class="control-label" for="set_cod">Setor responsável:</label><a onclick="infoSet()" data-toggle='modal' data-target='#sobreSet' class="pull-right">ver mais <i class="fa fa-question-circle-o" aria-hidden="true"></i></a>
+                        <label class="control-label" for="set_cod">Setor para qual deseja atendimento:</label><a onclick="infoSet()" data-toggle='modal' data-target='#sobreSet' class="pull-right">ver mais <i class="fa fa-question-circle-o" aria-hidden="true"></i></a>
                         <select name="set_cod" type="text" class="form-control blockenter" id="set_cod">
                             <option value="" selected>--SELECIONE--</option>
                             <?php
