@@ -50,7 +50,7 @@
             break;
     }
     echo $cliente[0]['cli_nome'];    
-?>
+?>  
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-9 col-xs-8">
         <h2>Solicitações</h2>
