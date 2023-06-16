@@ -14,6 +14,8 @@ $logoTag = '<img src="data:image/png;base64,' . $logoData . '" width="200"/>';
 
 $dompdf->setPaper('A4', 'landscape');
 
+$usuario = $_POST['usuario'];
+
 if ($_POST['con_cod'] != ''){
 	$where = " WHERE con_cod = ".$_POST['con_cod'];
 }
