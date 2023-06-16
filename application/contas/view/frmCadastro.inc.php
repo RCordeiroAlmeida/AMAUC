@@ -207,7 +207,7 @@
                 </div>
                 <div class="col-sm-3">
                     <label>Valor (R$):</label>
-                    <input name="can_valor_0" type="number" class="form-control blockenter" id="can_valor_0" style="text-transform:uppercase;"/>
+                    <input name="can_valor_0" type="text" class="form-control blockenter" id="can_valor_0" style="text-transform:uppercase;"/>
                 </div>
                     <!--  upload de arquivos-->
                 <div class="col-sm-3">
