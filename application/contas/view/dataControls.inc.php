@@ -71,11 +71,18 @@ switch ($_GET['acao']) {
 
 			$aux3['con_cod'] 	= $id;
 			$aux3['can_estab'] 	= mb_strtoupper($_POST['can_estabelecimento_'.$i], 'UTF-8');
-			$aux3['can_valor'] 	= $_POST['can_valor_'.$i];
+
+			
+			$can_valor = $_POST['can_valor_'.$i];
+
+			// Tratando o valor utilizando str_replace para substituir vírgula por ponto
+			$can_valor = str_replace(',', '.', $can_valor);
+
+			// Usando floatval para converter o valor em um número de ponto flutuante (float)
+			$aux3['can_valor'] = floatval($can_valor);
 
 			$data->tabela = 'conta_anexo';
 			$data->add($aux3);
-
 		}
 
 		echo '<script>window.location = "?module=contas&acao=lista&ms=1";</script>';

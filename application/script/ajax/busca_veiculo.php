@@ -29,11 +29,11 @@
                     </div>
                     <div class="col-sm-4">
                         <label class="control-label" for="con_vei_km_ini">KM inicial:</label>
-                        <input name="con_vei_km_ini" type="number" class="form-control blockenter" id="con_vei_km_ini" min="0" max="999999" step="0.1" required/>
+                        <input name="con_vei_km_ini" type="number" class="form-control blockenter" id="con_vei_km_ini" min="0" max="999999" step="0.1"/>
                     </div>
 					<div class="col-sm-4">
                         <label class="control-label" for="con_vei_km_fim">KM final:</label>
-                        <input name="con_vei_km_fim" type="number" class="form-control blockenter" id="con_vei_km_fim" min="0" max="999999" step="0.1" required/>
+                        <input name="con_vei_km_fim" type="number" class="form-control blockenter" id="con_vei_km_fim" min="0" max="999999" step="0.1" />
                     </div>
 
                 <?php                
@@ -46,12 +46,12 @@
 					
                     <div class="col-sm-4">
                         <label class="control-label" for="con_vei_km_ini">KM inicial:</label>
-                        <input name="con_vei_km_ini" type="number" class="form-control blockenter" id="con_vei_km_ini" min="0" max="999999" step="0.1" required/>
+                        <input name="con_vei_km_ini" type="number" class="form-control blockenter" id="con_vei_km_ini" min="0" max="999999" step="0.1" />
                     </div>
 
 					<div class="col-sm-4">
                         <label class="control-label" for="con_vei_km_fim">KM final:</label>
-                        <input name="con_vei_km_fim" type="number" class="form-control blockenter" id="con_vei_km_fim" min="0" max="999999" step="0.1" required/>
+                        <input name="con_vei_km_fim" type="number" class="form-control blockenter" id="con_vei_km_fim" min="0" max="999999" step="0.1" />
                     </div>
 			<?php 
                 break;

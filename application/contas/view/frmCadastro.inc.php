@@ -207,7 +207,7 @@
                 </div>
                 <div class="col-sm-3">
                     <label>Valor (R$):</label>
-                    <input name="can_valor_0" type="text" class="form-control blockenter" id="can_valor_0" style="text-transform:uppercase;"/>
+                    <input name="can_valor_0" onKeyDown="mascara(this, valorMoeda);" type="text" class="form-control blockenter" id="can_valor_0" style="text-transform:uppercase;"/>
                 </div>
                     <!--  upload de arquivos-->
                 <div class="col-sm-3">
@@ -337,10 +337,13 @@
 		inp.setAttribute("type", "text");
 		inp.setAttribute("name", "can_valor_"+cont_pc);
 		inp.setAttribute("class", "form-control");
+        inp.setAttribute("onKeyDown", "mascara(this, valorMoeda);");
 		inp.setAttribute("style", "text-transform:uppercase;");
 		coluna.appendChild(inp);
 
-		cont_coluna++;		
+		cont_coluna++;	
+        
+       
 
 //-------------------------------------------------------------------------------------------------------
 //	COLUNA DO ANEXO
@@ -392,7 +395,6 @@
 		
         var coluna = document.getElementById("coluna"+cont_coluna+cont_pc);
 		coluna.appendChild(tag_a1);
-	
 
         //cria o elemento <a> com os seus atributos e guarda na variavel tag_a
 		var tag_a2 = document.createElement("a"); 
@@ -413,4 +415,6 @@
 		//remove a linha com seus dados e elementos
 		$("#linha"+i).remove();
 	}
+
+
 </script>
