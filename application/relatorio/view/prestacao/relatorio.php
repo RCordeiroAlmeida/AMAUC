@@ -14,11 +14,6 @@ $logoTag = '<img src="data:image/png;base64,' . $logoData . '" width="200"/>';
 
 $dompdf->setPaper('A4', 'landscape');
 
-if($_POST['user'] != ''){
-	$usuario = $_POST['user'];
-}else{
-	$usuario = $_POST['usuario'];
-}
 
 
 if ($_POST['con_cod'] != ''){
@@ -26,6 +21,10 @@ if ($_POST['con_cod'] != ''){
 
 	$sql = "SELECT can_estab, can_valor, can_data FROM conta_anexo WHERE con_cod = ".$_POST['con_cod'];
 	$detalhes = $data->find('dynamic', $sql);
+	
+	$usuario = $_POST['user'];
+} else{
+	$usuario = $_POST['usuario'];
 }
 
 if ($_POST['con_veiculo'] != '') {
@@ -61,6 +60,7 @@ if ($_POST['usu_per'] == '2'){
 }
 
 $sql = "SELECT
+			u.usu_nome,
 			c.con_cod,		
 			c.con_veiculo,
 			c.con_setor,
@@ -71,7 +71,8 @@ $sql = "SELECT
 			c.con_descricao,
 			(SELECT SUM(a.can_valor) FROM conta_anexo as a WHERE c.con_cod = a.con_cod) as total_valor
 		FROM
-			conta as c".
+			conta as c
+			INNER JOIN usuario as u ON u.usu_cod = c.usu_cod".
 		$where;
 
 $prestacao = $data->find('dynamic', $sql);
@@ -110,7 +111,7 @@ $html = '
 					</tr>
 				</thead>
 			</table>
-			<h4>Emitido em: ' . date('d/m/Y') . ' | Por: ' . $usuario . '</h4>
+			<h4>Emitido em: ' . date('d/m/Y') . ' | Por: ' .$usuario. '</h4>
 				<table style="border-collapse: collapse; width: 100%; margin-top: 20px; margin-bottom: 20px;">
 					<thead>
 						<tr style="border: 1px solid black; padding: 8px; text-align: left;">
@@ -189,8 +190,11 @@ $html .= '
 
 </table>
 <div class="assinatura" style="text-align: center; margin-left: auto; margin-right: auto">
-    <p>___________________________________</p>
-    <h5>Assinatura</h5>
+    <p>___________________________________</p>';
+	if($_POST['con_cod'] != ''){
+    	$html.='<h5>'.$prestacao[0]['usu_nome'].'</h5>';
+	}
+$html.='
 </div>';
 $dompdf->loadHtml($html);
 

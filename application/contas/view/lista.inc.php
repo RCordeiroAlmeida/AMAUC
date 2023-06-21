@@ -122,7 +122,7 @@
                                                             </a>
 
                                                                 <input type="hidden" name="con_cod" value="<?php echo $conta[$i]['con_cod'] ?>">
-                                                                <input type="hidden" name="user" value="<?php echo $_SESSION['amauc_userName'] ?>">
+                                                                <input type="hidden" name="user" value="<?php echo $_SESSION['amauc_userName']?>">
                                                                 <button type="submit" class="btn btn-primary" style="height: 34px;">
                                                                     <span class="fa fa-print"></span>
                                                                 </button>   
