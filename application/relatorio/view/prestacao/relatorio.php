@@ -14,10 +14,18 @@ $logoTag = '<img src="data:image/png;base64,' . $logoData . '" width="200"/>';
 
 $dompdf->setPaper('A4', 'landscape');
 
-$usuario = $_POST['usuario'];
+if($_POST['user'] != ''){
+	$usuario = $_POST['user'];
+}else{
+	$usuario = $_POST['usuario'];
+}
+
 
 if ($_POST['con_cod'] != ''){
 	$where = " WHERE con_cod = ".$_POST['con_cod'];
+
+	$sql = "SELECT can_estab, can_valor, can_data FROM conta_anexo WHERE con_cod = ".$_POST['con_cod'];
+	$detalhes = $data->find('dynamic', $sql);
 }
 
 if ($_POST['con_veiculo'] != '') {
@@ -111,9 +119,9 @@ $html = '
 							<th style="width: 30%;">Descrição</th>
 							<th style="width: 10%;">Tipo de veículo</th>
 							<th style="width: 20%;">Valor Total</th>
-							</tr>
-						</thead>
-						<tbody>';
+						</tr>
+					</thead>
+					<tbody>';
 for ($i = 0; $i < count($prestacao); $i++) {
 	$data_ini = explode(" ", $prestacao[$i]['con_data_ini']);
 	
@@ -130,7 +138,42 @@ for ($i = 0; $i < count($prestacao); $i++) {
 		case 3:
 			$tipo = "Outro";
 	}
-	$html .= '
+	
+	if($_POST['con_cod'] != ''){
+		$html .= '
+		<tr>
+			<td style="border: 1px solid black; padding: 8px;">' . $data_ini[0] . ' | ' . $data_fim[0]. '</td>
+			<td style="border: 1px solid black; padding: 8px;">' . str_pad($prestacao[$i]['con_cod'], 4, '0', STR_PAD_LEFT) . '</td>
+			<td style="border: 1px solid black; padding: 8px;">' . $prestacao[$i]['con_descricao'] . '</td>
+			<td style="border: 1px solid black; padding: 8px;">' . $tipo . '</td>
+			<td style="border: 1px solid black; padding: 8px;">R$ ' . number_format($prestacao[$i]['total_valor'], 2, ',', '.'). '</td>
+		</tr>
+		</tbody>
+		</table>
+		
+		<table style="border-collapse: collapse; width: 100%; margin-top: 20px; margin-bottom: 20px;">
+	<thead>
+		<tr style="border: 1px solid black; padding: 8px; text-align: left;">
+			<th style="width: 10%;">Data</th>
+			<th style="width: 30%;">Estabelecimento</th>
+			<th style="width: 5%;">Valor</th>
+		</tr>
+	</thead>
+	<tbody>';
+		for ($j = 0; $j < count($detalhes); $j++) {
+			$html .='
+			<tr style="border: 1px solid black; padding: 8px;">
+				<td style="border: 1px solid black; padding: 8px;">'.$detalhes[$j]['can_data'].'</td>
+				<td style="border: 1px solid black; padding: 8px;">'.$detalhes[$j]['can_estab'].'</td>
+				<td style="border: 1px solid black; padding: 8px;">R$ '.number_format($detalhes[$j]['can_valor'], 2, ',', '.'). '</td>
+			</tr>';
+		}
+		$html .='
+	</tbody>
+</table>';
+
+	}else{
+		$html .= '
 		<tr>
 			<td style="border: 1px solid black; padding: 8px;">' . $data_ini[0] . ' | ' . $data_fim[0]. '</td>
 			<td style="border: 1px solid black; padding: 8px;">' . str_pad($prestacao[$i]['con_cod'], 4, '0', STR_PAD_LEFT) . '</td>
@@ -138,6 +181,7 @@ for ($i = 0; $i < count($prestacao); $i++) {
 			<td style="border: 1px solid black; padding: 8px;">' . $tipo . '</td>
 			<td style="border: 1px solid black; padding: 8px;">R$ ' . number_format($prestacao[$i]['total_valor'], 2, ',', '.'). '</td>
 		</tr>';
+	}
 }
 
 $html .= '

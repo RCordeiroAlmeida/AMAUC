@@ -122,6 +122,7 @@
                                                             </a>
 
                                                                 <input type="hidden" name="con_cod" value="<?php echo $conta[$i]['con_cod'] ?>">
+                                                                <input type="hidden" name="user" value="<?php echo $_SESSION['amauc_userName'] ?>">
                                                                 <button type="submit" class="btn btn-primary" style="height: 34px;">
                                                                     <span class="fa fa-print"></span>
                                                                 </button>   
@@ -155,7 +156,7 @@
 
     <script>
 
-        function busca_conta(id){
+        function busca_conta(id, user){
             url = 'application/script/ajax/busca_conta.php?con_cod='+id;
             div = 'retorno_conta';
             ajax(url, div);
