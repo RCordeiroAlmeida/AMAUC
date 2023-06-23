@@ -23,7 +23,7 @@ $tipo = $data->find('dynamic', $sql);
 
     <div class="col-lg-3 col-xs-4" style="text-align:right;">
         <br /><br />
-        <button class="btn btn-primary" onclick="$('#MyForm').valid() ? enviar():'';" type="submit"><i class="fa fa-check"></i><span class="hidden-xs hidden-sm"> Salvar</span></button>
+        <button class="btn btn-primary" id="btn-envio" onclick="$('#MyForm').valid() ? enviar():'';" type="submit"><i class="fa fa-check"></i><span class="hidden-xs hidden-sm"> Salvar</span></button>
         <button class="btn btn-default" onclick="voltar();" type="button"><i class="fa fa-times"></i><span class="hidden-xs hidden-sm"> Cancelar</span></button>
     </div>
 </div>
@@ -50,25 +50,26 @@ $tipo = $data->find('dynamic', $sql);
                         <label class="control-label" for="data_ini">Data Início:</label>
                         <input name="data_ini" type="date" class="form-control blockenter" id="data_ini" style="text-transform:uppercase;" min="<?php echo date('Y-m-d') ?>" onchange="dataMin(this.value)" required />
                     </div>
-
-                    <div class="col-sm-2">
-                        <label class="control-label" for="age_hora_ini">Hora Início:</label>
-                        <input name="age_hora_ini" type="time" class="form-control blockenter" id="age_hora_ini" style="text-transform:uppercase;" onchange="dataMin(this.value)" required />
-                    </div>
-
+                    
                     <div class="col-sm-2">
                         <label class="control-label" for="data_fim">Data Final:</label>
                         <input name="data_fim" type="date" class="form-control blockenter" id="data_fim" style="text-transform:uppercase;" min="" required />
                     </div>
 
                     <div class="col-sm-2">
+                        <label class="control-label" for="age_hora_ini">Hora Início:</label>
+                        <input name="age_hora_ini" type="time" class="form-control blockenter" id="age_hora_ini" style="text-transform:uppercase;" onchange="horaMin(this.value)" required />
+                    </div>
+                    
+                    <div class="col-sm-2">
                         <label class="control-label" for="age_hora_fim">Hora Fim:</label>
                         <input name="age_hora_fim" type="time" class="form-control blockenter" id="age_hora_fim" style="text-transform:uppercase;" required />
                     </div>
 
+
                     <div class="col-sm-2">
                         <label class="control-label" for="data_fim">Tipo de Agendamento:</label>
-                        <select name="age_tipo" type="text" class="form-control blockenter" id="agt_cod" onchange=" busca_veiculo_disp(this.value)">
+                        <select name="age_tipo" type="text" class="form-control blockenter" id="agt_cod" onchange=" busca_disp(this.value)">
                             <option value="" selected>--SELECIONE--</option>
                             <?php
                                 for ($i = 0; $i < count($tipo); $i++) {
@@ -78,7 +79,7 @@ $tipo = $data->find('dynamic', $sql);
                         </select>
                     </div>
 
-                    <div id="veiculos_disp"></div>
+                    <div id="disp"></div>
 
                 </div>
                 <div class="row form-group">
@@ -102,20 +103,47 @@ $tipo = $data->find('dynamic', $sql);
     </div>
 
     <script>
-        function busca_veiculo_disp(opt){
-            console.log("oi");
-
-            if (opt == 1) {
-                var data_ini = document.getElementById('data_ini').value;
-                var hora_ini = document.getElementById('age_hora_ini').value;
-                var data_fim = document.getElementById('data_fim').value;
-                var hora_fim = document.getElementById('age_hora_fim').value;
-
-                url = 'application/script/ajax/busca_veiculo_disp.php?data_ini='+data_ini+'&data_fim='+data_fim+'&hora_ini='+hora_ini+'&hora_fim='+hora_fim;
-                div = 'veiculos_disp';
-                ajax(url, div);
-            }
+        function busca_disp(opt){
             
+            var data_ini = document.getElementById('data_ini').value;
+            var hora_ini = document.getElementById('age_hora_ini').value;
+            var data_fim = document.getElementById('data_fim').value;
+            var hora_fim = document.getElementById('age_hora_fim').value;
+            div = 'disp';
+
+            switch(opt) {
+                case '1':
+
+                    url = 'application/script/ajax/busca_disp.php?data_ini='+data_ini+'&data_fim='+data_fim+'&hora_ini='+hora_ini+'&hora_fim='+hora_fim+'&opt=1';
+                    
+                    ajax(url, div);
+                break;
+
+                case '2':
+                    
+                    url = 'application/script/ajax/busca_disp.php?data_ini='+data_ini+'&data_fim='+data_fim+'&hora_ini='+hora_ini+'&hora_fim='+hora_fim+'&opt=2';
+                    ajax(url, div);
+
+                    setTimeout(function() {
+                        var ocupado = document.getElementById('ocupado');
+                        block_envio(ocupado.value)
+                        
+                    }, 500);
+
+                    
+                    //block_envio(ocupado.value);
+
+                break;
+            }            
+        }
+
+        function block_envio(val){
+            if(val == 1){
+                document.getElementById('btn-envio').style.display = 'none';
+            }else{
+                document.getElementById('btn-envio').style.display = 'block';
+
+            }
         }
 
         function dataMin(data_ini) {
