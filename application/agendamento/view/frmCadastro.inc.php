@@ -138,10 +138,12 @@ $tipo = $data->find('dynamic', $sql);
         }
 
         function block_envio(val){
-            if(val == 1){
-                document.getElementById('btn-envio').style.display = 'none';
+            if(val == 1){ 
+                var botao = document.getElementById('btn-envio');
+                botao.setAttribute('disabled', 'true');
             }else{
-                document.getElementById('btn-envio').style.display = 'block';
+                var botao = document.getElementById('btn-envio');
+                botao.setAttribute('disabled', 'true');
 
             }
         }
