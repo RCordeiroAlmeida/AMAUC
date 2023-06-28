@@ -126,25 +126,22 @@ $tipo = $data->find('dynamic', $sql);
 
                     setTimeout(function() {
                         var ocupado = document.getElementById('ocupado');
-                        block_envio(ocupado.value)
-                        
+
+                        block_envio(ocupado.value);
                     }, 500);
 
-                    
                     //block_envio(ocupado.value);
 
                 break;
             }            
         }
 
-        function block_envio(val){
-            if(val == 1){ 
-                var botao = document.getElementById('btn-envio');
+        function block_envio(val) {
+            var botao = document.getElementById('btn-envio');
+            if (val == "1") {
                 botao.setAttribute('disabled', 'true');
-            }else{
-                var botao = document.getElementById('btn-envio');
-                botao.setAttribute('disabled', 'true');
-
+            } else {
+                botao.removeAttribute('disabled');
             }
         }
 

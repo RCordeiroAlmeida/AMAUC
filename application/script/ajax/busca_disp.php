@@ -64,10 +64,10 @@
 			// 0 = disponível 1 = ocupado
 			if(count($result) > 0){
 				echo '<p style="color: red; font-weight: bold; padding-top: 2%">Sala ocupada</p>';
-				echo '<input type="hidden" name="ocupado" id="ocupado">';	
+				echo '<input type="hidden" name="ocupado" id="ocupado" value="1">';	
 			}else{
 				echo '<p style="color: green; font-weight: bold; padding-top: 2%">Sala Disponível</p>';
-				echo '<input type="hidden" name="ocupado" id="ocupado">';	
+				echo '<input type="hidden" name="ocupado" id="ocupado" value="0">';	
 			}
 		break;
 
