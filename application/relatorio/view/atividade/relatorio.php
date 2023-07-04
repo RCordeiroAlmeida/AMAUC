@@ -143,6 +143,7 @@ $html = '
 							<th style="width: 20%;">Solicitante (Cargo)</th>
 							<th style="width: 30%;">Descricao</th>
 							<th style="width: 15%;">Tempo de Execução</th>
+							<th style="width: 15%;">Atendido por</th>
 						</tr>
 					</thead>
 				<tbody>';
@@ -177,6 +178,7 @@ for ($i = 0; $i < count($solicitacao); $i++) {
 						<td style="border: 1px solid black; padding: 8px;">' . $solicitacao[$i]['ati_solicitante'] . '(' . $solicitacao[$i]['ati_cargo'] . ')</td>
 						<td style="border: 1px solid black; padding: 8px;">' . $solicitacao[$i]['ati_descricao'] . '</td>
 						<td style="border: 1px solid black; padding: 8px;">' . $solicitacao[$i]['ati_tempo'] . '</td>
+                        <td style="border: 1px solid black; padding: 8px;">' . $solicitacao[$i]['usu_nome'] . '</td>
 					</tr>';
 }
 
