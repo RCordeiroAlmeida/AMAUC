@@ -1,15 +1,56 @@
 <?php
+	switch ($_GET[ms]) {
+		case 1:
+			echo 'toastr.success("Agendamento cadastrado com sucesso!", "Incluido!");';
+			break;
+
+		case 2:
+			echo 'toastr.success("Agendamento atualizado com sucesso", "Atualizado!");';
+			break;
+
+		case 3:
+			echo 'toastr.success("Agendamento excluido com sucesso", "Excluido!");';
+			break;
+	}
 
     if ($_SESSION['amauc_userPermissao'] != 1 && $_SESSION['amauc_userPermissao'] != 2) {
         echo '<script>window.location="?module=index&acao=logout"</script>';
     }
-
-    $sql = "SELECT * FROM agenda";
-    $event = $data->find('dynamic', $sql);
-
-	$sql = "SELECT vei_cod, vei_nome FROM veiculo WHERE vei_situacao = 1";
-    $veiculo = $data->find('dynamic', $sql);
 	
+
+	if($_GET['filtro'] != ''){
+		switch ($_GET['filtro']){
+			case 1: // veiculos
+				$sql = "SELECT a.*, v.vei_cor FROM agenda AS a JOIN veiculo AS v ON (a.vei_cod = v.vei_cod) WHERE a.age_tipo = 1 ";
+				$event = $data->find('dynamic', $sql);
+				
+			break;
+	
+			case 2: //sala de reuniões
+				$sql = "SELECT * FROM agenda WHERE age_tipo = 2";
+				$event = $data->find('dynamic', $sql);
+			break;
+	
+			case 3: //outros
+				$sql = "SELECT * FROM agenda WHERE age_tipo != 1 AND age_tipo != 2";
+				$event = $data->find('dynamic', $sql);
+			break;
+
+			default:
+				$sql = "SELECT * FROM agenda";
+				$event = $data->find('dynamic', $sql);
+		
+				$sql = "SELECT vei_cod, vei_nome FROM veiculo WHERE vei_situacao = 1";
+				$veiculo = $data->find('dynamic', $sql);
+			break;
+		}
+	}else{
+		$sql = "SELECT * FROM agenda";
+		$event = $data->find('dynamic', $sql);
+
+		$sql = "SELECT vei_cod, vei_nome FROM veiculo WHERE vei_situacao = 1";
+		$veiculo = $data->find('dynamic', $sql);
+	}
 ?>
 
 
@@ -22,44 +63,21 @@
     };
 
     <?php
-        switch ($_GET[ms]) {
-            case 1:
-                echo 'toastr.success("Agendamento cadastrado com sucesso!", "Incluido!");';
-                break;
-
-            case 2:
-                echo 'toastr.success("Agendamento atualizado com sucesso", "Atualizado!");';
-                break;
-
-            case 3:
-                echo 'toastr.success("Agendamento excluido com sucesso", "Excluido!");';
-                break;
-        }
-        
-
         for($i=0; $i<count($event); $i++){
-            switch ($event[$i]['age_tipo']){
-                case 1: 
-                    $age_cor 	= "#3dc236";
+			switch ($event[$i]['age_tipo']){
+                case 1: //veiculo
+                    $age_tipo = "Veículo";
+					$age_cor  = $event[$i]['vei_cor'];
+					break;
+                case 2: //sala
+                    $age_tipo = "Sala de Reuniões";
+					$age_cor  = "#d49308";
                     break;
-                case 2:
-                    $age_cor  	= "#d49308";
-                    break;
-                default:
-                    $age_cor 	= "#08c0d4";
+                default: //outro
+					$age_tipo = "Outro";    
+					$age_cor  = "#08c0d4";
                     break;
             }
-			switch($event[$i]['age_tipo']){
-				case 1:
-					$age_tipo = "Veículo";
-					break;
-				case 2:
-					$age_tipo = "Sala de Reuniões";
-					break;
-				default:
-					$age_tipo = "Outro";
-					break;
-			}
 
             $dados .= '{
                 id: '.$event[$i]['age_cod'].',
@@ -84,9 +102,11 @@
         <h2>Novo agendamento</h2>
         <ol class="breadcrumb">
             <li class="active">
-				<span style="background: #D49308; border-radius: 10px; color: #D49308"> ...</span><span> Sala de Reuniões</span><br/>
-				<span style="background: #3DC236; border-radius: 10px; color: #3DC236"> ...</span><span> Veículos</span><br/>
-				<span style="background: #08c0d4; border-radius: 10px; color: #08c0d4"> ...</span><span> Outros</span><br/>
+				<label>Filtros: </label>
+				<button onclick="filtra(1)" class="btn btn-success">Veículos</button>
+				<button onclick="filtra(2)" class="btn btn-warning">Sala de reuniões</button>
+				<button onclick="filtra(3)" class="btn btn-info">Outros</button>
+				<button onclick="filtra(4)" class="btn btn-danger">Resetar filtros</button>
             </li>
         </ol>
     </div>
@@ -118,7 +138,11 @@
 	<script src="library/inspinia/js/plugins/fullcalendar/lang/pt-br.js"></script>
 	
     <script>
-		 function reloadOpener() {
+		function filtra(filtro){
+			window.location.href= "?module=agendamento&acao=lista&filtro="+filtro;
+		}
+
+		function reloadOpener() {
 			// recarrega a página original quando o popup for fechado
 			window.opener.location.reload();
 		}
