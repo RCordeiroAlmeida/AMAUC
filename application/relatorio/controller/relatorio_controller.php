@@ -13,5 +13,9 @@
 		case 'prestacao':
 			require_once 'application/relatorio/view/prestacao/lista.inc.php';
 		break;
+
+		case 'agenda':
+			require_once 'application/relatorio/view/agenda/lista.inc.php';
+		break;
 	}
 ?>
