@@ -16,56 +16,49 @@ $dompdf->setPaper('A4', 'landscape');
 
 switch($_POST['age_tipo']){ 
 	case 1:
-		$where = " WHERE age_tipo = 1"; // Veículo 
+		$where = " WHERE a.age_tipo = 1"; // Veículo 
+		$join = " INNER JOIN veiculo as v ON (v.vei_cod = a.vei_cod)";
+		$atributo = "v.vei_nome, ";
 	break;
 
 	case 2:
-		$where = " WHERE age_tipo = 2"; // sala
+		$where = " WHERE a.age_tipo = 2"; // sala
 		
 	break;
 
 	default:
-		$where = " WHERE age_tipo != 1 AND age_tipo != 2";
+		$where = " WHERE a.age_tipo != 1 AND age_tipo != 2";
 	break;
 }
+
+$data_ini = explode(' ', $_POST['data_ini']);
+$data_ini = $data_ini[0];
+
+
+$data_fim = explode(' ', $_POST['data_fim']);
+$data_fim = $data_fim[0];
+
+$where .= '  AND a.age_hora_ini BETWEEN "'.$data_ini.'" AND "'.$data_fim.'"';
+
 
 $sql = "SELECT
 			a.age_cod,
 			a.age_hora_ini,
 			a.age_hora_fim,
 			a.age_titulo,
-			a.vei_cod,
-			v.vei_nome,
+			a.age_descricao,
+			a.vei_cod,".
+			$atributo."
 			a.usu_cod,
 			u.usu_nome
 		FROM
 			agenda as a
-			INNER JOIN veiculo as v ON (v.vei_cod = a.vei_cod)
 			INNER JOIN usuario as u ON (u.usu_cod = a.usu_cod)
 			".
-		$where;
+			$join . $where;
+
+
 $result = $data->find('dynamic', $sql);
-
-echo $sql;
-exit();
-
-switch($_POST['age_tipo']){ 
-	case 1:
-		$agendamento = $result['vei_nome']; // Veículo 
-	break;
-
-	case 2:
-		$agendamento = "Sala de reuniões"; // Veículo 
-	break;
-
-	default:
-		$agendamento = "Outro";
-	break;
-}
-
-
-
-
 
 $html = '
     <html>
@@ -101,28 +94,30 @@ $html = '
 					</tr>
 				</thead>
 			</table>
-			<h4>Emitido em: ' . date('d/m/Y') . ' | Por: ' . $usuario . '</h4>
 				<table style="border-collapse: collapse; width: 100%; margin-top: 20px; margin-bottom: 20px;">
 					<thead>
 						<tr style="border: 1px solid black; padding: 8px; text-align: left;">
-							<th style="width: 10%;">Cód.</th>
-							<th style="width: 10%;">Início | Fim</th>
-							<th style="width: 30%;">Título</th>
-							<th style="width: 15%;">Agendamento</th>
+							<th style="width: 5%;">Cód.</th>
+							<th style="width: 20%;">Início | Fim</th>
+							<th style="width: 10%;">Título</th>
+							<th style="width: 30%;">Descricao</th>
 							<th style="width: 15%;">Usuário</th>
 						</tr>
 					</thead>
 				<tbody>';
 
-				$html .= '
+				for($i = 0; $i < count($result); $i++){			
+					
+					$html .= '
 					<tr>
 						<td style="border: 1px solid black; padding: 8px;">' . str_pad($result[$i]['age_cod'], 4, '0', STR_PAD_LEFT) . '</td>
-						<td style="border: 1px solid black; padding: 8px;">' . $result[$i]['age_data_ini'] . ' | '. $result[$i]['age_data_fim'] .'</td>
+						<td style="border: 1px solid black; padding: 8px;">' . $result[$i]['age_hora_ini'] . ' | '. $result[$i]['age_hora_fim'] .'</td>
 						<td style="border: 1px solid black; padding: 8px;">' . $result[$i]['age_titulo'] . '</td>
-						<td style="border: 1px solid black; padding: 8px;">' . $agendamento . '</td>
+						<td style="border: 1px solid black; padding: 8px;">' . $result[$i]['age_descricao']. '</td>
 						<td style="border: 1px solid black; padding: 8px;">' . $result[$i]['usu_nome'] . '</td>
 					</tr>';
-
+				}
+				
 
 $html .= '
 </tbody>
