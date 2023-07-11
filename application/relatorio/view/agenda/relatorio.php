@@ -106,12 +106,17 @@ $html = '
 					</thead>
 				<tbody>';
 
-				for($i = 0; $i < count($result); $i++){			
+				for($i = 0; $i < count($result); $i++){
+					$aux_ini = explode(' ', $result[$i]['age_hora_ini']);
+					$data_ini = implode("/", array_reverse(explode('-', $aux_ini[0]))) . ' ' . $aux_ini[1];
+
+					$aux_fim = explode(' ', $result[$i]['age_hora_fim']);
+					$data_fim = implode("/", array_reverse(explode('-', $aux_fim[0]))) . ' ' . $aux_fim[1];
 					
 					$html .= '
 					<tr>
 						<td style="border: 1px solid black; padding: 8px;">' . str_pad($result[$i]['age_cod'], 4, '0', STR_PAD_LEFT) . '</td>
-						<td style="border: 1px solid black; padding: 8px;">' . $result[$i]['age_hora_ini'] . ' | '. $result[$i]['age_hora_fim'] .'</td>
+						<td style="border: 1px solid black; padding: 8px;">' . $data_ini . ' | '. $data_fim .'</td>
 						<td style="border: 1px solid black; padding: 8px;">' . $result[$i]['age_titulo'] . '</td>
 						<td style="border: 1px solid black; padding: 8px;">' . $result[$i]['age_descricao']. '</td>
 						<td style="border: 1px solid black; padding: 8px;">' . $result[$i]['usu_nome'] . '</td>
