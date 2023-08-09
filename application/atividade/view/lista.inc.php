@@ -158,16 +158,16 @@
                                                         
                                             
                                         ?>
-                                                        <td>
-                                                            <a href="#" onClick="busca_atividade('<?php echo $ati[$i]['ati_cod'] ?>', '<?php echo $_SESSION['amauc_userId'] ?>', '<?php echo $_SESSION['amauc_userPermissao'] ?>')" data-toggle='modal' data-target='#editaAtividade' class="btn btn-primary" style="height: 34px;">
-                                                                <span class="fa fa-pencil"></span>
-                                                            </a>
-                                                        <?php if($_SESSION['amauc_userPermissao'] == 1){ ?>
-                                                            <a href="#" onClick="inativar('<?php echo $ati[$i]['ati_cod'];?>')" class="btn btn-danger" style="height: 34px;">
-                                                                <span class="fa fa-trash"></span>
-                                                            </a>
-                                                        <?php } ?>
-                                                        </td>
+                                                <td>
+                                                    <a href="#" onClick="busca_atividade('<?php echo $ati[$i]['ati_cod'] ?>', '<?php echo $_SESSION['amauc_userId'] ?>', '<?php echo $_SESSION['amauc_userPermissao'] ?>')" data-toggle='modal' data-target='#editaAtividade' class="btn btn-primary" style="height: 34px;">
+                                                        <span class="fa fa-pencil"></span>
+                                                    </a>
+                                                <?php if($_SESSION['amauc_userPermissao'] == 1){ ?>
+                                                    <a href="#" onClick="inativar('<?php echo $ati[$i]['ati_cod'];?>')" class="btn btn-danger" style="height: 34px;">
+                                                        <span class="fa fa-trash"></span>
+                                                    </a>
+                                                <?php } ?>
+                                                </td>
                                         <?php }?>
                                         </td>
                                         </tr>
@@ -180,6 +180,7 @@
             </div>
         </div>
     </div>
+
     <br />
     <div class="modal inmodal" id="novaAtividade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -279,7 +280,7 @@
             </form>
         </div>
     </div>
-    
+    <div class="modal inmodal" id="editaAtividade" tabindex="-1" role="dialog" aria-hidden="true"></div>
     
 
     <style type="text/css">
@@ -291,7 +292,7 @@
     <script>
         function busca_atividade(id, user, permission){
             url = 'application/script/ajax/edita_atividade.php?ati_cod='+id+'&user='+user+'&permission='+permission;
-            div = 'retorno_atividade';
+            div = 'editaAtividade';
             ajax(url, div);
         }
 
