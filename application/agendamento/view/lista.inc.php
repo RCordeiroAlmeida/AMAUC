@@ -112,7 +112,7 @@
     </div>
     <div class="col-lg-6 col-xs-6" style="text-align:right;">
         <br /><br />
-        <a href="?module=agendamento&acao=novo" class="btn btn-primary" style="height: 34px;">
+		<a href="?module=agendamento&acao=novo" class="btn btn-primary" style="height: 34px;">
             <span class="glyphicon glyphicon-plus-sign"></span> <span class="hidden-xs hidden-sm">Novo</span>
         </a>
     </div>

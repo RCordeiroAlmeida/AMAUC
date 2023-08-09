@@ -354,8 +354,6 @@
                             <li '.$item_sel[1].' ><a href="?module=relatorio&acao=lista_atividade"><i class="fa fa-tasks" aria-hidden="true"></i></i><span class="nav-label">Atividades</a></li>
 
                             <li '.$item_sel[2].' ><a href="?module=relatorio&acao=lista_prestacao"><i class="fa fa-money" aria-hidden="true"></i></i><span class="nav-label">Prestação de contas</a></li>
-
-                            <li '.$item_sel[3].' ><a href="?module=relatorio&acao=lista_agenda"><i class="fa fa-calendar-o" aria-hidden="true"></i></i><span class="nav-label">Agendamentos</a></li>
                         </ul>';
                     break;
 
@@ -368,8 +366,6 @@
                             <li '.$item_sel[1].' ><a href="?module=relatorio&acao=lista_atividade"><i class="fa fa-tasks" aria-hidden="true"></i></i><span class="nav-label">Atividades</a></li>
 
                             <li '.$item_sel[2].' ><a href="?module=relatorio&acao=lista_prestacao"><i class="fa fa-money" aria-hidden="true"></i></i><span class="nav-label">Prestação de contas</a></li>
-
-                            <li '.$item_sel[3].' ><a href="?module=relatorio&acao=lista_agenda"><i class="fa fa-calendar-o" aria-hidden="true"></i></i><span class="nav-label">Agendamentos</a></li>
                         </ul>';
                     break;
             	}

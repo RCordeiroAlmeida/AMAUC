@@ -238,9 +238,9 @@
                                 <select name="afr_cod" type="text" class="form-control blockenter" id="afr_cod" required>
                                     <option value="">--Selecione--</option>
                                     <?php
-                                    for ($i = 0; $i < count($forma_atendimento); $i++) {
-                                        echo '<option value="' . $forma_atendimento[$i]['afr_cod'] . '" >' . $forma_atendimento[$i]['afr_descricao'] . '</option>';
-                                    }
+                                        for ($i = 0; $i < count($forma_atendimento); $i++) {
+                                            echo '<option value="' . $forma_atendimento[$i]['afr_cod'] . '" >' . $forma_atendimento[$i]['afr_descricao'] . '</option>';
+                                        }
                                     ?>
                                 </select>
                             </div>
@@ -279,11 +279,8 @@
             </form>
         </div>
     </div>
-    <div class="modal inmodal" id="editaAtividade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div id="retorno_atividade"></div>
-        </div>
-    </div>
+    
+    
 
     <style type="text/css">
         .modal-dialog {

@@ -33,7 +33,6 @@
 					)
 						AND vei_situacao = 1
 					ORDER BY vei_nome";
-			
 			$result = $data->find('dynamic', $sql);
 
 			echo '	
@@ -52,12 +51,13 @@
 
 		case '2':
 			$sql = "SELECT
-						vei_cod
+						age_cod
 					FROM
 						agenda
-						WHERE (age_hora_ini <= '".$periodo_ini."' AND age_hora_fim >= '".$periodo_ini."')
+						WHERE 
+							age_tipo = 2 AND ((age_hora_ini <= '".$periodo_ini."' AND age_hora_fim >= '".$periodo_ini."')
 							OR (age_hora_ini <= '".$periodo_fin."' AND age_hora_fim >= '".$periodo_fin."')
-							OR (age_hora_ini >= '".$periodo_ini."' AND age_hora_fim <= '".$periodo_fin."')
+							OR (age_hora_ini >= '".$periodo_ini."' AND age_hora_fim <= '".$periodo_fin."'))
 					";
 			$result = $data->find('dynamic', $sql);
 

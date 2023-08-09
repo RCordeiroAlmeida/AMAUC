@@ -63,6 +63,7 @@ $sql = "SELECT
 			u.usu_nome,
 			c.con_cod,		
 			c.con_veiculo,
+			v.vei_placa,
 			c.con_setor,
 			c.con_data_ini,
 			c.con_data_fim,
@@ -72,7 +73,9 @@ $sql = "SELECT
 			(SELECT SUM(a.can_valor) FROM conta_anexo as a WHERE c.con_cod = a.con_cod) as total_valor
 		FROM
 			conta as c
-			INNER JOIN usuario as u ON u.usu_cod = c.usu_cod".
+			INNER JOIN usuario as u ON u.usu_cod = c.usu_cod
+			INNER JOIN veiculo as v ON v.vei_cod = c.con_vei_cod
+			".
 		$where;
 
 $prestacao = $data->find('dynamic', $sql);
@@ -116,37 +119,27 @@ $html = '
 					<thead>
 						<tr style="border: 1px solid black; padding: 8px; text-align: left;">
 							<th style="width: 25%;">Data inicial | Data final</th>
-							<th style="width: 10%;">Código</th>
+							<th style="width: 10%;">Destino</th>
 							<th style="width: 30%;">Descrição</th>
-							<th style="width: 10%;">Tipo de veículo</th>
+							<th style="width: 10%;">Placa veículo</th>
 							<th style="width: 20%;">Valor Total</th>
 						</tr>
 					</thead>
 					<tbody>';
 for ($i = 0; $i < count($prestacao); $i++) {
 	$data_ini = explode(" ", $prestacao[$i]['con_data_ini']);
+	$data_ini = implode("/", array_reverse($data_ini));
 	
 	$data_fim = explode(" ", $prestacao[$i]['con_data_fim']);
-	
-
-	switch ($prestacao[$i]['con_veiculo']) {
-		case 1:
-			$tipo = "Empresa";
-			break;
-		case 2:
-			$tipo = "Próprio";
-			break;
-		case 3:
-			$tipo = "Outro";
-	}
+	$data_fim = implode("/", array_reverse($data_fim));
 	
 	if($_POST['con_cod'] != ''){
 		$html .= '
 		<tr>
 			<td style="border: 1px solid black; padding: 8px;">' . $data_ini[0] . ' | ' . $data_fim[0]. '</td>
-			<td style="border: 1px solid black; padding: 8px;">' . str_pad($prestacao[$i]['con_cod'], 4, '0', STR_PAD_LEFT) . '</td>
+			<td style="border: 1px solid black; padding: 8px;">' . $prestacao[$i]['con_destino'] . '</td>
 			<td style="border: 1px solid black; padding: 8px;">' . $prestacao[$i]['con_descricao'] . '</td>
-			<td style="border: 1px solid black; padding: 8px;">' . $tipo . '</td>
+			<td style="border: 1px solid black; padding: 8px;">' . $prestacao[$i]['vei_placa'].'</td>
 			<td style="border: 1px solid black; padding: 8px;">R$ ' . number_format($prestacao[$i]['total_valor'], 2, ',', '.'). '</td>
 		</tr>
 		</tbody>
@@ -177,9 +170,9 @@ for ($i = 0; $i < count($prestacao); $i++) {
 		$html .= '
 		<tr>
 			<td style="border: 1px solid black; padding: 8px;">' . $data_ini[0] . ' | ' . $data_fim[0]. '</td>
-			<td style="border: 1px solid black; padding: 8px;">' . str_pad($prestacao[$i]['con_cod'], 4, '0', STR_PAD_LEFT) . '</td>
+			<td style="border: 1px solid black; padding: 8px;">' . $prestacao[$i]['con_destino']. '</td>
 			<td style="border: 1px solid black; padding: 8px;">' . $prestacao[$i]['con_descricao'] . '</td>
-			<td style="border: 1px solid black; padding: 8px;">' . $tipo . '</td>
+			<td style="border: 1px solid black; padding: 8px;">' . $prestacao[$i]['vei_placa'].'</td>
 			<td style="border: 1px solid black; padding: 8px;">R$ ' . number_format($prestacao[$i]['total_valor'], 2, ',', '.'). '</td>
 		</tr>';
 	}

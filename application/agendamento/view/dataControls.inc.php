@@ -1,5 +1,5 @@
 <?php
-	switch($_GET['acao']){
+	switch($_GET['acao']){ 
 		
         case 'grava':
 
@@ -11,7 +11,7 @@
 			$data_fim = $_POST['data_fim'];
 			$age_hora_fim = $_POST['age_hora_fim'];
 			$aux['age_hora_fim'] = date('Y/m/d H:i:s', strtotime("$data_fim $age_hora_fim"));
-			
+
 			$aux['usu_cod']    			= $_SESSION['amauc_userId'];
 			$aux['age_titulo']    		= addslashes(mb_strtoupper($_POST['age_titulo'], 'UTF-8'));
 			$aux['age_descricao']		= addslashes(mb_strtoupper($_POST['age_descricao'], 'UTF-8'));

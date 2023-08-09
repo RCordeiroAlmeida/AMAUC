@@ -32,7 +32,7 @@ switch ($_GET['acao']) {
 		
 		$sol_cod = $data->MaxValue("sol_cod", "solicitacao");
 
-		$sql = "SELECT cli_cod, sol_solicitante, sol_descricao, set_cod FROM solicitacao WHERE sol_cod =" . $sol_cod[0]['sol_cod'];
+		$sql = "SELECT cli_cod, sol_solicitante, sol_descricao, set_cod FROM solicitacao WHERE sol_cod =" . $sol_cod;
 		$result = $data->find('dynamic', $sql);
 
 		$sql = "SELECT cli_nome FROM cliente WHERE cli_cod = " . $result[0]['cli_cod'];

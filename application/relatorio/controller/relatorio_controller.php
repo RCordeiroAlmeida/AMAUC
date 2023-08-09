@@ -17,5 +17,9 @@
 		case 'agenda':
 			require_once 'application/relatorio/view/agenda/lista.inc.php';
 		break;
+
+		case 'agenda-livre':
+			require_once 'application/relatorio/view/agenda/lista-livre.inc.php';
+		break;
 	}
 ?>
