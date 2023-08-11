@@ -66,7 +66,6 @@
 
 <script>
     $(document).ready(function() {
-        alert("kaljsdn");
         $("#con_vei_placa").mask("aaa-9999");
     });
 </script>

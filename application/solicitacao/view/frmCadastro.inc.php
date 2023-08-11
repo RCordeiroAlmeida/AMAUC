@@ -9,7 +9,7 @@ $clientes = $data->find('dynamic', $sql);
 $sql = "SELECT cli_nome, cli_cod FROM cliente WHERE cli_cod = " . $_SESSION['amauc_userCliente'];
 $res_cliente = $data->find('dynamic', $sql);
 
-$sql = "SELECT set_nome, set_cod FROM setor WHERE set_situacao = 1";
+$sql = "SELECT set_nome, set_cod FROM setor WHERE set_situacao = 1 AND mostrar = 1";
 $setor = $data->find('dynamic', $sql);
 ?>
 

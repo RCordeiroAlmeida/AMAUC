@@ -18,7 +18,6 @@ switch ($_GET['acao']) {
 		$aux['vei_nome']    = addslashes(mb_strtoupper($_POST['vei_nome'], 'UTF-8'));
 		$aux['vei_placa']   = addslashes(mb_strtoupper($_POST['vei_placa'], 'UTF-8'));
 		$aux['vei_cor']		= $_POST['vei_cor'];
-		var_dump($_POST['vei_cor']);
 		exit();
 
 		$data->tabela = 'veiculo';

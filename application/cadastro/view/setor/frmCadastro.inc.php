@@ -44,7 +44,7 @@
             <form role="form" action="?module=cadastro&acao=grava_setor" id="MyForm" method="post" enctype="multipart/form-data" name="MyForm">
 
                 <div class="row form-group">
-                    <div class="col-sm-4">
+                    <div class="col-sm-6">
                         <label class="control-label" for="set_nome">Setor:</label>
                         <input name="set_nome" type="text" class="form-control blockenter" id="set_nome" style="text-transform:uppercase;" required />
                     </div>                
@@ -60,10 +60,18 @@
                             ?>
                         </select>
                     </div>
+
+                    <div class="col-sm-2">
+                        <label class="control-label" for="mostrar">Mostrar p/ cliente:</label>
+                        <select class="form-control selectpicker" data-live-search="true" data-size="6" id="mostrar" name="mostrar" required>
+                            <option value="1" selected>Sim</option>
+                            <option value="0">Não</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="row form-group">
-                    <div class="col-sm-8">
+                    <div class="col-sm-12">
                         <label class="control-label" for="set_descricao">Descrição:</label>
                         <textarea name="set_descricao" type="text" class="form-control blockenter" id="set_descricao" style="text-transform:uppercase;" placeholder="Insira uma breve descrição do setor e dos assuntos tratados pelo mesmo" required></textarea>
                     </div>

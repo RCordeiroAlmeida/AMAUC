@@ -5,6 +5,7 @@ switch ($_GET['acao']) {
 		$aux['set_nome'] 		= addslashes(mb_strtoupper($_POST['set_nome'], 'UTF-8'));
 		$aux['set_descricao']   = addslashes(mb_strtoupper($_POST['set_descricao'], 'UTF-8'));
 		$aux['set_responsavel']   = addslashes(mb_strtoupper($_POST['set_responsavel'], 'UTF-8'));
+		$aux['mostrar']   = $_POST['mostrar'];
 
 		$data->tabela = 'setor';
 		$data->add($aux);
@@ -17,6 +18,7 @@ switch ($_GET['acao']) {
 		$aux['set_nome'] 		= addslashes(mb_strtoupper($_POST['set_nome'], 'UTF-8'));
 		$aux['set_descricao']   = addslashes(mb_strtoupper($_POST['set_descricao'], 'UTF-8'));
 		$aux['set_responsavel']   = addslashes(mb_strtoupper($_POST['set_responsavel'], 'UTF-8'));
+		$aux['mostrar']   = $_POST['mostrar'];
 		$data->tabela = 'setor';
 		$data->update($aux);
 

@@ -3,7 +3,7 @@
         echo'<script>window.location="?module=index&acao=logout"</script>';
     }
 
-    $sql = "SELECT set_cod, set_nome, set_responsavel, set_descricao FROM setor WHERE set_cod = ".$_POST['param_0'];
+    $sql = "SELECT set_cod, set_nome, set_responsavel, set_descricao, mostrar FROM setor WHERE set_cod = ".$_POST['param_0'];
     $result = $data->find('dynamic', $sql);
 
     $sql = "SELECT * FROM funcionario";
@@ -49,7 +49,7 @@
 
                 <div class="row form-group">
 
-                    <div class="col-sm-8">
+                    <div class="col-sm-6">
                         <label class="control-label" for="set_nome">Setores:</label>
                         <input name="set_nome" type="text" class="form-control blockenter" id="set_nome" value="<?php echo $result[0]['set_nome']; ?>" style="text-transform:uppercase;" required />
                     </div>
@@ -68,6 +68,20 @@
                                 }
                             ?>
 
+                        </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <label class="control-label" for="mostrar">Mostrar p/ cliente:</label>
+                        <select class="form-control selectpicker" data-live-search="true" data-size="6" id="mostrar" name="mostrar" required>
+                            <?php
+                                if($result[0]['mostrar'] == 1){
+                                    echo '<option value="1" selected>Sim</option>';
+                                    echo '<option value="0" >Não</option>';
+                                }else{
+                                    echo '<option value="1">Sim</option>';
+                                    echo '<option value="0" selected>Não</option>';
+                                }
+                            ?>
                         </select>
                     </div>
                 </div>
