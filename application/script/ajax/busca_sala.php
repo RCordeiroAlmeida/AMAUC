@@ -27,7 +27,6 @@
 			)
 				AND vei_situacao = 1
 			ORDER BY vei_nome";
-	echo $sql;
 	
 	$result = $data->find('dynamic', $sql);
 ?>

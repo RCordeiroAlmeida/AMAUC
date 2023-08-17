@@ -26,37 +26,33 @@
             $sql = "SELECT count(s.sol_cod) as qtd 
                     FROM 
                         solicitacao as s 
-                        JOIN funcionario AS f ON (s.set_cod = f.set_cod) 
                     WHERE 
                         s.sol_status = 0 AND
-                        f.fun_cod = ".$_SESSION['amauc_userFuncionario'];
+                        s.set_cod = ".$_SESSION['amauc_userSetor'];
             $pendente = $data->find('dynamic', $sql);
-
+            
             $sql = "SELECT count(s.sol_cod) as qtd 
                     FROM 
                         solicitacao as s 
-                        JOIN funcionario AS f ON (s.set_cod = f.set_cod) 
                     WHERE 
                         s.sol_status = 1 AND
-                        f.fun_cod = ".$_SESSION['amauc_userFuncionario'];
+                        s.set_cod = ".$_SESSION['amauc_userSetor'];
             $andamento = $data->find('dynamic', $sql);
 
             $sql = "SELECT count(s.sol_cod) as qtd 
                     FROM 
                         solicitacao as s 
-                        JOIN funcionario AS f ON (s.set_cod = f.set_cod) 
                     WHERE 
                         s.sol_status = 2 AND
-                        f.fun_cod = ".$_SESSION['amauc_userFuncionario'];
+                        s.set_cod = ".$_SESSION['amauc_userSetor'];
             $concluido = $data->find('dynamic', $sql);
 
             $sql = "SELECT count(s.sol_cod) as qtd 
                     FROM 
                         solicitacao as s 
-                        JOIN funcionario AS f ON (s.set_cod = f.set_cod) 
                     WHERE 
                         s.sol_status = 3 AND
-                        f.fun_cod = ".$_SESSION['amauc_userFuncionario'];
+                        s.set_cod = ".$_SESSION['amauc_userSetor'];
             $cancelado = $data->find('dynamic', $sql);
             
         break;

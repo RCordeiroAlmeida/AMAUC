@@ -81,6 +81,7 @@ $sql = "SELECT
 $prestacao = $data->find('dynamic', $sql);
 
 
+
 $html = '
     <html>
         <head>
@@ -127,16 +128,13 @@ $html = '
 					</thead>
 					<tbody>';
 for ($i = 0; $i < count($prestacao); $i++) {
-	$data_ini = explode(" ", $prestacao[$i]['con_data_ini']);
-	$data_ini = implode("/", array_reverse($data_ini));
-	
-	$data_fim = explode(" ", $prestacao[$i]['con_data_fim']);
-	$data_fim = implode("/", array_reverse($data_fim));
 	
 	if($_POST['con_cod'] != ''){
+		$data_ini = implode("/", array_reverse(explode("-", $prestacao[$i]['con_data_ini'][0])));
+		$data_fim = implode("/", array_reverse(explode("-", $prestacao[$i]['con_data_fim'][0])));
 		$html .= '
 		<tr>
-			<td style="border: 1px solid black; padding: 8px;">' . $data_ini[0] . ' | ' . $data_fim[0]. '</td>
+			<td style="border: 1px solid black; padding: 8px;">' . $prestacao[$i]['con_data_ini'].' | ' .$prestacao[$i]['con_data_fim']. '</td>
 			<td style="border: 1px solid black; padding: 8px;">' . $prestacao[$i]['con_destino'] . '</td>
 			<td style="border: 1px solid black; padding: 8px;">' . $prestacao[$i]['con_descricao'] . '</td>
 			<td style="border: 1px solid black; padding: 8px;">' . $prestacao[$i]['vei_placa'].'</td>
@@ -169,7 +167,7 @@ for ($i = 0; $i < count($prestacao); $i++) {
 	}else{
 		$html .= '
 		<tr>
-			<td style="border: 1px solid black; padding: 8px;">' . $data_ini[0] . ' | ' . $data_fim[0]. '</td>
+			<td style="border: 1px solid black; padding: 8px;">' . $prestacao[$i]['con_data_ini'].' | ' .$prestacao[$i]['con_data_fim']. '</td>
 			<td style="border: 1px solid black; padding: 8px;">' . $prestacao[$i]['con_destino']. '</td>
 			<td style="border: 1px solid black; padding: 8px;">' . $prestacao[$i]['con_descricao'] . '</td>
 			<td style="border: 1px solid black; padding: 8px;">' . $prestacao[$i]['vei_placa'].'</td>
