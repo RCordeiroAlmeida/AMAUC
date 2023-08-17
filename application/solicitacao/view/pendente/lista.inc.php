@@ -2,15 +2,15 @@
     if (!isset($_SESSION) && $_SESSION['amauc_userPermissao'] != 2) {
         echo '<script>window.location="?module=index&acao=logout"</script>';
     }
-
+    
     switch($_SESSION['amauc_userPermissao']){
         case '1':// ADMINISTRADOR
             $where = "";
             $join = "";
         break;            
         case '2': // FUNCIONARIO
-            $where = "AND fun_cod = ".$_SESSION['amauc_userFuncionario'];
-            $join = "INNER JOIN funcionario AS f ON (s.set_cod = f.set_cod)";   
+            $join = "";
+            $where = " AND s.set_cod = ".$_SESSION['amauc_userSetor'];
         break;
         case '3': // CLIENTE
             $where = "AND c.cli_cod = ".$_SESSION['amauc_userCliente'];
@@ -25,7 +25,8 @@
                 s.sol_data,
                 s.cli_cod,
                 s.set_cod,
-                c.cli_nome
+                c.cli_nome,
+                (SELECT u.usu_nome FROM atividade as a JOIN usuario as u ON(a.usu_cod = u.usu_cod) WHERE a.sol_cod = s.sol_cod ORDER BY a.ati_cod DESC LIMIT 0,1) AS usuario   
             FROM
                 solicitacao AS s
                 INNER JOIN cliente AS c ON (s.cli_cod = c.cli_cod)
@@ -35,11 +36,10 @@
             ORDER BY
                 sol_urgencia DESC,
                 sol_data ASC";
-    $ati= $data->find('dynamic', $sql);
+    $ati= $data->find('dynamic', $sql); 
 
     $sql = "SELECT set_cod, set_nome FROM setor WHERE set_situacao = 1;";
     $selectSetor = $data->find('dynamic', $sql);
-
 ?>
 
 <script>
@@ -204,9 +204,9 @@
                                 <select name="set_cod" type="text" class="form-control blockenter" id="set_cod" required>
                                     <option value="" selected disabled>--SELECIONE--</option>
                                     <?php
-                                    for ($i = 0; $i < count($selectSetor); $i++) {
-                                        echo '<option value="' . $selectSetor[$i]['set_cod'] . '">' . $selectSetor[$i]['set_nome'] . '</option>';
-                                    }
+                                        for ($i = 0; $i < count($selectSetor); $i++) {
+                                            echo '<option value="' . $selectSetor[$i]['set_cod'] . '">' . $selectSetor[$i]['set_nome'] . '</option>';
+                                        }
                                     ?>
                                 </select>
                             </div>

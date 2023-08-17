@@ -3,19 +3,19 @@ if (!isset($_SESSION)) {
     echo '<script>window.location="?module=index&acao=logout"</script>';
 }
 
-switch ($_SESSION['amauc_userPermissao']) {
-    case '1': // ADMINISTRADOR
+switch($_SESSION['amauc_userPermissao']){
+    case '1':// ADMINISTRADOR
         $where = "";
         $join = "";
-        break;
+    break;            
     case '2': // FUNCIONARIO
-        $where = "AND fun_cod = " . $_SESSION['amauc_userFuncionario'];
-        $join = "INNER JOIN funcionario AS f ON (s.set_cod = f.set_cod)";
-        break;
-    case '3': // CLIENTE
-        $where = "AND c.cli_cod = " . $_SESSION['amauc_userCliente'];
         $join = "";
-        break;
+        $where = " AND s.set_cod = ".$_SESSION['amauc_userSetor'];
+    break;
+    case '3': // CLIENTE
+        $where = "AND c.cli_cod = ".$_SESSION['amauc_userCliente'];
+        $join = "";   
+    break;
 }
 
 $sql = "SELECT
@@ -26,17 +26,17 @@ $sql = "SELECT
             s.cli_cod,
             s.set_cod,
             c.cli_nome,
-            (SELECT u.usu_nome FROM atividade as a JOIN usuario as u ON(a.usu_cod = u.usu_cod) WHERE a.sol_cod = s.sol_cod ORDER BY a.ati_cod DESC LIMIT 0,1) AS usuario
+            (SELECT u.usu_nome FROM atividade as a JOIN usuario as u ON(a.usu_cod = u.usu_cod) WHERE a.sol_cod = s.sol_cod ORDER BY a.ati_cod DESC LIMIT 0,1) AS usuario   
         FROM
             solicitacao AS s
             INNER JOIN cliente AS c ON (s.cli_cod = c.cli_cod)
-            " . $join . "
+            ".$join."
         WHERE
-            sol_status = 1 " . $where . "
+            sol_status = 1 ".$where."
         ORDER BY
             sol_urgencia DESC,
             sol_data ASC";
-$ati = $data->find('dynamic', $sql);
+    $ati= $data->find('dynamic', $sql); 
 
 
 ?>

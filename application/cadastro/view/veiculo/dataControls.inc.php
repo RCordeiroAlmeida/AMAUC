@@ -10,7 +10,7 @@ switch ($_GET['acao']) {
 		$data->add($aux);
 
 		echo '<script>window.location = "?module=cadastro&acao=lista_veiculo&ms=1";</script>';
-		break;
+	break;
 
 
 	case 'update_veiculo':
@@ -23,19 +23,19 @@ switch ($_GET['acao']) {
 		$data->update($aux);
 
 		echo '<script>window.location = "?module=cadastro&acao=lista_veiculo&ms=2";</script>';
-		break;
+	break;
 
 	case 'inativar_veiculo':
 		$sql = 'UPDATE veiculo SET vei_situacao = 0 WHERE vei_cod = ' . $_POST['param_0'];
 		$data->executaSQL($sql);
 
 		echo'<script>window.location = "?module=cadastro&acao=lista_veiculo&ms=5"</script>';
-		break;
+	break;
 
 	case 'ativar_veiculo':
 		$sql = 'UPDATE veiculo SET vei_situacao = 1 WHERE vei_cod = ' . $_POST['param_0'];
 		$data->executaSQL($sql);
 
 		echo'<script>window.location = "?module=cadastro&acao=lista_veiculo&ms=5"</script>';
-		break;
+	break;
 }

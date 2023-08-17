@@ -10,8 +10,8 @@
 
     $sql = "SELECT set_cod, set_nome FROM setor WHERE set_situacao = 1";
     $setor = $data->find('dynamic', $sql);
-
 ?>
+
 
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-9 col-xs-8">
@@ -93,9 +93,9 @@
                                     <?php
                                         for ($i = 0; $i < count($setor); $i++) {
                                             if($result[0]['set_cod'] == $setor[$i]['set_cod']){
-                                                echo '<option value="'.$setor[$i]['set_cod'].'" selected>' . $setor[$i]['set_nome'] . '</option>';
+                                                echo '<option value="'.$setor[$i]['set_cod'].'" selected>'.$setor[$i]['set_nome'] . '</option>';
                                             }else{
-                                                echo '<option value="'.$setor[$i]['set_cod'].'">' . $setor[$i]['set_nome'] . '</option>';
+                                                echo '<option value="'.$setor[$i]['set_cod'].'">'.$setor[$i]['set_nome'] . '</option>';
                                             }
                                         }
                                     ?>
