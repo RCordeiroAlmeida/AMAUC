@@ -70,6 +70,7 @@ $sql = "SELECT
 			c.con_destino,
 			c.con_solicitacao,
 			c.con_descricao,
+			c.con_adiantamento,
 			(SELECT SUM(a.can_valor) FROM conta_anexo as a WHERE c.con_cod = a.con_cod) as total_valor
 		FROM
 			conta as c
@@ -79,7 +80,6 @@ $sql = "SELECT
 		$where;
 
 $prestacao = $data->find('dynamic', $sql);
-
 
 
 $html = '
@@ -123,11 +123,19 @@ $html = '
 							<th style="width: 10%;">Destino</th>
 							<th style="width: 30%;">Descrição</th>
 							<th style="width: 10%;">Placa veículo</th>
-							<th style="width: 20%;">Valor Total</th>
+							<th style="width: 10%;">Adiantamento</th>
+							<th style="width: 10%;">Valor Gasto</th>
+							<th style="width: 10%;">Saldo</th>
 						</tr>
 					</thead>
 					<tbody>';
 for ($i = 0; $i < count($prestacao); $i++) {
+	if($prestacao[$i]['con_adiantamento'] != 0){
+		$saldo = $prestacao[$i]['con_adiantamento'] - $prestacao[$i]['total_valor'];
+		$saldo = 'R$ '. number_format($saldo, 2, ',', '.');
+	}else{
+		$saldo = "Não informado";
+	}
 	
 	if($_POST['con_cod'] != ''){
 		$data_ini = implode("/", array_reverse(explode("-", $prestacao[$i]['con_data_ini'][0])));
@@ -138,7 +146,9 @@ for ($i = 0; $i < count($prestacao); $i++) {
 			<td style="border: 1px solid black; padding: 8px;">' . $prestacao[$i]['con_destino'] . '</td>
 			<td style="border: 1px solid black; padding: 8px;">' . $prestacao[$i]['con_descricao'] . '</td>
 			<td style="border: 1px solid black; padding: 8px;">' . $prestacao[$i]['vei_placa'].'</td>
+			<td style="border: 1px solid black; padding: 8px;">R$ ' . number_format($prestacao[$i]['con_adiantamento'], 2, ',', '.').'</td>
 			<td style="border: 1px solid black; padding: 8px;">R$ ' . number_format($prestacao[$i]['total_valor'], 2, ',', '.'). '</td>
+			<td style="border: 1px solid black; padding: 8px;"> ' .$saldo. '</td>
 		</tr>
 		</tbody>
 		</table>
@@ -148,7 +158,7 @@ for ($i = 0; $i < count($prestacao); $i++) {
 		<tr style="border: 1px solid black; padding: 8px; text-align: left;">
 			<th style="width: 10%;">Data</th>
 			<th style="width: 30%;">Estabelecimento</th>
-			<th style="width: 5%;">Valor</th>
+			<th style="width: 10%;">Valor</th>
 		</tr>
 	</thead>
 	<tbody>';
@@ -157,7 +167,7 @@ for ($i = 0; $i < count($prestacao); $i++) {
 			<tr style="border: 1px solid black; padding: 8px;">
 				<td style="border: 1px solid black; padding: 8px;">'.$detalhes[$j]['can_data'].'</td>
 				<td style="border: 1px solid black; padding: 8px;">'.$detalhes[$j]['can_estab'].'</td>
-				<td style="border: 1px solid black; padding: 8px;">R$ '.number_format($detalhes[$j]['can_valor'], 2, ',', '.'). '</td>
+				<td style="border: 1px solid black; padding: 8px;">'.number_format($detalhes[$j]['can_valor'], 2, ',', '.'). '</td>
 			</tr>';
 		}
 		$html .='
@@ -168,10 +178,12 @@ for ($i = 0; $i < count($prestacao); $i++) {
 		$html .= '
 		<tr>
 			<td style="border: 1px solid black; padding: 8px;">' . $prestacao[$i]['con_data_ini'].' | ' .$prestacao[$i]['con_data_fim']. '</td>
-			<td style="border: 1px solid black; padding: 8px;">' . $prestacao[$i]['con_destino']. '</td>
+			<td style="border: 1px solid black; padding: 8px;">' . $prestacao[$i]['con_destino'] . '</td>
 			<td style="border: 1px solid black; padding: 8px;">' . $prestacao[$i]['con_descricao'] . '</td>
 			<td style="border: 1px solid black; padding: 8px;">' . $prestacao[$i]['vei_placa'].'</td>
+			<td style="border: 1px solid black; padding: 8px;">R$ ' . number_format($prestacao[$i]['con_adiantamento'], 2, ',', '.'). '</td>
 			<td style="border: 1px solid black; padding: 8px;">R$ ' . number_format($prestacao[$i]['total_valor'], 2, ',', '.'). '</td>
+			<td style="border: 1px solid black; padding: 8px;">' . $saldo. '</td>
 		</tr>';
 	}
 }

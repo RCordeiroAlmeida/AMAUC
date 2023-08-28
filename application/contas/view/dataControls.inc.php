@@ -18,19 +18,25 @@ switch ($_GET['acao']) {
 		$hora_fim = $_POST['con_hora_fim'];
 		$aux['con_data_fim'] = date('Y/m/d H:i:s', strtotime("$data_fim $hora_fim"));
 
-		$aux['usu_cod'] 		= $_POST['usu_cod'];
-		$aux['con_setor'] 		= $_POST['con_setor'];
-		$aux['con_veiculo']		= $_POST['con_veiculo'];
-		$aux['con_vei_cod']		= $_POST['con_vei_cod']; 	//NULL
-		$aux['con_vei_placa']	= mb_strtoupper($_POST['con_vei_placa']); 	//NULL
-		$aux['con_vei_km_ini']	= $_POST['con_vei_km_ini']; //NULL
-		$aux['con_vei_km_fim']	= $_POST['con_vei_km_fim']; //NULL
-		$aux['con_vei_outro']	= mb_strtoupper($_POST['con_vei_outro']); 	//NULL
-		$aux['con_destino']		= mb_strtoupper($_POST['con_destino']); 
-		$aux['con_cliente']		= $_POST['con_cliente'];//NULL
-		$aux['con_solicitacao']	= $_POST['con_solicitacao'];//NULL
-		$aux['con_descricao']	= $_POST['con_descricao'];//NULL
-		
+		$aux['usu_cod'] 			= $_POST['usu_cod'];
+		$aux['con_setor'] 			= $_POST['con_setor'];
+		$aux['con_veiculo']			= $_POST['con_veiculo'];
+		$aux['con_vei_cod']			= $_POST['con_vei_cod']; 	//NULL
+		$aux['con_vei_placa']		= mb_strtoupper($_POST['con_vei_placa']); 	//NULL
+		$aux['con_vei_km_ini']		= $_POST['con_vei_km_ini']; //NULL
+		$aux['con_vei_km_fim']		= $_POST['con_vei_km_fim']; //NULL
+		$aux['con_vei_outro']		= mb_strtoupper($_POST['con_vei_outro']); 	//NULL
+		$aux['con_destino']			= mb_strtoupper($_POST['con_destino']); 
+		$aux['con_cliente']			= $_POST['con_cliente'];//NULL
+		$aux['con_solicitacao']		= $_POST['con_solicitacao'];//NULL
+		$aux['con_descricao']		= $_POST['con_descricao'];//NULL
+
+		$adiantamento = $_POST['con_adiantamento'];
+		// Tratando o valor utilizando str_replace para substituir vírgula por ponto
+		$adiantamento = str_replace(',', '.', $adiantamento);
+		// Usando floatval para converter o valor em um número de ponto flutuante (float)
+		$aux['con_adiantamento'] = floatval($adiantamento);
+	
 		$data->tabela = 'conta';
 		$data->add($aux);
 

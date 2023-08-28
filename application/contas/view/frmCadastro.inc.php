@@ -201,6 +201,12 @@
             </div>
             <div class="ibox-content">
             <div class="row form-group">
+                <div class="col-sm-2">
+                    <label for="con_adiantamento">Adiantamento (R$):</label>
+                    <input name="con_adiantamento" onKeyDown="mascara(this, valorMoeda);" type="text" class="form-control blockenter" id="con_adiantamento" style="text-transform:uppercase;"/>
+                </div>
+            </div>    
+            <div class="row form-group">
                 <div class="col-sm-5">
                     <label>Estabelecimento:</label>
                     <input name="can_estabelecimento_0" type="text" class="form-control blockenter" id="can_estabelecimento_0" style="text-transform:uppercase;"/>
