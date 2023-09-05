@@ -14,26 +14,36 @@ $logoTag = '<img src="data:image/png;base64,' . $logoData . '" width="200"/>';
 
 $dompdf->setPaper('A4', 'landscape');
 
-
-
 if ($_POST['con_cod'] != ''){
 	$where = " WHERE con_cod = ".$_POST['con_cod'];
 
 	$sql = "SELECT can_estab, can_valor, can_data FROM conta_anexo WHERE con_cod = ".$_POST['con_cod'];
 	$detalhes = $data->find('dynamic', $sql);
+	if(!$_POST['con_veiculo']){
+		$sql = "SELECT con_veiculo FROM conta WHERE con_cod = ".$_POST['con_cod'];
+		$con_veiculo = $data->find('dynamic', $sql);
+
+		$_POST['con_veiculo'] = $con_veiculo[0]['con_veiculo'];
+	}
 	
 	$usuario = $_POST['user'];
 } else{
 	$usuario = $_POST['usuario'];
 }
 
-if ($_POST['con_veiculo'] != '') {
+if ($_POST['con_veiculo'] == 0){
+	$veiculo = ", ";
+	$join = "";
 	if($where != ''){
 		$where .= " AND con_veiculo = " . $_POST['con_veiculo'];
 	}else{
 		$where = " WHERE con_veiculo = " . $_POST['con_veiculo'];
 	}
+}else{
+	$veiculo = ", v.vei_placa, ";
+	$join = " INNER JOIN veiculo as v ON v.vei_cod = c.con_veiculo";
 }
+	
 
 if ($_POST['set_cod'] != '') {
 	if ($where != '') {
@@ -59,28 +69,25 @@ if ($_POST['usu_per'] == '2'){
 	}
 }
 
+
 $sql = "SELECT
 			u.usu_nome,
 			c.con_cod,		
 			c.con_veiculo,
-			v.vei_placa,
 			c.con_setor,
 			c.con_data_ini,
 			c.con_data_fim,
 			c.con_destino,
 			c.con_solicitacao,
-			c.con_descricao,
-			c.con_adiantamento,
+			c.con_descricao
+			".$veiculo."
 			(SELECT SUM(a.can_valor) FROM conta_anexo as a WHERE c.con_cod = a.con_cod) as total_valor
 		FROM
 			conta as c
-			INNER JOIN usuario as u ON u.usu_cod = c.usu_cod
-			INNER JOIN veiculo as v ON v.vei_cod = c.con_vei_cod
-			".
+			".$join."
+			INNER JOIN usuario as u ON u.usu_cod = c.usu_cod".
 		$where;
-
 $prestacao = $data->find('dynamic', $sql);
-
 
 $html = '
     <html>
