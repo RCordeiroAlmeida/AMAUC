@@ -14,12 +14,20 @@
 			require_once 'application/relatorio/view/prestacao/lista.inc.php';
 		break;
 
-		case 'agenda':
-			require_once 'application/relatorio/view/agenda/lista.inc.php';
-		break;
-
-		case 'agenda-livre':
-			require_once 'application/relatorio/view/agenda/lista-livre.inc.php';
+		case 'compensacao':
+			switch($tela[0]){
+				case 'novo':
+					require_once 'application/relatorio/view/compensacao/frmCadastro.inc.php';
+				break;
+				case 'grava':
+				case 'aceitar':
+				case 'negar':
+					require_once 'application/relatorio/view/compensacao/dataControls.inc.php';
+				break;
+				case 'lista':
+					require_once 'application/relatorio/view/compensacao/lista.inc.php';
+				break;
+			}
 		break;
 	}
 ?>

@@ -18,6 +18,8 @@
             $sql = "SELECT count(s.sol_cod) as qtd FROM solicitacao AS s WHERE s.sol_status = 3";
             $cancelado = $data->find('dynamic', $sql);
 
+            $sql = "SELECT count(c.cmp_cod) as qtd FROM compensacao AS c WHERE cmp_responsavel =".$_SESSION['amauc_userId'];
+            $tarefa = $data->find('dynamic', $sql);
         break;
 // FUNCIONARIO---------------------------------------------------------------------------------------------------------
         case 2: 
@@ -54,6 +56,9 @@
                         s.sol_status = 3 AND
                         s.set_cod = ".$_SESSION['amauc_userSetor'];
             $cancelado = $data->find('dynamic', $sql);
+
+            $sql = "SELECT count(c.cmp_cod) as qtd FROM compensacao AS c WHERE cmp_responsavel =".$_SESSION['amauc_userId'];
+            $tarefa = $data->find('dynamic', $sql);
             
         break;
 // CLIENTE---------------------------------------------------------------------------------------------------------            
@@ -121,6 +126,36 @@
         </ol>
     </div>
 </div>
+
+<?php
+    if($_SESSION['amauc_userPermissao'] != 3){
+        if($tarefa[0]['qtd'] > 0){
+
+?>
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <h2>Tarefas</h2>
+        <span>Compensação de Horas a serem aprovadas</span><br /><br />
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <a href="?module=relatorio&acao=lista_compensacao" style="padding: 5px; background-color: #4bb8eb; border-radius: 5px; color: #fff">Em análise</a>
+                    </div>
+                    <div class="ibox-content">
+                        <h2 class="no-margins"><?php echo $tarefa[0]['qtd'];?></h2>
+                        <i class="fa fa-clock-o pull-right" aria-hidden="true"></i>
+                        <span class="">Aguardando atendimento</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<?php
+        }
+    }
+?>
+
 <div class="wrapper wrapper-content animated fadeInRight">
     <h2>Relatório das Solicitações</h2>
     <span>Contagem geral de solicitações</span><br /><br />
@@ -208,7 +243,7 @@
 
         $total = $qtd[0]['pendente']+$qtd[0]['andamento']+$qtd[0]['concluido']+$qtd[0]['cancelado'];
         if($qtd[0]['concluido'] > 0){
-            $percent = ($qtd[0]['concluido']/$total)*100;
+            $percent = number_format(($qtd[0]['concluido']/$total)*100, 2);
         }else{
             $percent= 0;
         }

@@ -335,7 +335,7 @@
                             $item_sel[2] = 'class="active"';
                         break;
 
-                        case 'agenda':
+                        case 'compensacao;':
                             $item_sel[3] = 'class="active"';
                         break;
                         }
@@ -354,6 +354,8 @@
                             <li '.$item_sel[1].' ><a href="?module=relatorio&acao=lista_atividade"><i class="fa fa-tasks" aria-hidden="true"></i></i><span class="nav-label">Atividades</a></li>
 
                             <li '.$item_sel[2].' ><a href="?module=relatorio&acao=lista_prestacao"><i class="fa fa-money" aria-hidden="true"></i></i><span class="nav-label">Prestação de contas</a></li>
+                           
+                            <li '.$item_sel[3].' ><a href="?module=relatorio&acao=lista_compensacao"><i class="fa fa-clock-o" aria-hidden="true"></i><span class="nav-label">Banco de horas</a></li>
                         </ul>';
                     break;
 
@@ -366,6 +368,8 @@
                             <li '.$item_sel[1].' ><a href="?module=relatorio&acao=lista_atividade"><i class="fa fa-tasks" aria-hidden="true"></i></i><span class="nav-label">Atividades</a></li>
 
                             <li '.$item_sel[2].' ><a href="?module=relatorio&acao=lista_prestacao"><i class="fa fa-money" aria-hidden="true"></i></i><span class="nav-label">Prestação de contas</a></li>
+
+                            <li '.$item_sel[3].' ><a href="?module=relatorio&acao=lista_compensacao"><i class="fa fa-clock-o" aria-hidden="true"></i><span class="nav-label">Banco de horas</a></li>
                         </ul>';
                     break;
             	}
