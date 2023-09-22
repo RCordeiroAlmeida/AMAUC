@@ -48,7 +48,7 @@ $tipo = $data->find('dynamic', $sql);
 
                     <div class="col-sm-2">
                         <label class="control-label" for="data_ini">Data Início:</label>
-                        <input name="data_ini" type="date" class="form-control blockenter" id="data_ini" style="text-transform:uppercase;" min="<?php echo date('Y-m-d') ?>" onchange="dataMin(this.value)" required />
+                        <input name="data_ini" type="date" class="form-control blockenter" id="data_ini" style="text-transform:uppercase;" min="<?php echo date('Y-m-d', strtotime('-1 day')); ?>" onchange="dataMin(this.value)" required />
                     </div>
                     
                     <div class="col-sm-2">

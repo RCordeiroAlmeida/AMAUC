@@ -22,7 +22,7 @@ switch ($_GET['acao']) {
 
 		$aux['sol_anexo'] = '';
 		if ($moved) {
-			$aux['sol_anexo'] = $local_arquivo;
+			$aux['sol_anexo'] = $local_arquivo;	
 		}
 
 		$data->tabela = 'solicitacao';
