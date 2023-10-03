@@ -32,11 +32,11 @@ switch ($_GET['acao']) {
 		$aux['con_descricao']		= $_POST['con_descricao'];//NULL
 
 		$adiantamento = $_POST['con_adiantamento'];
+		
 		// Tratando o valor utilizando str_replace para substituir vírgula por ponto
 		$adiantamento = str_replace(',', '.', $adiantamento);
 		// Usando floatval para converter o valor em um número de ponto flutuante (float)
 		$aux['con_adiantamento'] = floatval($adiantamento);
-	
 		$data->tabela = 'conta';
 		$data->add($aux);
 
@@ -90,7 +90,7 @@ switch ($_GET['acao']) {
 			$data->tabela = 'conta_anexo';
 			$data->add($aux3);
 		}
-
+	
 		echo '<script>window.location = "?module=contas&acao=lista&ms=1";</script>';
 		break;
 	

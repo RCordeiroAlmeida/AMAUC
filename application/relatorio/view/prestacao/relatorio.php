@@ -79,7 +79,8 @@ $sql = "SELECT
 			c.con_data_fim,
 			c.con_destino,
 			c.con_solicitacao,
-			c.con_descricao
+			c.con_descricao,
+			c.con_adiantamento
 			".$veiculo."
 			(SELECT SUM(a.can_valor) FROM conta_anexo as a WHERE c.con_cod = a.con_cod) as total_valor
 		FROM

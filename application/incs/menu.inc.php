@@ -338,6 +338,10 @@
                         case 'compensacao;':
                             $item_sel[3] = 'class="active"';
                         break;
+
+                        case 'participacao;':
+                            $item_sel[4] = 'class="active"';
+                        break;
                         }
             	}else{
             		echo '<li>';
@@ -356,6 +360,8 @@
                             <li '.$item_sel[2].' ><a href="?module=relatorio&acao=lista_prestacao"><i class="fa fa-money" aria-hidden="true"></i></i><span class="nav-label">Prestação de contas</a></li>
                            
                             <li '.$item_sel[3].' ><a href="?module=relatorio&acao=lista_compensacao"><i class="fa fa-clock-o" aria-hidden="true"></i><span class="nav-label">Banco de horas</a></li>
+
+                            <li '.$item_sel[4].' ><a href="?module=relatorio&acao=lista_participacao"><i class="fa fa-users" aria-hidden="true"></i><span class="nav-label">Participação de reunião</a></li>
                         </ul>';
                     break;
 
@@ -370,6 +376,8 @@
                             <li '.$item_sel[2].' ><a href="?module=relatorio&acao=lista_prestacao"><i class="fa fa-money" aria-hidden="true"></i></i><span class="nav-label">Prestação de contas</a></li>
 
                             <li '.$item_sel[3].' ><a href="?module=relatorio&acao=lista_compensacao"><i class="fa fa-clock-o" aria-hidden="true"></i><span class="nav-label">Banco de horas</a></li>
+
+                            <li '.$item_sel[4].' ><a href="?module=relatorio&acao=lista_participacao"><i class="fa fa-users" aria-hidden="true"></i><span class="nav-label">Participação de reunião</a></li>
                         </ul>';
                     break;
             	}

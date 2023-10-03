@@ -18,7 +18,8 @@ if ($_GET['con_cod'] != '') {
 				c.con_destino,
 				c.con_cliente,
 				cl.cli_nome,
-				c.con_descricao
+				c.con_descricao,
+				c.con_adiantamento
 			FROM 
 				conta AS c
 				LEFT JOIN usuario as u ON u.usu_cod = c.usu_cod
@@ -211,7 +212,12 @@ if ($_GET['con_cod'] != '') {
                         <textarea type="text" class="form-control blockenter" id="con_descricao" name="con_descricao" style="white-space: pre-wrap; height: 200px;" disabled><?php echo $conta[0]['con_descricao'] ?></textarea>
                     </div>
 				</div>
-
+				<div class="row form-group">
+					<div class="col-sm-3">
+						<label class="control-label" for="con_adiantamento">Adiantamento:</label>
+						<input type="text" class="form-control blockenter" id="con_adiantamento" name="con_adiantamento" value="R$ <?php echo number_format($conta[0]['con_adiantamento'], 2, ',', '.');?>" disabled>
+					</div>
+				</div>
 
 				<?php
 					for($i=0; $i < count($anexo); $i++) {?>
@@ -234,7 +240,6 @@ if ($_GET['con_cod'] != '') {
 								<input type="number" class="form-control blockenter" id="can_valor" name="can_valor" value="<?php echo $anexo[$i]['can_valor'] ?>" disabled>
 							</div>
 							
-
 							<div class="col-sm-2">
 								<?php 
 									if($i == 0){

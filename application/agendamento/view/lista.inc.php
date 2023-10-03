@@ -114,7 +114,7 @@
         <br /><br />
 		<a href="?module=agendamento&acao=novo" class="btn btn-primary" style="height: 34px;">
             <span class="glyphicon glyphicon-plus-sign"></span> <span class="hidden-xs hidden-sm">Novo</span>
-        </a>
+	</a>
     </div>
 </div>
 <a data-toggle='modal' data-target='#visualiza_agenda' id="abre-popup"></a>

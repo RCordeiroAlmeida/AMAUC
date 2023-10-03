@@ -9,7 +9,7 @@
 
 		case 'novo':
 			require_once 'application/agendamento/view/frmCadastro.inc.php';
-		break;	
+		break;
 
 		case 'edita':
 			require_once 'application/agendamento/view/frmEdicao.inc.php';
