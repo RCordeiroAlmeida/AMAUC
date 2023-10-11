@@ -99,6 +99,16 @@ $sql = "SELECT
 $solicitacao = $data->find('dynamic', $sql);
 
 $html = '
+
+<style>
+table {
+    font-size: 10px;
+}
+td {
+    padding: 5px;
+}
+</style>
+
     <html>
         <head>
 			<style>
@@ -135,15 +145,15 @@ $html = '
 				<table style="border-collapse: collapse; width: 100%; margin-top: 20px; margin-bottom: 20px;">
 					<thead>
 						<tr style="border: 1px solid black; padding: 8px; text-align: left;">
-							<th style="width: 5%;">Código</th>
-							<th style="width: 10%;">Data</th>
-							<th style="width: 15%;">Tipo</th>
-							<th style="width: 15%;">Atendimento</th>
-							<th style="width: 20%;">Cliente</th>
-							<th style="width: 20%;">Solicitante (Cargo)</th>
-							<th style="width: 30%;">Descricao</th>
-							<th style="width: 15%;">Tempo de Execução</th>
-							<th style="width: 15%;">Atendido por</th>
+							<th>Código</th>
+							<th>Data</th>
+							<th>Tipo</th>
+							<th>Atendimento</th>
+							<th>Cliente</th>
+							<th>Solicitante (Cargo)</th>
+							<th style="width:50px">Descricao</th>
+							<th>Tempo de Execução</th>
+							<th>Atendido por</th>
 						</tr>
 					</thead>
 				<tbody>';
