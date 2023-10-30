@@ -19,10 +19,10 @@ if ($_POST['con_cod'] != ''){
 
 	$sql = "SELECT can_estab, can_valor, can_data FROM conta_anexo WHERE con_cod = ".$_POST['con_cod'];
 	$detalhes = $data->find('dynamic', $sql);
+
 	if(!$_POST['con_veiculo']){
 		$sql = "SELECT con_veiculo FROM conta WHERE con_cod = ".$_POST['con_cod'];
 		$con_veiculo = $data->find('dynamic', $sql);
-
 		$_POST['con_veiculo'] = $con_veiculo[0]['con_veiculo'];
 	}	
 	$usuario = $_POST['user'];
@@ -30,17 +30,17 @@ if ($_POST['con_cod'] != ''){
 	$usuario = $_POST['usuario'];
 }
 
-if ($_POST['con_veiculo'] != 0 && $_POST['con_veiculo'] != ''){
-	$veiculo = ", ";
-	$join = "";
+if ($_POST['con_veiculo']){
+	$veiculo = ", v.vei_placa, ";
+	$join = " INNER JOIN veiculo as v ON v.vei_cod = c.con_veiculo";
 	if($where != ''){
 		$where .= " AND con_veiculo = " . $_POST['con_veiculo'];
 	}else{
 		$where = " WHERE con_veiculo = " . $_POST['con_veiculo'];
 	}
 }else{
-	$veiculo = ", v.vei_placa, ";
-	$join = " INNER JOIN veiculo as v ON v.vei_cod = c.con_veiculo";
+	$veiculo = ", ";
+	$join = " ";
 }
 
 
@@ -68,6 +68,9 @@ if ($_POST['usu_per'] == '2'){
 	}
 }
 
+
+
+
 $sql = "SELECT
 			u.usu_nome,
 			c.con_cod,		
@@ -86,7 +89,6 @@ $sql = "SELECT
 			".$join."
 			INNER JOIN usuario as u ON u.usu_cod = c.usu_cod".
 		$where;
-
 $prestacao = $data->find('dynamic', $sql);
 
 $html = '
@@ -136,6 +138,8 @@ $html = '
 						</tr>
 					</thead>
 					<tbody>';
+					
+
 for ($i = 0; $i < count($prestacao); $i++) {
 	if($prestacao[$i]['con_adiantamento'] != 0){
 		$saldo = $prestacao[$i]['con_adiantamento'] - $prestacao[$i]['total_valor'];
@@ -143,6 +147,7 @@ for ($i = 0; $i < count($prestacao); $i++) {
 	}else{
 		$saldo = "Não informado";
 	}
+	
 	
 	if($_POST['con_cod'] != ''){
 		$data_ini = implode("/", array_reverse(explode("-", $prestacao[$i]['con_data_ini'][0])));
