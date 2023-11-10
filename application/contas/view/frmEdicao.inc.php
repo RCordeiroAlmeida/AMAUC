@@ -23,9 +23,10 @@
             FROM conta as c
                 INNER JOIN usuario as u ON u.usu_cod = c.usu_cod
                 INNER JOIN setor as s ON s.set_cod = c.con_setor
-                INNER JOIN cliente as cl ON cl.cli_cod = c.con_cliente
+                LEFT JOIN cliente as cl ON cl.cli_cod = c.con_cliente
             WHERE c.con_cod =". $_POST['param_0'];
     $result = $data->find('dynamic', $sql);
+    
     
 
     $sql = "SELECT ca.* FROM conta_anexo as ca WHERE ca.con_cod = ".$_POST['param_0'];
