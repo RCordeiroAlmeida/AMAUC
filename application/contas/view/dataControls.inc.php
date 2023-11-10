@@ -177,10 +177,10 @@ switch ($_GET['acao']) {
 						$aux3['can_anexo'] = $local_arquivo;
 					}
 				}
+				
 				$aux3['con_cod'] 	= $id;
 				$aux3['can_estab'] 	= mb_strtoupper($_POST['can_estabelecimento_'.$i], 'UTF-8');
 
-				
 				$can_valor = $_POST['can_valor_'.$i];
 
 				// Tratando o valor utilizando str_replace para substituir vírgula por ponto
@@ -188,6 +188,7 @@ switch ($_GET['acao']) {
 
 				// Usando floatval para converter o valor em um número de ponto flutuante (float)
 				$aux3['can_valor'] = floatval($can_valor);
+				
 
 				$data->tabela = 'conta_anexo';
 				if($aux3['can_cod']){
@@ -197,7 +198,8 @@ switch ($_GET['acao']) {
 				}
 			}
 		}
-	
+		
+
 		echo '<script>window.location = "?module=contas&acao=lista&ms=2";</script>';
 	break;
 	

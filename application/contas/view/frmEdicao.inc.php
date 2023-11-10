@@ -26,8 +26,6 @@
                 INNER JOIN cliente as cl ON cl.cli_cod = c.con_cliente
             WHERE c.con_cod =". $_POST['param_0'];
     $result = $data->find('dynamic', $sql);
-
-    var_dump($result);
     
 
     $sql = "SELECT ca.* FROM conta_anexo as ca WHERE ca.con_cod = ".$_POST['param_0'];
@@ -68,7 +66,7 @@
 
 <form role="form" action="?module=contas&acao=update_conta" id="MyForm" method="post" enctype="multipart/form-data" name="MyForm">
     <input type="hidden" name="con_cod" value="<?php echo $_POST['param_0'] ?>">
-    <input name="qtd_anexo" id="qtd_anexo" type="text" value="<?php echo count($anexo); ?>" />
+    <input name="qtd_anexo" id="qtd_anexo" type="hidden" value="<?php echo count($anexo); ?>" />
 
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="ibox float-e-margins">
@@ -223,7 +221,6 @@
                         
                         <input type="file" name="can_anexo_<?php echo $i?>" class="form-control" id="can_anexo">
                         <input type="hidden" name="can_anexo_atual_<?php echo $i?>" class="form-control" value="<?php echo $anexo[$i]['can_anexo']?>">
-
                     </div>
                     <div class="col-sm-1" style="padding-top: 25px">
                         <a class="btn btn-primary" onclick="criar()">
@@ -232,8 +229,6 @@
                     </div>
                 </div>
             <?php } ?>
-            
-
 
                 <!-- Aqui eu guardo quanto a quantidade de itens que foram inseridos para eu poder tratar no DataControls -->
 
