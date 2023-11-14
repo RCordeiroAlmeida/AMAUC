@@ -130,12 +130,19 @@ switch ($_GET['acao']) {
 		$aux['con_solicitacao']		= $_POST['con_solicitacao'];//NULL
 		$aux['con_descricao']		= $_POST['con_descricao'];//NULL
 
+
+				// Obtendo o valor do adiantamento
 		$adiantamento = $_POST['con_adiantamento'];
-		
-		// Tratando o valor utilizando str_replace para substituir vírgula por ponto
+
+		// Removendo caracteres indesejados (espaços, ponto de milhar) antes de realizar a conversão
+		$adiantamento = str_replace([' ', '.'], '', $adiantamento);
+
+		// Substituindo a vírgula por ponto
 		$adiantamento = str_replace(',', '.', $adiantamento);
+
 		// Usando floatval para converter o valor em um número de ponto flutuante (float)
 		$aux['con_adiantamento'] = floatval($adiantamento);
+
 		$data->tabela = 'conta';
 		$data->update($aux);
 
