@@ -205,9 +205,9 @@
                 </div>
             </div>    
             
-            <?php for($i = 0; $i < count($anexo); $i++){?>
-                <input type="hidden" name="can_cod" value="<?php echo $anexo[$i]['can_cod']?>">
-                <div class="row form-group">
+            <?php for ($i = 0; $i < count($anexo); $i++) { ?>
+                <input type="hidden" name="can_cod" value="<?php echo $anexo[$i]['can_cod'] ?>">
+                <div class="row form-group" id="linha<?php echo $i ?>">
                     <div class="col-sm-5">
                         <label>Estabelecimento:</label>
                         <input name="can_estabelecimento_<?php echo $i?>" type="text" class="form-control blockenter" id="can_estabelecimento_0 " style="text-transform:uppercase;" value="<?php echo $anexo[$i]['can_estab']?>"/>
@@ -226,6 +226,10 @@
                     <div class="col-sm-1" style="padding-top: 25px">
                         <a class="btn btn-primary" onclick="criar()">
                             <i class="fa fa-plus"></i><span class="hidden-xs hidden-sm"></span>
+                        </a>
+                        <!-- Adicionar botão de apagar aqui -->
+                        <a class="btn btn-danger" onclick="del_attr(<?php echo $i ?>)">
+                            <i class="fa fa-trash"></i><span class="hidden-xs hidden-sm"></span>
                         </a>
                     </div>
                 </div>
@@ -282,149 +286,155 @@
 <script>
 	var cont_pc = document.getElementById("qtd_anexo").value; //Controla a quantidade de itens que foram inseridos
 
-	function criar(){
-		//Controla qual coluna estou no momento
-		var cont_coluna = 0;
-		//pega o elemento destino e seta na variavel pai		
-		var pai = document.getElementById("prox_item");
-		
-		//cria o elemento <div> com os atributos que definem que ela é a linha e guarda na variavel lin
-		var lin = document.createElement("div");
-		lin.setAttribute("id","linha"+cont_pc);
-		lin.setAttribute("class","row form-group");
-		//define que linha vai ser criada dentro de pai
-		pai.appendChild(lin);
+    function criar() {
+        // Controla qual coluna estou no momento
+        var cont_coluna = 0;
+        // Pega o elemento destino e seta na variável pai
+        var pai = document.getElementById("prox_item");
 
-//-------------------------------------------------------------------------------------------------------
-//	COLUNA DO ESTABELECIMENTO
-//-------------------------------------------------------------------------------------------------------
+        // Cria o elemento <div> com os atributos que definem que ela é a linha e guarda na variável lin
+        var lin = document.createElement("div");
+        lin.setAttribute("id", "linha" + cont_pc);
+        lin.setAttribute("class", "row form-group");
+        // Define que a linha vai ser criada dentro de pai
+        pai.appendChild(lin);
 
-		//cria o elemento <div> com os atributos que definem que ela é a coluna e guarda na variavel col
-		var col = document.createElement("div");
-		col.setAttribute("id","coluna"+cont_coluna+cont_pc);
-		col.setAttribute("class","col-sm-5");
-		var linha = document.getElementById("linha"+cont_pc);
-		//define que coluna vai ser criada dentro de linha
-		linha.appendChild(col);
-		
-		//cria o elemento <label> com os seus atributos
-		var lab = document.createElement("label");
-		lab.innerHTML = 'Estabelecimento:';
-		var coluna = document.getElementById("coluna"+cont_coluna+cont_pc);		
-		coluna.appendChild(lab);
+        //-------------------------------------------------------------------------------------------------------
+        // COLUNA DO ESTABELECIMENTO
+        //-------------------------------------------------------------------------------------------------------
 
-		//cria o elemento <input> com os seus atributos e guarda na variavel inp
-		var inp = document.createElement("input");
-		inp.setAttribute("id", "can_estabelecimento_"+cont_pc);
-		inp.setAttribute("type", "text");
-		inp.setAttribute("name", "can_estabelecimento_"+cont_pc);
-		inp.setAttribute("class", "form-control");
-		inp.setAttribute("style", "text-transform:uppercase;");
-		coluna.appendChild(inp);
+        // Cria o elemento <div> com os atributos que definem que ela é a coluna e guarda na variável col
+        var col = document.createElement("div");
+        col.setAttribute("id", "coluna" + cont_coluna + cont_pc);
+        col.setAttribute("class", "col-sm-5");
+        var linha = document.getElementById("linha" + cont_pc);
+        // Define que a coluna vai ser criada dentro de linha
+        linha.appendChild(col);
 
-		cont_coluna++;
+        // Cria o elemento <label> com os seus atributos
+        var lab = document.createElement("label");
+        lab.innerHTML = 'Estabelecimento:';
+        var coluna = document.getElementById("coluna" + cont_coluna + cont_pc);
+        coluna.appendChild(lab);
 
-//-------------------------------------------------------------------------------------------------------
-//	COLUNA DO VALOR
-//-------------------------------------------------------------------------------------------------------
+        // Cria o elemento <input> com os seus atributos e guarda na variável inp
+        var inp = document.createElement("input");
+        inp.setAttribute("id", "can_estabelecimento_" + cont_pc);
+        inp.setAttribute("type", "text");
+        inp.setAttribute("name", "can_estabelecimento_" + cont_pc);
+        inp.setAttribute("class", "form-control");
+        inp.setAttribute("style", "text-transform:uppercase;");
+        coluna.appendChild(inp);
 
-		//cria o elemento <div> com os atributos que definem que ela é a coluna e guarda na variavel col
-		var col = document.createElement("div");
-		col.setAttribute("id","coluna"+cont_coluna+cont_pc);
-		col.setAttribute("class","col-sm-3");
-		var linha = document.getElementById("linha"+cont_pc);
-		//define que coluna vai ser criada dentro de linha
-		linha.appendChild(col);
-		
-		//cria o elemento <label> com os seus atributos
-		var lab = document.createElement("label");
-		lab.innerHTML = 'Valor (R$):';
-		var coluna = document.getElementById("coluna"+cont_coluna+cont_pc);		
-		coluna.appendChild(lab);
+        cont_coluna++;
 
-		//cria o elemento <input> com os seus atributos e guarda na variavel inp
-		var inp = document.createElement("input");
-		inp.setAttribute("id", "can_valor_"+cont_pc);
-		inp.setAttribute("type", "text");
-		inp.setAttribute("name", "can_valor_"+cont_pc);
-		inp.setAttribute("class", "form-control");
+        //-------------------------------------------------------------------------------------------------------
+        // COLUNA DO VALOR
+        //-------------------------------------------------------------------------------------------------------
+
+        // Cria o elemento <div> com os atributos que definem que ela é a coluna e guarda na variável col
+        var col = document.createElement("div");
+        col.setAttribute("id", "coluna" + cont_coluna + cont_pc);
+        col.setAttribute("class", "col-sm-3");
+        var linha = document.getElementById("linha" + cont_pc);
+        // Define que a coluna vai ser criada dentro de linha
+        linha.appendChild(col);
+
+        // Cria o elemento <label> com os seus atributos
+        var lab = document.createElement("label");
+        lab.innerHTML = 'Valor (R$):';
+        var coluna = document.getElementById("coluna" + cont_coluna + cont_pc);
+        coluna.appendChild(lab);
+
+        // Cria o elemento <input> com os seus atributos e guarda na variável inp
+        var inp = document.createElement("input");
+        inp.setAttribute("id", "can_valor_" + cont_pc);
+        inp.setAttribute("type", "text");
+        inp.setAttribute("name", "can_valor_" + cont_pc);
+        inp.setAttribute("class", "form-control");
         inp.setAttribute("onKeyDown", "mascara(this, valorMoeda);");
-		inp.setAttribute("style", "text-transform:uppercase;");
-		coluna.appendChild(inp);
+        inp.setAttribute("style", "text-transform:uppercase;");
+        coluna.appendChild(inp);
 
-		cont_coluna++;	
-        
-       
+        cont_coluna++;
 
-//-------------------------------------------------------------------------------------------------------
-//	COLUNA DO ANEXO
-//-------------------------------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------------------------------
+        // COLUNA DO ANEXO
+        //-------------------------------------------------------------------------------------------------------
 
-		//cria o elemento <div> com os atributos que definem que ela é a coluna e guarda na variavel col
-		var col = document.createElement("div");
-		col.setAttribute("id","coluna"+cont_coluna+cont_pc);
-		col.setAttribute("class","col-sm-3");
-		var linha = document.getElementById("linha"+cont_pc);
-		//define que coluna vai ser criada dentro de linha
-		linha.appendChild(col);
-		
-		//cria o elemento <label> com os seus atributos
-		var lab = document.createElement("label");
-		lab.innerHTML = 'Valor (R$):';
-		var coluna = document.getElementById("coluna"+cont_coluna+cont_pc);		
-		coluna.appendChild(lab);
+        // Cria o elemento <div> com os atributos que definem que ela é a coluna e guarda na variável col
+        var col = document.createElement("div");
+        col.setAttribute("id", "coluna" + cont_coluna + cont_pc);
+        col.setAttribute("class", "col-sm-3");
+        var linha = document.getElementById("linha" + cont_pc);
+        // Define que a coluna vai ser criada dentro de linha
+        linha.appendChild(col);
 
-		//cria o elemento <input> com os seus atributos e guarda na variavel inp
-		var inp = document.createElement("input");
-		inp.setAttribute("id", "can_anexo_"+cont_pc);
-		inp.setAttribute("type", "file");
-		inp.setAttribute("name", "can_anexo_"+cont_pc);
-		inp.setAttribute("class", "form-control");
-		coluna.appendChild(inp);
-		cont_coluna++;				
+        // Cria o elemento <label> com os seus atributos
+        var lab = document.createElement("label");
+        lab.innerHTML = 'Anexo:';
+        var coluna = document.getElementById("coluna" + cont_coluna + cont_pc);
+        coluna.appendChild(lab);
 
-//-------------------------------------------------------------------------------------------------------
-//	COLUNA DO BOTÃO ADD
-//-------------------------------------------------------------------------------------------------------
+        // Cria o elemento <input> com os seus atributos e guarda na variável inp
+        var inp = document.createElement("input");
+        inp.setAttribute("id", "can_anexo_" + cont_pc);
+        inp.setAttribute("type", "file");
+        inp.setAttribute("name", "can_anexo_" + cont_pc);
+        inp.setAttribute("class", "form-control");
+        coluna.appendChild(inp);
 
-		//cria o elemento <div> com os atributos que definem que ela é a coluna e guarda na variavel col
-		var col = document.createElement("div");
-		col.setAttribute("id","coluna"+cont_coluna+cont_pc);
-		col.setAttribute("class","col-sm-1");
-		col.setAttribute("style","padding-top: 25px");
-		var linha = document.getElementById("linha"+cont_pc);
-		//define que coluna vai ser criada dentro de linha
-		linha.appendChild(col);
+        cont_coluna++;
 
-        //cria o elemento <a> com os seus atributos e guarda na variavel tag_a
-		var tag_a1 = document.createElement("a"); 
-		tag_a1.setAttribute("onClick","criar();");
-		tag_a1.setAttribute("title","Adicionar linha");
-		tag_a1.setAttribute("style", "text-decoration:none; position: relative; left:-10px;");
-		//cria o botão para o clique
-		tag_a1.innerHTML =' <span class="fa-stack fa-lg"><i class="fa fa-square fa-stack-2x text-primary"></i><i class="fa fa-plus fa-stack-1x fa-inverse"></i></span>';
-		
-        var coluna = document.getElementById("coluna"+cont_coluna+cont_pc);
-		coluna.appendChild(tag_a1);
+        //-------------------------------------------------------------------------------------------------------
+        // COLUNA DO BOTÃO ADD
+        //-------------------------------------------------------------------------------------------------------
 
-        //cria o elemento <a> com os seus atributos e guarda na variavel tag_a
-		var tag_a2 = document.createElement("a"); 
-		tag_a2.setAttribute("onClick","del_attr("+cont_pc+");");
-		tag_a2.setAttribute("title","Excluir linha");
-		tag_a2.setAttribute("style", "text-decoration:none; position: relative; left:-10px;");
-		//cria o botão para o clique
-		tag_a2.innerHTML =' <span class="fa-stack fa-lg"><i class="fa fa-square fa-stack-2x text-danger"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span>';
-        var coluna = document.getElementById("coluna"+cont_coluna+cont_pc);
-		coluna.appendChild(tag_a2);
+        // Cria o elemento <div> com os atributos que definem que ela é a coluna e guarda na variável col
+        var col = document.createElement("div");
+        col.setAttribute("id", "coluna" + cont_coluna + cont_pc);
+        col.setAttribute("class", "col-sm-1");
+        col.setAttribute("style", "padding-top: 25px");
+        var linha = document.getElementById("linha" + cont_pc);
+        // Define que a coluna vai ser criada dentro de linha
+        linha.appendChild(col);
 
-		//incrementa o contador de atributos inseridos
-		cont_pc++;
- 		document.getElementById('qtd_anexo').value = cont_pc;
+        // Cria o elemento <a> com os seus atributos e guarda na variável tag_a1
+        var tag_a1 = document.createElement("a");
+        tag_a1.setAttribute("onClick", "criar();");
+        tag_a1.setAttribute("title", "Adicionar linha");
+        tag_a1.setAttribute("style", "text-decoration:none; position: relative; left:-10px;");
+        // Cria o botão para o clique
+        tag_a1.innerHTML = ' <span class="fa-stack fa-lg"><i class="fa fa-square fa-stack-2x text-primary"></i><i class="fa fa-plus fa-stack-1x fa-inverse"></i></span>';
+
+        var coluna = document.getElementById("coluna" + cont_coluna + cont_pc);
+        coluna.appendChild(tag_a1);
+
+        // Cria o elemento <a> com os seus atributos e guarda na variável tag_a2
+        var tag_a2 = document.createElement("a");
+        tag_a2.setAttribute("onClick", "del_attr(" + cont_pc + ");");
+        tag_a2.setAttribute("title", "Excluir linha");
+        tag_a2.setAttribute("style", "text-decoration:none; position: relative; left:-10px;");
+        // Cria o botão para o clique
+        tag_a2.innerHTML = ' <span class="fa-stack fa-lg"><i class="fa fa-square fa-stack-2x text-danger"></i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i></span>';
+        var coluna = document.getElementById("coluna" + cont_coluna + cont_pc);
+        coluna.appendChild(tag_a2);
+
+        // Incrementa o contador de atributos inseridos
+        cont_pc++;
+        // Atualiza o valor do campo de quantidade de anexos
+        atualizarQuantidadeAnexos();
     }
 
-	function del_attr(i){
-		//remove a linha com seus dados e elementos
-		$("#linha"+i).remove();
-	}
 
+	function del_attr(index) {
+        // Remove a linha correspondente ao índice
+        $("#linha" + index).remove();
+        // Atualiza o valor do campo de quantidade de anexos
+        atualizarQuantidadeAnexos();
+    }
+
+    function atualizarQuantidadeAnexos() {
+        document.getElementById('qtd_anexo').value = cont_pc;
+    }
 </script>
