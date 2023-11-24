@@ -26,8 +26,6 @@
                 LEFT JOIN cliente as cl ON cl.cli_cod = c.con_cliente
             WHERE c.con_cod =". $_POST['param_0'];
     $result = $data->find('dynamic', $sql);
-    
-    
 
     $sql = "SELECT ca.* FROM conta_anexo as ca WHERE ca.con_cod = ".$_POST['param_0'];
     $anexo = $data->find('dynamic', $sql);
@@ -39,9 +37,6 @@
     $exploded_fim = explode(' ', $result[0]['con_data_fim']);
     $con_data_fim = $exploded_fim[0];
     $con_hora_fim = $exploded_fim[1];
-
-
-
 ?>
 
 <div class="row wrapper border-bottom white-bg page-heading">
@@ -204,6 +199,8 @@
                     <?php echo $result[0]['con_adiantamento'];?>"/>
                 </div>
             </div>    
+
+            <div id="busca_anexo"></div>
             
             <?php for ($i = 0; $i < count($anexo); $i++) { ?>
                 <input type="hidden" name="can_cod" value="<?php echo $anexo[$i]['can_cod'] ?>">
@@ -227,10 +224,10 @@
                         <a class="btn btn-primary" onclick="criar()">
                             <i class="fa fa-plus"></i><span class="hidden-xs hidden-sm"></span>
                         </a>
-                        <!-- Adicionar botão de apagar aqui -->
-                        <a class="btn btn-danger" onclick="del_attr(<?php echo $i ?>)">
+                        <a class="btn btn-danger" onclick="excluirAnexo(<?php echo $anexo[$i]['can_cod'] ?>, <?php echo $anexo[$i]['con_cod'] ?>)">
                             <i class="fa fa-trash"></i><span class="hidden-xs hidden-sm"></span>
                         </a>
+                        <div class="row form-group" id="item-deleted"></div>
                     </div>
                 </div>
             <?php } ?>
@@ -243,7 +240,47 @@
 </form>
 <script>
 
-    
+    function excluirAnexo(can_cod, con_cod) {
+        swal({
+            title: "Você tem certeza?",
+            text: "Deseja realmente excluir essa nota?<br /><b>",
+            type: "info",
+            showCancelButton: true,
+            confirmButtonColor: "#EC4758",
+            confirmButtonText: "Sim",
+            cancelButtonText: "Não",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        }).then(function() { // CONFIRM
+            url = 'application/script/ajax/excluir_anexo.php?can_cod=' + can_cod+'&con_cod='+con_cod; // Passa o ID como parâmetro na URL
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function(response) {
+                    // Aqui você pode adicionar qualquer manipulação de resposta desejada
+                    console.log(response);
+                },
+                error: function(error) {
+                    console.error(error);
+                }
+            });
+            
+            location.reload();
+            
+            swal.close(); // Fecha o swal após o AJAX
+        }, function(dismiss) {
+            // dismiss pode ser 'cancel', 'overlay', 'close', 'timer'
+            if (dismiss === 'cancel') {
+                toastr.options = {
+                    closeButton: true,
+                    progressBar: true,
+                    showMethod: "slideDown",
+                    timeOut: 5000
+                };
+                toastr.info("Nenhum dado foi afetado!", "Cancelado");
+            }
+        });
+    }
     function busca_cliente(id){
         url = 'application/script/ajax/busca_cliente.php?cli_cod='+id;
         div = 'retorno_cliente';
@@ -437,4 +474,5 @@
     function atualizarQuantidadeAnexos() {
         document.getElementById('qtd_anexo').value = cont_pc;
     }
+   
 </script>

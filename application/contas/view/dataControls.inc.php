@@ -168,9 +168,10 @@ switch ($_GET['acao']) {
 			$sql = 'UPDATE solicitacao SET sol_status ='.$aux2['sol_status'].' WHERE sol_cod = '.$aux2['sol_cod'];
 			$data->executaSQL($sql);
 		}
-
+		
 		for($i = 0; $i < $_POST['qtd_anexo']; $i++){
 			if($_POST['can_estabelecimento_'.$i]){
+
 				$aux3['can_cod'] = $_POST['can_cod']; 
 				if($_FILES['can_anexo_'.$i]['tmp_name']){
 					unset($aux3['can_cod']);					
