@@ -30,17 +30,22 @@ if ($_POST['con_cod'] != ''){
 	$usuario = $_POST['usuario'];
 }
 
-if ($_POST['con_veiculo']){
-	$veiculo = ", v.vei_placa, ";
-	$join = " INNER JOIN veiculo as v ON v.vei_cod = c.con_veiculo";
-	if($where != ''){
-		$where .= " AND con_veiculo = " . $_POST['con_veiculo'];
-	}else{
-		$where = " WHERE con_veiculo = " . $_POST['con_veiculo'];
-	}
-}else{
-	$veiculo = ", ";
-	$join = " ";
+if ($_POST['con_veiculo']) {
+    if ($_POST['con_veiculo'] == 1) {
+        $veiculo = "v.vei_placa, ";
+        $join = " INNER JOIN veiculo as v ON v.vei_cod = c.con_vei_cod";
+    } else if ($_POST['con_veiculo'] == 3) {
+        $veiculo = "c.con_vei_outro, ";  // Adicione a vírgula aqui
+        $join = "";
+    }
+    if ($where != '') {
+        $where .= " AND con_veiculo = " . $_POST['con_veiculo'];
+    } else {
+        $where = " WHERE con_veiculo = " . $_POST['con_veiculo'];
+    }
+} else {
+    $veiculo = ", ";
+    $join = " ";
 }
 
 
@@ -69,8 +74,6 @@ if ($_POST['usu_per'] == '2'){
 }
 
 
-
-
 $sql = "SELECT
 			u.usu_nome,
 			c.con_cod,		
@@ -81,7 +84,7 @@ $sql = "SELECT
 			c.con_destino,
 			c.con_solicitacao,
 			c.con_descricao,
-			c.con_adiantamento
+			c.con_adiantamento,
 			".$veiculo."
 			(SELECT SUM(a.can_valor) FROM conta_anexo as a WHERE c.con_cod = a.con_cod) as total_valor
 		FROM
@@ -139,52 +142,62 @@ $html = '
 					</thead>
 					<tbody>';
 					
-
-for ($i = 0; $i < count($prestacao); $i++) {
-	if($prestacao[$i]['con_adiantamento'] != 0){
-		$saldo = $prestacao[$i]['con_adiantamento'] - $prestacao[$i]['total_valor'];
-		$saldo = 'R$ '. number_format($saldo, 2, ',', '.');
-	}else{
-		$saldo = "Não informado";
-	}
-	
-	
-	if($_POST['con_cod'] != ''){
-		$data_ini = implode("/", array_reverse(explode("-", $prestacao[$i]['con_data_ini'][0])));
-		$data_fim = implode("/", array_reverse(explode("-", $prestacao[$i]['con_data_fim'][0])));
-		$html .= '
-		<tr>
-			<td style="border: 1px solid black; padding: 8px;">' . $prestacao[$i]['con_data_ini'].' | ' .$prestacao[$i]['con_data_fim']. '</td>
-			<td style="border: 1px solid black; padding: 8px;">' . $prestacao[$i]['con_destino'] . '</td>
-			<td style="border: 1px solid black; padding: 8px;">' . $prestacao[$i]['con_descricao'] . '</td>
-			<td style="border: 1px solid black; padding: 8px;">' . $prestacao[$i]['vei_placa'].'</td>
-			<td style="border: 1px solid black; padding: 8px;">R$ ' . number_format($prestacao[$i]['con_adiantamento'], 2, ',', '.').'</td>
-			<td style="border: 1px solid black; padding: 8px;">R$ ' . number_format($prestacao[$i]['total_valor'], 2, ',', '.'). '</td>
-			<td style="border: 1px solid black; padding: 8px;"> ' .$saldo. '</td>
-		</tr>
-		</tbody>
-		</table>
-		
-		<table style="border-collapse: collapse; width: 100%; margin-top: 20px; margin-bottom: 20px;">
-	<thead>
-		<tr style="border: 1px solid black; padding: 8px; text-align: left;">
-			<th style="width: 10%;">Data</th>
-			<th style="width: 30%;">Estabelecimento</th>
-			<th style="width: 10%;">Valor</th>
-		</tr>
-	</thead>
-	<tbody>';
-		for ($j = 0; $j < count($detalhes); $j++) {
-			$html .='
-			<tr style="border: 1px solid black; padding: 8px;">
-				<td style="border: 1px solid black; padding: 8px;">'.$detalhes[$j]['can_data'].'</td>
-				<td style="border: 1px solid black; padding: 8px;">'.$detalhes[$j]['can_estab'].'</td>
-				<td style="border: 1px solid black; padding: 8px;">'.number_format($detalhes[$j]['can_valor'], 2, ',', '.'). '</td>
-			</tr>';
-		}
-		$html .='
-	</tbody>
-</table>';
+					for ($i = 0; $i < count($prestacao); $i++) {
+						if ($prestacao[$i]['con_adiantamento'] != 0) {
+							$saldo = $prestacao[$i]['con_adiantamento'] - $prestacao[$i]['total_valor'];
+							$saldo = 'R$ ' . number_format($saldo, 2, ',', '.');
+						} else {
+							$saldo = "Não informado";
+						}
+					
+						if ($_POST['con_cod'] != '') {
+							$data_ini = implode("/", array_reverse(explode("-", $prestacao[$i]['con_data_ini'][0])));
+							$data_fim = implode("/", array_reverse(explode("-", $prestacao[$i]['con_data_fim'][0])));
+							$html .= '
+							<tr>
+								<td style="border: 1px solid black; padding: 8px;">' . $prestacao[$i]['con_data_ini'] . ' | ' . $prestacao[$i]['con_data_fim'] . '</td>
+								<td style="border: 1px solid black; padding: 8px;">' . $prestacao[$i]['con_destino'] . '</td>
+								<td style="border: 1px solid black; padding: 8px;">' . $prestacao[$i]['con_descricao'] . '</td>
+								
+								<td style="border: 1px solid black; padding: 8px;">';
+								
+								if ($prestacao[$i]['con_veiculo'] == 1) {
+									$html .= $prestacao[$i]['vei_placa'];
+								} elseif ($prestacao[$i]['con_veiculo'] == 3) {
+									$html .= $prestacao[$i]['con_vei_outro'];
+								} else {
+									$html .= 'Valor de veículo desconhecido';
+								}
+					
+								$html .= '</td>
+								
+								<td style="border: 1px solid black; padding: 8px;">R$ ' . number_format($prestacao[$i]['con_adiantamento'], 2, ',', '.') . '</td>
+								<td style="border: 1px solid black; padding: 8px;">R$ ' . number_format($prestacao[$i]['total_valor'], 2, ',', '.') . '</td>
+								<td style="border: 1px solid black; padding: 8px;"> ' . $saldo . '</td>
+							</tr>
+							</tbody>
+							</table>
+							
+							<table style="border-collapse: collapse; width: 100%; margin-top: 20px; margin-bottom: 20px;">
+							<thead>
+								<tr style="border: 1px solid black; padding: 8px; text-align: left;">
+									<th style="width: 10%;">Data</th>
+									<th style="width: 30%;">Estabelecimento</th>
+									<th style="width: 10%;">Valor</th>
+								</tr>
+							</thead>
+							<tbody>';
+							for ($j = 0; $j < count($detalhes); $j++) {
+								$html .= '
+								<tr style="border: 1px solid black; padding: 8px;">
+									<td style="border: 1px solid black; padding: 8px;">' . $detalhes[$j]['can_data'] . '</td>
+									<td style="border: 1px solid black; padding: 8px;">' . $detalhes[$j]['can_estab'] . '</td>
+									<td style="border: 1px solid black; padding: 8px;">' . number_format($detalhes[$j]['can_valor'], 2, ',', '.') . '</td>
+								</tr>';
+							}
+							$html .= '
+							</tbody>
+						</table>';
 
 	}else{
 		$html .= '
