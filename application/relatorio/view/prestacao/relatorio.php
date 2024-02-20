@@ -1,4 +1,5 @@
 <?php
+
 require_once('../../../../library/vendor/autoload.php');
 require_once('../../../../library/MySql.php');
 require_once('../../../../library/DataManipulation.php');
@@ -23,6 +24,7 @@ if ($_POST['con_cod'] != ''){
 	if(!$_POST['con_veiculo']){
 		$sql = "SELECT con_veiculo FROM conta WHERE con_cod = ".$_POST['con_cod'];
 		$con_veiculo = $data->find('dynamic', $sql);
+
 		$_POST['con_veiculo'] = $con_veiculo[0]['con_veiculo'];
 	}	
 	$usuario = $_POST['user'];
@@ -32,10 +34,10 @@ if ($_POST['con_cod'] != ''){
 
 if ($_POST['con_veiculo']) {
     if ($_POST['con_veiculo'] == 1) {
-        $veiculo = "v.vei_placa, ";
+        $veiculo = ", v.vei_placa, ";
         $join = " INNER JOIN veiculo as v ON v.vei_cod = c.con_vei_cod";
     } else if ($_POST['con_veiculo'] == 3) {
-        $veiculo = "c.con_vei_outro, ";  // Adicione a vírgula aqui
+        $veiculo = ", c.con_vei_outro, ";  // Adicione a vírgula aqui
         $join = "";
     }
     if ($where != '') {
@@ -47,7 +49,6 @@ if ($_POST['con_veiculo']) {
     $veiculo = ", ";
     $join = " ";
 }
-
 
 if ($_POST['set_cod'] != '') {
 	if ($where != '') {
@@ -84,7 +85,7 @@ $sql = "SELECT
 			c.con_destino,
 			c.con_solicitacao,
 			c.con_descricao,
-			c.con_adiantamento,
+			c.con_adiantamento
 			".$veiculo."
 			(SELECT SUM(a.can_valor) FROM conta_anexo as a WHERE c.con_cod = a.con_cod) as total_valor
 		FROM
