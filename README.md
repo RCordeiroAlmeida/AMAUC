@@ -9,7 +9,7 @@ o Sistema conta com:
  - Envio de email automático;
  - muitas outras funcionalidades...
 
-Desenvolvido em sua maior parte com:
+Desenvolvido em sua maior parte em:
  - PHP
  - JS
  - JQuery
