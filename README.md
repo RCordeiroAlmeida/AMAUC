@@ -1,4 +1,4 @@
-Sistema de gestão empresarial desenvolvido para Associação dos Municípios do Alto Uruguai Catarinense
+Sistema de gestão empresarial
 
 o Sistema conta com:
  - Agendamento de veículos;
